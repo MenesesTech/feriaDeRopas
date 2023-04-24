@@ -16,6 +16,8 @@ public class settingsController implements MouseListener {
         this.view.lblListaFerias.addMouseListener(this);
         this.view.jTabbedPane1.addMouseListener(this);
         this.view.cubiertaPestañas.addMouseListener(this);
+        this.view.btnRegistroFerias.addMouseListener(this);
+        this.view.btnListaFerias.addMouseListener(this);
     }
 
     @Override
@@ -27,6 +29,10 @@ public class settingsController implements MouseListener {
             view.jTabbedPane1.setSelectedIndex(1);
             
         }else if (e.getSource() == view.lblListaFerias) {
+            view.jTabbedPane1.setSelectedIndex(2);
+        }else if (e.getSource() == view.btnRegistroFerias) {
+            view.jTabbedPane1.setSelectedIndex(1);
+        }else if (e.getSource() == view.btnListaFerias) {
             view.jTabbedPane1.setSelectedIndex(2);
         }
     }

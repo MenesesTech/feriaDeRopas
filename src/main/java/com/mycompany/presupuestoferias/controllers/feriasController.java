@@ -22,13 +22,16 @@ public class feriasController implements ActionListener{
         this.feria_ropa = feria_ropa;
         this.feriaRopaDao = feriaRopaDao;
         this.SystemView = SystemView;
+        //Boton Registrar feria
         this.SystemView.btnRegisterFeria.addActionListener(this);
+        //Boton Ordenar Categorias
         this.SystemView.btnOrdenarBurbuja.addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == SystemView.btnRegisterFeria) {
+            // Validar si los campos obligatorios están vacíos y mostrar un mensaje de error si es necesario
             if (SystemView.txtNombre.getText().equals("")
                     || SystemView.txtUbicacion.getText().equals("")
                     || SystemView.cmbCategoria.getSelectedItem().toString().equals("")
@@ -38,6 +41,7 @@ public class feriasController implements ActionListener{
                     || SystemView.txtCorreo.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Es obligatorio colocar el nombre de la Feria");
             } else {
+                // Asignar valores a los atributos del objeto feria_ropa utilizando los valores de los campos de entrada
                 feria_ropa.setName(SystemView.txtNombre.getText().trim());
                 feria_ropa.setAddress(SystemView.txtUbicacion.getText().trim());
                 feria_ropa.setCategory(SystemView.cmbCategoria.getSelectedItem().toString());
@@ -45,6 +49,7 @@ public class feriasController implements ActionListener{
                 feria_ropa.setOrganizador(SystemView.txtOrganizador.getText().trim());
                 feria_ropa.setTelephone(SystemView.txtTelefono.getText().trim());
                 feria_ropa.setEmail(SystemView.txtCorreo.getText().trim());
+                // Invocar al método de registro en la capa DAO y mostrar un mensaje de éxito o error en consecuencia
                 if (feriaRopaDao.registroFeriaQuery(feria_ropa)) {
                     listAllFerias();
                     JOptionPane.showMessageDialog(null, "Empleado registrado con exito");

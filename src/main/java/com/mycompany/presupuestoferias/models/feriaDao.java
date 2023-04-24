@@ -21,7 +21,6 @@ public class feriaDao {
     public boolean registroFeriaQuery(feria feria_ropa) {
         String query = "INSERT INTO feria (name, address, category, estado, organizador, telephone, email, rol, inicio, fin) VALUES (?,?,?,?,?,?,?,?,?,?);";
         // Obtener la fecha y hora actual
-
         Timestamp datetime = new Timestamp(new Date().getTime());
         try {
             conn = cn.getConnection();
@@ -46,13 +45,15 @@ public class feriaDao {
 
     //Listar incidencias
     public List listFeriaQuery() {
+        // Crear una lista para almacenar las ferias obtenidas de la consulta
         List<feria> listFerias = new ArrayList();
+        // Consulta SQL para obtener los datos de la feria
         String query = "SELECT name, address, category, estado, inicio, fin FROM feria;";
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
             rs = pst.executeQuery();
-            
+            // Iterar a través del resultado y crear objetos feria para cada fila
             while (rs.next()) {
                 feria feria_ropa = new feria();
                 feria_ropa.setName(rs.getString("name"));
@@ -61,6 +62,7 @@ public class feriaDao {
                 feria_ropa.setStatus(rs.getString("estado"));
                 feria_ropa.setDateInicio(rs.getString("inicio"));
                 feria_ropa.setDateFin(rs.getString("fin"));
+                // Agregar el objeto feria_ropa a la lista de ferias
                 listFerias.add(feria_ropa);
             }
         } catch (SQLException e) {

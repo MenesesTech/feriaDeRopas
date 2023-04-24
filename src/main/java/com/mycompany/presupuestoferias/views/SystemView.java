@@ -496,13 +496,13 @@ public class SystemView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCancelFeria;
-    private javax.swing.JButton btnEmployees;
-    private javax.swing.JButton btnListaFerias;
-    private javax.swing.JButton btnLogout;
+    public javax.swing.JButton btnEmployees;
+    public javax.swing.JButton btnListaFerias;
+    public javax.swing.JButton btnLogout;
     public javax.swing.JButton btnOrdenarBurbuja;
     public javax.swing.JButton btnRegisterFeria;
-    private javax.swing.JButton btnRegistroFerias;
-    private javax.swing.JButton btnSettings;
+    public javax.swing.JButton btnRegistroFerias;
+    public javax.swing.JButton btnSettings;
     public javax.swing.JComboBox<String> cmbCategoria;
     public javax.swing.JComboBox<String> cmbEstado;
     public javax.swing.JLayeredPane cubiertaPestañas;
