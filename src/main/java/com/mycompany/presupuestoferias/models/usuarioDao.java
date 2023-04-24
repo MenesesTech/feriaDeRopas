@@ -23,7 +23,7 @@ public class usuarioDao {
     public static String rol_user = "";
 
     public usuario loginQuery(String user, String password) {
-        String query = "SELECT*FROM Idemployee WHERE username = ? AND password = ?";
+        String query = "SELECT*FROM employee WHERE username = ? AND password = ?";
         usuario employee_user = new usuario();
         try {
             conn = cn.getConnection();
@@ -32,7 +32,7 @@ public class usuarioDao {
             pst.setString(2, password);
             rst = pst.executeQuery();
             if (rst.next()) {
-                employee_user.setId(rst.getInt("Idemployee"));
+                employee_user.setId(rst.getInt("id"));
                 id_user = employee_user.getId();
                 employee_user.setFull_name(rst.getString("full_name"));
                 full_name_user = employee_user.getFull_name();
