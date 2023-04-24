@@ -51,8 +51,8 @@ public class feriasController implements ActionListener{
                 feria_ropa.setEmail(SystemView.txtCorreo.getText().trim());
                 // Invocar al método de registro en la capa DAO y mostrar un mensaje de éxito o error en consecuencia
                 if (feriaRopaDao.registroFeriaQuery(feria_ropa)) {
+                    cleanTable();
                     listAllFerias();
-                    FeriasLista();
                     JOptionPane.showMessageDialog(null, "Empleado registrado con exito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar un empleado");
@@ -151,6 +151,14 @@ public class feriasController implements ActionListener{
                 model.addRow(row);
             }
             SystemView.tableFerias.setModel(model);
+        }
+    }
+    
+    //Metodo para limpiar tabla
+    public void cleanTable() {
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);
+            i = i - 1;
         }
     }
 }

@@ -318,7 +318,7 @@
                 <Component class="javax.swing.JButton" name="btnListaFerias">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Haisenberg\Pictures\RECURSOS PARA SOFTWARES\caja.png"/>
+                      <Image iconType="3" name="/images/caja.png"/>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -335,7 +335,7 @@
                 <Component class="javax.swing.JButton" name="btnEmployees">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Haisenberg\Pictures\RECURSOS PARA SOFTWARES\empleado.png"/>
+                      <Image iconType="3" name="/images/empleado.png"/>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -352,7 +352,7 @@
                 <Component class="javax.swing.JButton" name="btnSettings">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Haisenberg\Pictures\RECURSOS PARA SOFTWARES\configuraciones.png"/>
+                      <Image iconType="3" name="/images/configuraciones.png"/>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -369,7 +369,7 @@
                 <Component class="javax.swing.JButton" name="btnLogout">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Haisenberg\Pictures\RECURSOS PARA SOFTWARES\boton-de-encendido-apagado.png"/>
+                      <Image iconType="3" name="/images/boton-de-encendido-apagado.png"/>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">

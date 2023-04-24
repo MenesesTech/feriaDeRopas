@@ -160,16 +160,16 @@ public class SystemView extends javax.swing.JFrame {
             }
         });
 
-        btnListaFerias.setIcon(new javax.swing.ImageIcon("C:\\Users\\Haisenberg\\Pictures\\RECURSOS PARA SOFTWARES\\caja.png")); // NOI18N
+        btnListaFerias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/caja.png"))); // NOI18N
         btnListaFerias.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Lista de Ferias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
 
-        btnEmployees.setIcon(new javax.swing.ImageIcon("C:\\Users\\Haisenberg\\Pictures\\RECURSOS PARA SOFTWARES\\empleado.png")); // NOI18N
+        btnEmployees.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/empleado.png"))); // NOI18N
         btnEmployees.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Empleados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
 
-        btnSettings.setIcon(new javax.swing.ImageIcon("C:\\Users\\Haisenberg\\Pictures\\RECURSOS PARA SOFTWARES\\configuraciones.png")); // NOI18N
+        btnSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/configuraciones.png"))); // NOI18N
         btnSettings.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Configuración", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
 
-        btnLogout.setIcon(new javax.swing.ImageIcon("C:\\Users\\Haisenberg\\Pictures\\RECURSOS PARA SOFTWARES\\boton-de-encendido-apagado.png")); // NOI18N
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/boton-de-encendido-apagado.png"))); // NOI18N
         btnLogout.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Cerrar Sesión", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Tahoma", 1, 18))); // NOI18N
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
