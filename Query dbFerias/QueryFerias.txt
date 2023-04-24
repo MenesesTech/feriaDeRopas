@@ -1,0 +1,18 @@
+--Creando base de datos
+CREATE DATABASE EmpresaFeriaBD
+GO
+USE EmpresaFeriaBD
+GO
+--Creando tablas en la base de datos
+CREATE TABLE Idemployee(
+	Idemployee int identity(1,1) PRIMARY KEY NOT NULL,
+	full_name varchar(60),
+	username varchar(60),
+	password varchar(60),
+	address varchar(60),
+	telephone varchar(20),
+	email varchar(255),
+	rol varchar(20),
+	created datetime,
+	updated datetime,
+);
