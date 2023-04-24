@@ -3,28 +3,27 @@ package com.mycompany.presupuestoferias.models;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 public class ConnectionMySQL {
 
     //Definimos las variables con los datos de conexion
-    private String database_name = "feriaropasbd";
-    private String user = "root";
+    private String database = "dbtambo";
+    private String user = "hacker";
     private String password = "root";
-    private String url = "jdbc:mysql://us-east.connect.psdb.cloud:3306/" + database_name;
+    private String url = "jdbc:sqlserver://DESKTOP-VFCJ6Q5:1433;databaseName=" + database + ";trustServerCertificate=true";
 
     Connection conn = null;
 
-    //Metodo para conectar java con mySQL
     public Connection getConnection() {
         try {
-            //obtener valor del Driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //Obtener la conexion
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection(url, user, password);
+            System.out.println("conectado");
         } catch (ClassNotFoundException e) {
-            System.out.println("Ha ocurrido un ClassNotFoundException " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error" + e.getMessage());
         } catch (SQLException e) {
-            System.out.println("Ha ocurrido un SQLExcpetion " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error SQLException" + e.getMessage());
         }
         return conn;
     }
