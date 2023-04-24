@@ -19,6 +19,7 @@ public class SystemView extends javax.swing.JFrame {
         setTitle("Sistema de Presupuetos");
         settingsController setting = new settingsController(this);
         feriasController feria_account = new feriasController(feria_ropa, feriaRopaDao, this);
+        feria_account.listAllFerias();
     }
 
     @SuppressWarnings("unchecked")
@@ -68,6 +69,7 @@ public class SystemView extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableFerias = new javax.swing.JTable();
+        btnOrdenarBurbuja = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -377,7 +379,6 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel1.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 930, 260));
 
-        tableFerias.setBackground(new java.awt.Color(52, 52, 52));
         tableFerias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -392,7 +393,16 @@ public class SystemView extends javax.swing.JFrame {
             tableFerias.getColumnModel().getColumn(3).setHeaderValue("Estado");
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 930, 230));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 930, 180));
+
+        btnOrdenarBurbuja.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnOrdenarBurbuja.setText("Ordenar por Categorias");
+        btnOrdenarBurbuja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrdenarBurbujaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnOrdenarBurbuja, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 490, 240, 40));
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 580));
 
@@ -477,12 +487,19 @@ public class SystemView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistroFeriasActionPerformed
 
+    private void btnOrdenarBurbujaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarBurbujaActionPerformed
+        // TODO add your handling code here:
+        feriasController ferController = new feriasController(feria_ropa, feriaRopaDao, this);
+        ferController.listBurbujaFerias();
+    }//GEN-LAST:event_btnOrdenarBurbujaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCancelFeria;
     private javax.swing.JButton btnEmployees;
     private javax.swing.JButton btnListaFerias;
     private javax.swing.JButton btnLogout;
+    public javax.swing.JButton btnOrdenarBurbuja;
     public javax.swing.JButton btnRegisterFeria;
     private javax.swing.JButton btnRegistroFerias;
     private javax.swing.JButton btnSettings;
@@ -522,7 +539,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JPanel pnlPrincipal;
     public javax.swing.JPanel pnlRegistroFerias;
     private javax.swing.JPanel pnlSecundario;
-    private javax.swing.JTable tableFerias;
+    public javax.swing.JTable tableFerias;
     private javax.swing.JTable tableListaFerias;
     public javax.swing.JTextField txtCorreo;
     public javax.swing.JTextField txtFechaFin;

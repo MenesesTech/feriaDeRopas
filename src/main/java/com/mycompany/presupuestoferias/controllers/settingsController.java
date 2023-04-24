@@ -25,6 +25,7 @@ public class settingsController implements MouseListener {
             view.jTabbedPane1.setSelectedIndex(0);
         }else if (e.getSource() == view.lblRegistroFerias) {
             view.jTabbedPane1.setSelectedIndex(1);
+            
         }else if (e.getSource() == view.lblListaFerias) {
             view.jTabbedPane1.setSelectedIndex(2);
         }

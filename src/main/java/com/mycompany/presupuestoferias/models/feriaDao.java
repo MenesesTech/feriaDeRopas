@@ -45,13 +45,14 @@ public class feriaDao {
     }
 
     //Listar incidencias
-    public List listFeriaQuery(String value) {
-        List<feria> list_incidense = new ArrayList();
+    public List listFeriaQuery() {
+        List<feria> listFerias = new ArrayList();
         String query = "SELECT name, address, category, estado, inicio, fin FROM feria;";
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
             rs = pst.executeQuery();
+            
             while (rs.next()) {
                 feria feria_ropa = new feria();
                 feria_ropa.setName(rs.getString("name"));
@@ -60,11 +61,12 @@ public class feriaDao {
                 feria_ropa.setStatus(rs.getString("estado"));
                 feria_ropa.setDateInicio(rs.getString("inicio"));
                 feria_ropa.setDateFin(rs.getString("fin"));
+                listFerias.add(feria_ropa);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        return list_incidense;
+        return listFerias;
     }
 
 }
