@@ -1,18 +1,24 @@
-
 package com.mycompany.presupuestoferias.views;
 
+import com.mycompany.presupuestoferias.controllers.feriasController;
 import com.mycompany.presupuestoferias.controllers.settingsController;
+import com.mycompany.presupuestoferias.models.feria;
+import com.mycompany.presupuestoferias.models.feriaDao;
 
 public class SystemView extends javax.swing.JFrame {
 
+    feria feria_ropa = new feria();
+    feriaDao feriaRopaDao = new feriaDao();
+
     public SystemView() {
         initComponents();
-        settingsController setting = new settingsController(this);
         setSize(1200, 700);
         setResizable(false);
         setExtendedState(MAXIMIZED_VERT);
         setLocationRelativeTo(null);
         setTitle("Sistema de Presupuetos");
+        settingsController setting = new settingsController(this);
+        feriasController feria_account = new feriasController(feria_ropa, feriaRopaDao, this);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,8 +54,8 @@ public class SystemView extends javax.swing.JFrame {
         txtFechaInicio = new javax.swing.JTextField();
         lblFechaFin = new javax.swing.JLabel();
         txtFechaFin = new javax.swing.JTextField();
-        btn_cancel_incidense = new javax.swing.JButton();
-        btn_update_incidense = new javax.swing.JButton();
+        btnCancelFeria = new javax.swing.JButton();
+        btnRegisterFeria = new javax.swing.JButton();
         lblCategoria = new javax.swing.JLabel();
         cmbCategoria = new javax.swing.JComboBox<>();
         lblEstado = new javax.swing.JLabel();
@@ -231,11 +237,11 @@ public class SystemView extends javax.swing.JFrame {
 
         txtFechaFin.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        btn_cancel_incidense.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn_cancel_incidense.setText("Cancelar");
+        btnCancelFeria.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelFeria.setText("Cancelar");
 
-        btn_update_incidense.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn_update_incidense.setText("Agregar");
+        btnRegisterFeria.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnRegisterFeria.setText("Agregar");
 
         lblCategoria.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblCategoria.setForeground(new java.awt.Color(255, 255, 255));
@@ -310,8 +316,8 @@ public class SystemView extends javax.swing.JFrame {
                         .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_update_incidense, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_cancel_incidense, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
+                    .addComponent(btnRegisterFeria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancelFeria, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
@@ -323,9 +329,9 @@ public class SystemView extends javax.swing.JFrame {
                         .addGroup(jPanel13Layout.createSequentialGroup()
                             .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel13Layout.createSequentialGroup()
-                                    .addComponent(btn_update_incidense, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnRegisterFeria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(btn_cancel_incidense, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnCancelFeria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(56, 56, 56))
                                 .addGroup(jPanel13Layout.createSequentialGroup()
                                     .addComponent(lblNombre)
@@ -473,15 +479,15 @@ public class SystemView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnCancelFeria;
     private javax.swing.JButton btnEmployees;
     private javax.swing.JButton btnListaFerias;
     private javax.swing.JButton btnLogout;
+    public javax.swing.JButton btnRegisterFeria;
     private javax.swing.JButton btnRegistroFerias;
     private javax.swing.JButton btnSettings;
-    public javax.swing.JButton btn_cancel_incidense;
-    public javax.swing.JButton btn_update_incidense;
-    private javax.swing.JComboBox<String> cmbCategoria;
-    private javax.swing.JComboBox<String> cmbEstado;
+    public javax.swing.JComboBox<String> cmbCategoria;
+    public javax.swing.JComboBox<String> cmbEstado;
     public javax.swing.JLayeredPane cubiertaPestañas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
