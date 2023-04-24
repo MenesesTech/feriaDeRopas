@@ -12,11 +12,11 @@ public class LoginView extends javax.swing.JFrame {
 
     public LoginView() {
         initComponents();
-        loginUsuarioController loginController = new loginUsuarioController(user, userDao, this);
         setSize(400, 325);
         setResizable(false);
         setExtendedState(MAXIMIZED_VERT);
         setLocationRelativeTo(null);
+        loginUsuarioController loginController = new loginUsuarioController(user, userDao, this);
     }
 
     @SuppressWarnings("unchecked")

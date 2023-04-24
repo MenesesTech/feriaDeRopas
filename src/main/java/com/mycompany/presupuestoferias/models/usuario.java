@@ -1,28 +1,33 @@
-
 package com.mycompany.presupuestoferias.models;
 
 public class usuario {
+
+    //Atributos
     private int id;
-    private String nombre;
-    private String usuario;
-    private String contraseña;
+    private String full_name;
+    private String username;
+    private String password;
+    private String address;
+    private String telephone;
+    private String email;
     private String rol;
-    private String correo;
-    private String telefono;
-    private String fecha;
+    private String created;
+    private String updated;
 
     public usuario() {
     }
 
-    public usuario(int id, String nombre, String usuario, String contarseña, String rol, String correo, String telefono, String fecha) {
+    public usuario(int id, String full_name, String username, String password, String address, String telephone, String email, String rol, String created, String updated) {
         this.id = id;
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.contraseña = contarseña;
+        this.full_name = full_name;
+        this.username = username;
+        this.password = password;
+        this.address = address;
+        this.telephone = telephone;
+        this.email = email;
         this.rol = rol;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.fecha = fecha;
+        this.created = created;
+        this.updated = updated;
     }
 
     public int getId() {
@@ -33,28 +38,52 @@ public class usuario {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getFull_name() {
+        return full_name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContraseña(String contarseña) {
-        this.contraseña = contarseña;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getRol() {
@@ -65,28 +94,20 @@ public class usuario {
         this.rol = rol;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getCreated() {
+        return created;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setCreated(String created) {
+        this.created = created;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getUpdated() {
+        return updated;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setUpdated(String updated) {
+        this.updated = updated;
     }
 
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-    
 }

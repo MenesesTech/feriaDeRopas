@@ -18,12 +18,12 @@ import javax.swing.JOptionPane;
  */
 public class loginUsuarioController implements ActionListener {
 
-    private usuario user;
+    private usuario user_employee;
     private usuarioDao userDao;
     private LoginView loginView;
 
-    public loginUsuarioController(usuario user, usuarioDao userDao, LoginView loginView) {
-        this.user = user;
+    public loginUsuarioController(usuario user_employee, usuarioDao userDao, LoginView loginView) {
+        this.user_employee = user_employee;
         this.userDao = userDao;
         this.loginView = loginView;
         this.loginView.btnEnter.addActionListener(this);
@@ -31,12 +31,12 @@ public class loginUsuarioController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String usuario = loginView.txtUsername.getText().trim();
-        String password = String.valueOf(loginView.txtPassword.getPassword());
+        String user = loginView.txtUsername.getText().trim();
+        String pass = String.valueOf(loginView.txtPassword.getPassword());
         if (e.getSource() == loginView.btnEnter) {
-            if (!user.equals("") || !password.equals("")) {
-                user = userDao.loginQuery(usuario, password);
-                if (user.getUsuario() != null) {
+            if (!user.equals("") || !pass.equals("")) {
+                user_employee = userDao.loginQuery(user, pass);
+                if (user_employee.getUsername() != null) {
                     SystemView admin = new SystemView();
                     admin.setVisible(true);
                     this.loginView.dispose();
