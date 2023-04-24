@@ -43,7 +43,7 @@ public class feriaDao {
         }
     }
 
-    //Listar incidencias
+    //Listar feria para el registro
     public List listFeriaQuery() {
         // Crear una lista para almacenar las ferias obtenidas de la consulta
         List<feria> listFerias = new ArrayList();
@@ -62,6 +62,36 @@ public class feriaDao {
                 feria_ropa.setStatus(rs.getString("estado"));
                 feria_ropa.setDateInicio(rs.getString("inicio"));
                 feria_ropa.setDateFin(rs.getString("fin"));
+                // Agregar el objeto feria_ropa a la lista de ferias
+                listFerias.add(feria_ropa);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return listFerias;
+    }
+    //Listar feria para las opciones
+    public List listAllFeria() {
+        // Crear una lista para almacenar las ferias obtenidas de la consulta
+        List<feria> listFerias = new ArrayList();
+        // Consulta SQL para obtener los datos de la feria
+        String query = "SELECT name, address, inicio, fin, organizador, telephone,email, category, estado FROM feria;";
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            rs = pst.executeQuery();
+            // Iterar a través del resultado y crear objetos feria para cada fila
+            while (rs.next()) {
+                feria feria_ropa = new feria();
+                feria_ropa.setName(rs.getString("name"));
+                feria_ropa.setAddress(rs.getString("address"));
+                feria_ropa.setDateInicio(rs.getString("inicio"));
+                feria_ropa.setDateFin(rs.getString("fin"));
+                feria_ropa.setOrganizador(rs.getString("organizador"));
+                feria_ropa.setTelephone(rs.getString("telephone"));
+                feria_ropa.setEmail(rs.getString("email"));
+                feria_ropa.setCategory(rs.getString("category"));
+                feria_ropa.setStatus(rs.getString("estado"));
                 // Agregar el objeto feria_ropa a la lista de ferias
                 listFerias.add(feria_ropa);
             }

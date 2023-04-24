@@ -20,6 +20,7 @@ public class SystemView extends javax.swing.JFrame {
         settingsController setting = new settingsController(this);
         feriasController feria_account = new feriasController(feria_ropa, feriaRopaDao, this);
         feria_account.listAllFerias();
+        feria_account.FeriasLista();
     }
 
     @SuppressWarnings("unchecked")
@@ -411,13 +412,12 @@ public class SystemView extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(205, 205, 205));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tableListaFerias.setBackground(new java.awt.Color(52, 52, 52));
         tableListaFerias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Ubicación", "Fecha de Inicio", "Fecha de Fin", "Organizador", "Telefono", "Correo"
+                "Nombre", "Ubicación", "Fecha de Inicio", "Fecha de Fin", "Organizador", "Telefono", "Correo", "Categoria", "Estado"
             }
         ));
         jScrollPane3.setViewportView(tableListaFerias);
@@ -540,7 +540,7 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JPanel pnlRegistroFerias;
     private javax.swing.JPanel pnlSecundario;
     public javax.swing.JTable tableFerias;
-    private javax.swing.JTable tableListaFerias;
+    public javax.swing.JTable tableListaFerias;
     public javax.swing.JTextField txtCorreo;
     public javax.swing.JTextField txtFechaFin;
     public javax.swing.JTextField txtFechaInicio;

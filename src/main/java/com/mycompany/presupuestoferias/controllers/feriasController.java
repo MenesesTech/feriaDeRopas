@@ -52,6 +52,7 @@ public class feriasController implements ActionListener{
                 // Invocar al método de registro en la capa DAO y mostrar un mensaje de éxito o error en consecuencia
                 if (feriaRopaDao.registroFeriaQuery(feria_ropa)) {
                     listAllFerias();
+                    FeriasLista();
                     JOptionPane.showMessageDialog(null, "Empleado registrado con exito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar un empleado");
@@ -123,7 +124,33 @@ public class feriasController implements ActionListener{
             model.addRow(row);
         }
         SystemView.tableFerias.setModel(model);
-    }
+    }   
+    
+    public void FeriasLista() {
+        if (rol.equals("Administrador")) {
+            // Verificar si rol está inicializado y es igual a "Administrador"
 
-   
+            // Obtener la lista de ferias
+            List<feria> list = feriaRopaDao.listAllFeria();
+
+            // Inicializar el modelo de la tabla
+            DefaultTableModel model = (DefaultTableModel) SystemView.tableListaFerias.getModel();
+
+            // Recorrer la lista de ferias y agregar las filas a la tabla
+            Object[] row = new Object[9];//Definimos la cantidad de columnas de la tabla
+            for (int i = 0; i < list.size(); i++) {
+                row[0] = list.get(i).getName();
+                row[1] = list.get(i).getAddress();
+                row[2] = list.get(i).getDateInicio();
+                row[3] = list.get(i).getDateFin();
+                row[4] = list.get(i).getOrganizador();
+                row[5] = list.get(i).getTelephone();
+                row[6] = list.get(i).getEmail();
+                row[7] = list.get(i).getCategory();
+                row[8] = list.get(i).getStatus();
+                model.addRow(row);
+            }
+            SystemView.tableFerias.setModel(model);
+        }
+    }
 }
