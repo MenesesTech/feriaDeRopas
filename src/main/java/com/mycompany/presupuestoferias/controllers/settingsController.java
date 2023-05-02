@@ -14,11 +14,18 @@ public class settingsController implements MouseListener {
         this.view.lblInicio.addMouseListener(this);
         this.view.lblRegistroFerias.addMouseListener(this);
         this.view.lblListaFerias.addMouseListener(this);
+        this.view.lblEmployees.addMouseListener(this);
+        this.view.lblSettings.addMouseListener(this);
         this.view.jTabbedPane1.addMouseListener(this);
         this.view.cubiertaPestañas.addMouseListener(this);
         this.view.btnRegistroFerias.addMouseListener(this);
         this.view.btnListaFerias.addMouseListener(this);
+        this.view.btnEmployees.addMouseListener(this);
+        this.view.btnSettings.addMouseListener(this);
+        this.view.lblCerrar.addMouseListener(this);
     }
+
+    
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -27,19 +34,33 @@ public class settingsController implements MouseListener {
             view.jTabbedPane1.setSelectedIndex(0);
         }else if (e.getSource() == view.lblRegistroFerias) {
             view.jTabbedPane1.setSelectedIndex(1);
-            
         }else if (e.getSource() == view.lblListaFerias) {
             view.jTabbedPane1.setSelectedIndex(2);
+        }else if (e.getSource() == view.lblEmployees) {
+            view.jTabbedPane1.setSelectedIndex(3);
+        }else if (e.getSource() == view.lblSettings) {
+            view.jTabbedPane1.setSelectedIndex(4);
         }else if (e.getSource() == view.btnRegistroFerias) {
             view.jTabbedPane1.setSelectedIndex(1);
         }else if (e.getSource() == view.btnListaFerias) {
             view.jTabbedPane1.setSelectedIndex(2);
+        }else if (e.getSource() == view.btnEmployees) {
+            view.jTabbedPane1.setSelectedIndex(3);
+        }else if (e.getSource() == view.btnSettings) {
+            view.jTabbedPane1.setSelectedIndex(4);
+        }
+        
+        
+        
+        
+        else if (e.getSource() == view.lblCerrar) {
+            System.exit(0);
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        
     }
 
     @Override
@@ -50,28 +71,44 @@ public class settingsController implements MouseListener {
     @Override
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == view.lblInicio) {
-            view.pnlInicio.setBackground(new Color(205, 205, 205));
+            view.pnlInicio.setBackground(new Color(242,239,235));
             view.lblInicio.setForeground(new Color(0, 0, 0));
         } else if (e.getSource() == view.lblRegistroFerias) {
-            view.pnlRegistroFerias.setBackground(new Color(205, 205, 205));
+            view.pnlRegistroFerias.setBackground(new Color(242,239,235));
             view.lblRegistroFerias.setForeground(new Color(0, 0, 0));
         } else if (e.getSource() == view.lblListaFerias) {
-            view.pnlListaFerias.setBackground(new Color(205, 205, 205));
+            view.pnlListaFerias.setBackground(new Color(242,239,235));
             view.lblListaFerias.setForeground(new Color(0, 0, 0));
+        }else if (e.getSource() == view.lblEmployees) {
+            view.pnlEmployees.setBackground(new Color(242,239,235));
+            view.lblEmployees.setForeground(new Color(0, 0, 0));
+        }else if (e.getSource() == view.lblSettings) {
+            view.pnlSettings.setBackground(new Color(242,239,235));
+            view.lblSettings.setForeground(new Color(0, 0, 0));
+        }else if (e.getSource() == view.lblCerrar) {
+            view.lblCerrar.setForeground(Color.red);
         }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == view.lblInicio) {
-            view.pnlInicio.setBackground(new Color(15, 15, 15));
-            view.lblInicio.setForeground(new Color(255, 255, 255));
+            view.pnlInicio.setBackground(new Color(0,0,0));
+            view.lblInicio.setForeground(new Color(242,239,235));
         } else if (e.getSource() == view.lblRegistroFerias) {
-            view.pnlRegistroFerias.setBackground(new Color(15, 15, 15));
-            view.lblRegistroFerias.setForeground(new Color(255, 255, 255));
+            view.pnlRegistroFerias.setBackground(new Color(0,0,0));
+            view.lblRegistroFerias.setForeground(new Color(242,239,235));
         } else if (e.getSource() == view.lblListaFerias) {
-            view.pnlListaFerias.setBackground(new Color(15, 15, 15));
-            view.lblListaFerias.setForeground(new Color(255, 255, 255));
+            view.pnlListaFerias.setBackground(new Color(0,0,0));
+            view.lblListaFerias.setForeground(new Color(242,239,235));
+        }else if (e.getSource() == view.lblEmployees) {
+            view.pnlEmployees.setBackground(new Color(0,0,0));
+            view.lblEmployees.setForeground(new Color(242,239,235));
+        }else if (e.getSource() == view.lblSettings) {
+            view.pnlSettings.setBackground(new Color(0,0,0));
+            view.lblSettings.setForeground(new Color(242,239,235));
+        }else if (e.getSource() == view.lblCerrar) {
+            view.lblCerrar.setForeground(new Color(187,187,187));
         }
     }
 

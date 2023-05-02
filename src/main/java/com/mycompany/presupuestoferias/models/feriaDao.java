@@ -1,13 +1,15 @@
 package com.mycompany.presupuestoferias.models;
 
+import com.toedter.calendar.JDateChooser;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+/*
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+*/
 import javax.swing.JOptionPane;
 
 public class feriaDao {
@@ -19,9 +21,10 @@ public class feriaDao {
 
     //Registrar feria
     public boolean registroFeriaQuery(feria feria_ropa) {
-        String query = "INSERT INTO feria (name, address, category, estado, organizador, telephone, email, rol, inicio, fin) VALUES (?,?,?,?,?,?,?,?,?,?);";
-        // Obtener la fecha y hora actual
-        Timestamp datetime = new Timestamp(new Date().getTime());
+        String query = "INSERT INTO feria (name, address, category, estado, start_date, end date) VALUES (?,?,?,?,?,?);";
+        JDateChooser dateChooser = new JDateChooser();
+        Date fechaSeleccionada = dateChooser.getDate();
+        Date fecha = new Date(fechaSeleccionada.getTime());
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
@@ -29,12 +32,8 @@ public class feriaDao {
             pst.setString(2, feria_ropa.getAddress());
             pst.setString(3, feria_ropa.getCategory());
             pst.setString(4, feria_ropa.getStatus());
-            pst.setString(5, feria_ropa.getOrganizador());
-            pst.setString(6, feria_ropa.getTelephone());
-            pst.setString(7, feria_ropa.getEmail());
-            pst.setString(8, feria_ropa.getRol());
-            pst.setTimestamp(9, datetime);
-            pst.setTimestamp(10, datetime);
+            pst.setDate(9, (java.sql.Date) fecha);
+            pst.setDate(10, (java.sql.Date) fecha);
             pst.execute();
             return true;
         } catch (SQLException e) {
@@ -43,7 +42,7 @@ public class feriaDao {
         }
     }
 
-    //Listar feria para el registro
+    /*Listar feria para el registro
     public List listFeriaQuery() {
         // Crear una lista para almacenar las ferias obtenidas de la consulta
         List<feria> listFerias = new ArrayList();
@@ -99,6 +98,6 @@ public class feriaDao {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return listFerias;
-    }
+    }*/
 
 }

@@ -12,7 +12,7 @@ public class ConnectionMySQL {
     private String user = "hacker";
     private String password = "root";
     private String url = "jdbc:sqlserver://DESKTOP-VFCJ6Q5:1433;databaseName=" + database + ";trustServerCertificate=true";*/
-    private String database_name = "empresaferiabd";
+    private String database_name = "presupuestosFeriasBD";
     private String user = "root";
     private String password = "Curbicode1000";
     private String url = "jdbc:mysql://localhost:3306/" + database_name;

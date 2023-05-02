@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 public class usuarioDao {
@@ -23,7 +24,7 @@ public class usuarioDao {
     public static String rol_user = "";
 
     public usuario loginQuery(String user, String password) {
-        String query = "SELECT*FROM employee WHERE username = ? AND password = ?";
+        String query = "SELECT*FROM empleado WHERE username = ? AND password = ?";
         usuario employee_user = new usuario();
         try {
             conn = cn.getConnection();
@@ -38,12 +39,10 @@ public class usuarioDao {
                 full_name_user = employee_user.getFull_name();
                 employee_user.setUsername(rst.getString("username"));
                 username_user = employee_user.getUsername();
-                employee_user.setAddress(rst.getString("address"));
-                address_user = employee_user.getAddress();
-                employee_user.setTelephone(rst.getString("telephone"));
-                telephone_user = employee_user.getTelephone();
                 employee_user.setEmail(rst.getString("email"));
                 email_user = employee_user.getEmail();
+                employee_user.setTelephone(rst.getString("telephone"));
+                telephone_user = employee_user.getTelephone();
                 employee_user.setRol(rst.getString("rol"));
                 rol_user = employee_user.getRol();
             }
@@ -51,5 +50,15 @@ public class usuarioDao {
             JOptionPane.showMessageDialog(null, "Error al obtener al usuario");
         }
         return employee_user;
+    }
+
+    public String generarCaptcha() {
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder captcha = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 6; i++) {
+            captcha.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
+        }
+        return captcha.toString();
     }
 }

@@ -2,31 +2,33 @@ package com.mycompany.presupuestoferias.controllers;
 
 import com.mycompany.presupuestoferias.models.feria;
 import com.mycompany.presupuestoferias.models.feriaDao;
-import static com.mycompany.presupuestoferias.models.usuarioDao.rol_user;
+import com.mycompany.presupuestoferias.models.organizador;
+import com.mycompany.presupuestoferias.models.organizadorDao;
 import com.mycompany.presupuestoferias.views.SystemView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
-public class feriasController implements ActionListener{
+public class feriasController implements ActionListener {
 
     private feria feria_ropa;
     private feriaDao feriaRopaDao;
+    private organizador organizer;
+    private organizadorDao organizerDao;
     private SystemView SystemView;
-    String rol = rol_user;
-    DefaultTableModel model = new DefaultTableModel();
+    public static int id_feria = 0;
 
-    public feriasController(feria feria_ropa, feriaDao feriaRopaDao, SystemView SystemView) {
+    public feriasController(feria feria_ropa, feriaDao feriaRopaDao, organizador organizer, organizadorDao organizerDao, SystemView SystemView) {
         this.feria_ropa = feria_ropa;
         this.feriaRopaDao = feriaRopaDao;
+        this.organizer = organizer;
+        this.organizerDao = organizerDao;
         this.SystemView = SystemView;
         //Boton Registrar feria
         this.SystemView.btnRegisterFeria.addActionListener(this);
-        //Boton Ordenar Categorias
-        this.SystemView.btnOrdenarBurbuja.addActionListener(this);
     }
+
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -39,28 +41,29 @@ public class feriasController implements ActionListener{
                     || SystemView.txtOrganizador.getText().equals("")
                     || SystemView.txtTelefono.getText().equals("")
                     || SystemView.txtCorreo.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Es obligatorio colocar el nombre de la Feria");
+                JOptionPane.showMessageDialog(null, "Es obligatorio rellenar todos los datos");
             } else {
                 // Asignar valores a los atributos del objeto feria_ropa utilizando los valores de los campos de entrada
                 feria_ropa.setName(SystemView.txtNombre.getText().trim());
                 feria_ropa.setAddress(SystemView.txtUbicacion.getText().trim());
-                feria_ropa.setCategory(SystemView.cmbCategoria.getSelectedItem().toString());
-                feria_ropa.setStatus(SystemView.cmbEstado.getSelectedItem().toString());
-                feria_ropa.setOrganizador(SystemView.txtOrganizador.getText().trim());
-                feria_ropa.setTelephone(SystemView.txtTelefono.getText().trim());
-                feria_ropa.setEmail(SystemView.txtCorreo.getText().trim());
-                // Invocar al método de registro en la capa DAO y mostrar un mensaje de éxito o error en consecuencia
+                feria_ropa.setCategory(SystemView.cmbCategoria.getSelectedItem().toString().trim());
+                feria_ropa.setStatus(SystemView.cmbEstado.getSelectedItem().toString().trim());
+                feria_ropa.setDateInicio(SystemView.jDateInicio.getDateFormatString());
+                feria_ropa.setDateFin(SystemView.jDateFin.getDateFormatString());
                 if (feriaRopaDao.registroFeriaQuery(feria_ropa)) {
-                    cleanTable();
-                    listAllFerias();
-                    JOptionPane.showMessageDialog(null, "Empleado registrado con exito");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar un empleado");
+                    organizer.setIdFeria(feria_ropa.getId());
+                    organizer.setFull_name(SystemView.txtOrganizador.getText().trim());
+                    organizer.setTelephone(SystemView.txtTelefono.getText().trim());
+                    organizer.setEmail(SystemView.txtCorreo.getText().trim());
+                    organizerDao.registrOrganizador(organizer);
+                    JOptionPane.showMessageDialog(null, "Feria registrada con exito");
+                }else {
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar una Feria");
                 }
             }
         }
     }
-
+    /*
     public void listAllFerias() {
         if (rol.equals("Administrador")) {
             // Verificar si rol está inicializado y es igual a "Administrador"
@@ -160,5 +163,5 @@ public class feriasController implements ActionListener{
             model.removeRow(i);
             i = i - 1;
         }
-    }
+    }*/
 }
