@@ -7,6 +7,7 @@ import com.mycompany.presupuestoferias.models.organizadorDao;
 import com.mycompany.presupuestoferias.views.SystemView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import javax.swing.JOptionPane;
 
 public class feriasController implements ActionListener {
@@ -32,37 +33,38 @@ public class feriasController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == SystemView.btnRegisterFeria) {
-            // Validar si los campos obligatorios están vacíos y mostrar un mensaje de error si es necesario
-            if (SystemView.txtNombre.getText().equals("")
-                    || SystemView.txtUbicacion.getText().equals("")
-                    || SystemView.cmbCategoria.getSelectedItem().toString().equals("")
-                    || SystemView.cmbEstado.getSelectedItem().toString().equals("")
-                    || SystemView.txtOrganizador.getText().equals("")
-                    || SystemView.txtTelefono.getText().equals("")
-                    || SystemView.txtCorreo.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Es obligatorio rellenar todos los datos");
-            } else {
-                // Asignar valores a los atributos del objeto feria_ropa utilizando los valores de los campos de entrada
-                feria_ropa.setName(SystemView.txtNombre.getText().trim());
-                feria_ropa.setAddress(SystemView.txtUbicacion.getText().trim());
-                feria_ropa.setCategory(SystemView.cmbCategoria.getSelectedItem().toString().trim());
-                feria_ropa.setStatus(SystemView.cmbEstado.getSelectedItem().toString().trim());
-                feria_ropa.setDateInicio(SystemView.jDateInicio.getDateFormatString());
-                feria_ropa.setDateFin(SystemView.jDateFin.getDateFormatString());
-                if (feriaRopaDao.registroFeriaQuery(feria_ropa)) {
-                    organizer.setIdFeria(feria_ropa.getId());
-                    organizer.setFull_name(SystemView.txtOrganizador.getText().trim());
-                    organizer.setTelephone(SystemView.txtTelefono.getText().trim());
-                    organizer.setEmail(SystemView.txtCorreo.getText().trim());
-                    organizerDao.registrOrganizador(organizer);
-                    JOptionPane.showMessageDialog(null, "Feria registrada con exito");
-                }else {
-                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar una Feria");
-                }
+    if (e.getSource() == SystemView.btnRegisterFeria) {
+        // Validar si los campos obligatorios están vacíos y mostrar un mensaje de error si es necesario
+        if (SystemView.txtNombre.getText().equals("")
+                || SystemView.txtUbicacion.getText().equals("")
+                || SystemView.cmbCategoria.getSelectedItem().toString().equals("")
+                || SystemView.cmbEstado.getSelectedItem().toString().equals("")
+                || SystemView.txtOrganizador.getText().equals("")
+                || SystemView.txtTelefono.getText().equals("")
+                || SystemView.txtCorreo.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Es obligatorio rellenar todos los datos");
+        } else {
+            // Asignar valores a los atributos del objeto feria_ropa utilizando los valores de los campos de entrada
+            feria_ropa.setName(SystemView.txtNombre.getText().trim());
+            feria_ropa.setAddress(SystemView.txtUbicacion.getText().trim());
+            feria_ropa.setCategory(SystemView.cmbCategoria.getSelectedItem().toString().trim());
+            feria_ropa.setStatus(SystemView.cmbEstado.getSelectedItem().toString().trim());
+            feria_ropa.setDateInicio((Date) SystemView.jDateInicio.getDate()); // Obtener fecha seleccionada por el usuario desde JDateChooser
+            feria_ropa.setDateFin((Date) SystemView.jDateFin.getDate()); // Obtener fecha seleccionada por el usuario desde JDateChooser
+            if (feriaRopaDao.registroFeriaQuery(feria_ropa)) {
+                organizer.setIdFeria(feria_ropa.getId());
+                organizer.setFull_name(SystemView.txtOrganizador.getText().trim());
+                organizer.setTelephone(SystemView.txtTelefono.getText().trim());
+                organizer.setEmail(SystemView.txtCorreo.getText().trim());
+                organizerDao.registrOrganizador(organizer);
+                JOptionPane.showMessageDialog(null, "Feria registrada con exito");
+            }else {
+                JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar una Feria");
             }
         }
     }
+}
+
     /*
     public void listAllFerias() {
         if (rol.equals("Administrador")) {

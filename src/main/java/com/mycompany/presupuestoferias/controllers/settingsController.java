@@ -87,6 +87,14 @@ public class settingsController implements MouseListener {
             view.lblSettings.setForeground(new Color(0, 0, 0));
         }else if (e.getSource() == view.lblCerrar) {
             view.lblCerrar.setForeground(Color.red);
+        }else if (e.getSource() == view.btnRegistroFerias) {
+            view.btnRegistroFerias.setBackground(new Color(191,184,180));
+        }else if (e.getSource() == view.btnListaFerias) {
+            view.btnListaFerias.setBackground(new Color(191,184,180));
+        }else if (e.getSource() == view.btnEmployees) {
+            view.btnEmployees.setBackground(new Color(191,184,180));
+        }else if (e.getSource() == view.btnSettings) {
+            view.btnSettings.setBackground(new Color(191,184,180));
         }
     }
 
@@ -109,6 +117,14 @@ public class settingsController implements MouseListener {
             view.lblSettings.setForeground(new Color(242,239,235));
         }else if (e.getSource() == view.lblCerrar) {
             view.lblCerrar.setForeground(new Color(187,187,187));
+        }else if (e.getSource() == view.btnRegistroFerias) {
+            view.btnRegistroFerias.setBackground(new Color(242,239,235));
+        }else if (e.getSource() == view.btnListaFerias) {
+            view.btnListaFerias.setBackground(new Color(242,239,235));
+        }else if (e.getSource() == view.btnEmployees) {
+            view.btnEmployees.setBackground(new Color(242,239,235));
+        }else if (e.getSource() == view.btnSettings) {
+            view.btnSettings.setBackground(new Color(242,239,235));
         }
     }
 

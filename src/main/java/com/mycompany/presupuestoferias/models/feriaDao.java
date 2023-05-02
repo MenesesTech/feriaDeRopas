@@ -2,14 +2,16 @@ package com.mycompany.presupuestoferias.models;
 
 import com.toedter.calendar.JDateChooser;
 import java.sql.Connection;
-import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
+
 /*
 import java.util.ArrayList;
 import java.util.List;
-*/
+ */
 import javax.swing.JOptionPane;
 
 public class feriaDao {
@@ -21,19 +23,16 @@ public class feriaDao {
 
     //Registrar feria
     public boolean registroFeriaQuery(feria feria_ropa) {
-        String query = "INSERT INTO feria (name, address, category, estado, start_date, end date) VALUES (?,?,?,?,?,?);";
-        JDateChooser dateChooser = new JDateChooser();
-        Date fechaSeleccionada = dateChooser.getDate();
-        Date fecha = new Date(fechaSeleccionada.getTime());
+        String query = "INSERT INTO feria (name, address, category, estado, start_date, end_date) VALUES (?,?,?,?,?,?);";
         try {
-            conn = cn.getConnection();
-            pst = conn.prepareStatement(query);
+            Connection conn = cn.getConnection();
+            PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, feria_ropa.getName());
             pst.setString(2, feria_ropa.getAddress());
             pst.setString(3, feria_ropa.getCategory());
             pst.setString(4, feria_ropa.getStatus());
-            pst.setDate(9, (java.sql.Date) fecha);
-            pst.setDate(10, (java.sql.Date) fecha);
+            pst.setDate(5, new java.sql.Date(feria_ropa.getDateInicio().getTime())); 
+            pst.setDate(6, new java.sql.Date(feria_ropa.getDateFin().getTime())); 
             pst.execute();
             return true;
         } catch (SQLException e) {
@@ -99,5 +98,4 @@ public class feriaDao {
         }
         return listFerias;
     }*/
-
 }

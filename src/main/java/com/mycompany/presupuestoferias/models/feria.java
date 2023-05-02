@@ -1,6 +1,8 @@
 
 package com.mycompany.presupuestoferias.models;
 
+import java.sql.Date;
+
 public class feria {
     //Atributos
     private int id;
@@ -12,13 +14,13 @@ public class feria {
     private String telephone;
     private String email;
     private String rol;
-    private String dateInicio;
-    private String dateFin;
+    private Date dateInicio;
+    private Date dateFin;
 
     public feria() {
     }
-    
-    public feria(int id, String name, String address, String category, String status, String organizador, String telephone, String email, String rol, String dateInicio, String dateFin) {
+
+    public feria(int id, String name, String address, String category, String status, String organizador, String telephone, String email, String rol, Date dateInicio, Date dateFin) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -104,21 +106,20 @@ public class feria {
         this.rol = rol;
     }
 
-    public String getDateInicio() {
+    public Date getDateInicio() {
         return dateInicio;
     }
 
-    public void setDateInicio(String dateInicio) {
+    public void setDateInicio(Date dateInicio) {
         this.dateInicio = dateInicio;
     }
 
-    public String getDateFin() {
+    public Date getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(String dateFin) {
+    public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
     }
-    
     
 }
