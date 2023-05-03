@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.presupuestoferias.controllers;
 
 import com.mycompany.presupuestoferias.models.usuario;
@@ -15,10 +11,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Haisenberg
- */
 public class loginUsuarioController implements ActionListener, MouseListener {
 
     private usuario user_employee;
@@ -96,7 +88,7 @@ public class loginUsuarioController implements ActionListener, MouseListener {
     public void mouseEntered(MouseEvent e) {
         if (e.getSource() == loginView.lblForgetPass) {
             loginView.lblForgetPass.setForeground(new Color(255, 102, 102));
-        }else if (e.getSource() == loginView.lblCerrar) {
+        } else if (e.getSource() == loginView.lblCerrar) {
             loginView.lblCerrar.setForeground(Color.red);
         }
     }
@@ -105,8 +97,8 @@ public class loginUsuarioController implements ActionListener, MouseListener {
     public void mouseExited(MouseEvent e) {
         if (e.getSource() == loginView.lblForgetPass) {
             loginView.lblForgetPass.setForeground(new Color(116, 116, 116));
-        }else if (e.getSource() == loginView.lblCerrar) {
-            loginView.lblCerrar.setForeground(new Color(187,187,187));
+        } else if (e.getSource() == loginView.lblCerrar) {
+            loginView.lblCerrar.setForeground(new Color(187, 187, 187));
         }
     }
 }

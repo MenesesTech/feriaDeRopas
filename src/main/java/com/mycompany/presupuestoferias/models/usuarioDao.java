@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
@@ -18,7 +22,6 @@ public class usuarioDao {
     public static int id_user = 0;
     public static String full_name_user = "";
     public static String username_user = "";
-    public static String address_user = "";
     public static String telephone_user = "";
     public static String email_user = "";
     public static String rol_user = "";
@@ -52,6 +55,106 @@ public class usuarioDao {
         return employee_user;
     }
 
+    //Metodo para registrar usuario
+    public boolean registerUserQuery(usuario employee) {
+        String query = "INSERT INTO empleado (full_name, username, password, email, telephone, rol, created, updated) VALUES (?,?,?,?,?,?,?,?)";
+        Timestamp datetime = new Timestamp(new Date().getTime());
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setString(1, employee.getFull_name());
+            pst.setString(2, employee.getUsername());
+            pst.setString(3, employee.getPassword());
+            pst.setString(4, employee.getEmail());
+            pst.setString(5, employee.getTelephone());
+            pst.setString(6, employee.getRol());
+            pst.setTimestamp(7, datetime);
+            pst.setTimestamp(8, datetime);
+            pst.execute();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al registrar al usuario: " + e);
+        }
+        return false;
+    }
+
+    //Listar usuarios para el registro
+    public List listUserQuery() {
+        List<usuario> list_employees = new ArrayList();
+        String query = "SELECT id, full_name, username, telephone, email, rol FROM empleado;";
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            rst = pst.executeQuery();
+            while (rst.next()) {
+                usuario employee = new usuario();
+                employee.setId(rst.getInt("id"));
+                employee.setFull_name(rst.getString("full_name"));
+                employee.setUsername(rst.getString("username"));
+                employee.setTelephone(rst.getString("telephone"));
+                employee.setEmail(rst.getString("email"));
+                employee.setRol(rst.getString("rol"));
+                list_employees.add(employee);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
+        return list_employees;
+    }
+
+    //Metodo para modificar empleado
+    public boolean updateUserQuery(usuario employee) {
+        String query = "UPDATE empleado SET full_name = ?, username = ?, email = ?, telephone = ?, rol = ?, updated = ?"
+                + "WHERE id = ?";
+        Timestamp datetime = new Timestamp(new Date().getTime());
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setString(1, employee.getFull_name());
+            pst.setString(2, employee.getUsername());
+            pst.setString(3, employee.getEmail());
+            pst.setString(4, employee.getTelephone());
+            pst.setString(5, employee.getRol());
+            pst.setTimestamp(6, datetime);
+            pst.setInt(7, employee.getId());
+            pst.execute();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al modificar los datos del empleado " + e);
+            return false;
+        }
+    }
+    
+    //Metodo para eliminar empleado
+    public boolean deleteUserQuery(int id) {
+        String query = "DELETE FROM empleado WHERE id = " + id;
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.execute();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "No puede eliminar un empleado que tenga relacion con otra tabla " + e);
+            return false;
+        }
+    }
+    
+    //Cambiar la contraseña
+    public boolean updateEmployeePassword(usuario employee) {
+        String query = "UPDATE empleado SET password = ? WHERE username = '" + username_user + "'";
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setString(1, employee.getPassword());
+            pst.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar la contraseña " + e);
+            return false;
+        }
+    }
+    
+    //Generar Captcha
     public String generarCaptcha() {
         String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder captcha = new StringBuilder();
@@ -61,4 +164,5 @@ public class usuarioDao {
         }
         return captcha.toString();
     }
+
 }

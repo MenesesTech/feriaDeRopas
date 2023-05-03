@@ -2,13 +2,18 @@ package com.mycompany.presupuestoferias.views;
 
 import com.mycompany.presupuestoferias.controllers.feriaController;
 import com.mycompany.presupuestoferias.controllers.settingsController;
+import com.mycompany.presupuestoferias.controllers.usuarioController;
 import com.mycompany.presupuestoferias.models.feria;
 import com.mycompany.presupuestoferias.models.feriaDao;
+import com.mycompany.presupuestoferias.models.usuario;
+import com.mycompany.presupuestoferias.models.usuarioDao;
 
 public class SystemView extends javax.swing.JFrame {
 
     feria feria_ropa = new feria();
     feriaDao feriaRopaDao = new feriaDao();
+    usuario user_employee = new usuario();
+    usuarioDao userDao = new usuarioDao();
 
     public SystemView() {
         initComponents();
@@ -20,6 +25,9 @@ public class SystemView extends javax.swing.JFrame {
         settingsController setting = new settingsController(this);
         feriaController ferController = new feriaController(feria_ropa, feriaRopaDao,this);
         ferController.listAllFerias();
+        ferController.listAllFeriasPrincipal();
+        usuarioController userController = new usuarioController(user_employee, userDao, this);
+        userController.listAllEmployees();
     }
 
     @SuppressWarnings("unchecked")
@@ -76,6 +84,8 @@ public class SystemView extends javax.swing.JFrame {
         tableFerias = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         btnBurbuja = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        btnListaOriginal = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -83,8 +93,6 @@ public class SystemView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
-        txt_employee_id = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         txt_employee_fullname = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
@@ -99,10 +107,12 @@ public class SystemView extends javax.swing.JFrame {
         btn_delete_employee = new javax.swing.JButton();
         btn_update_employee = new javax.swing.JButton();
         btn_register_employee = new javax.swing.JButton();
+        cmb_rol = new javax.swing.JComboBox<>();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        txt_employee_id = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
-        student_table = new javax.swing.JTable();
-        jLabel36 = new javax.swing.JLabel();
-        txt_search_student = new javax.swing.JTextField();
+        employee_table = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jLabel45 = new javax.swing.JLabel();
@@ -496,11 +506,20 @@ public class SystemView extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Roboto Condensed Light", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Ordenar por Categorias:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 530, -1, -1));
+        jLabel3.setText("Lista original");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 530, -1, -1));
 
         btnBurbuja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ordenar.png"))); // NOI18N
-        jPanel1.add(btnBurbuja, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 520, 50, 40));
+        jPanel1.add(btnBurbuja, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 520, 50, 40));
+
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel4.setFont(new java.awt.Font("Roboto Condensed Light", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Ordenar por Categorias:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 530, -1, -1));
+
+        btnListaOriginal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lista.png"))); // NOI18N
+        jPanel1.add(btnListaOriginal, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 520, 50, 40));
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 580));
 
@@ -546,12 +565,6 @@ public class SystemView extends javax.swing.JFrame {
         jPanel14.setBackground(new java.awt.Color(52, 52, 52));
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Registro de Empleados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setText("Identificación:");
-
-        txt_employee_id.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("Nombre Completo:");
@@ -594,74 +607,98 @@ public class SystemView extends javax.swing.JFrame {
         btn_register_employee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btn_register_employee.setText("Registrar");
 
+        cmb_rol.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cmb_rol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Auxiliar" }));
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setText("Rol:");
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("Identificación:");
+
+        txt_employee_id.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_employee_id.setEnabled(false);
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel25)
-                    .addComponent(jLabel24)
                     .addComponent(jLabel33)
-                    .addComponent(jLabel29))
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel27))
                 .addGap(22, 22, 22)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(cmb_rol, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_employee_id, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_employee_fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_employee_username, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(65, 65, 65)
-                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txt_employee_username, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_employee_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(58, 58, 58)
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel14Layout.createSequentialGroup()
                                 .addComponent(jLabel30)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(62, 62, 62)
                                 .addComponent(txt_employee_email, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel14Layout.createSequentialGroup()
+                            .addGroup(jPanel14Layout.createSequentialGroup()
                                 .addComponent(jLabel35)
+                                .addGap(30, 30, 30)
+                                .addComponent(txt_employee_password, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                .addComponent(jLabel24)
                                 .addGap(18, 18, 18)
-                                .addComponent(txt_employee_password, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(106, 106, 106)
+                                .addComponent(txt_employee_id, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(94, 94, 94)
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_register_employee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_update_employee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_delete_employee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_cancel_employee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(txt_employee_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(112, 112, 112))
+                            .addComponent(btn_cancel_employee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(112, 112, 112))))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel24)
-                            .addComponent(txt_employee_id, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
+                            .addComponent(jLabel30)
+                            .addComponent(txt_employee_email, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel25)
-                            .addComponent(txt_employee_fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel33)
-                            .addComponent(txt_employee_username, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel35)
+                            .addComponent(txt_employee_password, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(148, 148, 148))
                     .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel14Layout.createSequentialGroup()
-                                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel30)
-                                        .addComponent(txt_employee_email, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel35)
-                                    .addGap(13, 13, 13))
-                                .addGroup(jPanel14Layout.createSequentialGroup()
-                                    .addGap(58, 58, 58)
-                                    .addComponent(txt_employee_password, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel25)
+                                    .addComponent(txt_employee_fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(22, 22, 22)
+                                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel33)
+                                    .addComponent(txt_employee_username, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(23, 23, 23)
+                                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel29)
+                                    .addComponent(txt_employee_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel24)
+                                    .addComponent(txt_employee_id, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(31, 31, 31)
+                                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel27)
+                                    .addComponent(cmb_rol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel14Layout.createSequentialGroup()
                                 .addComponent(btn_register_employee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(15, 15, 15)
@@ -669,41 +706,32 @@ public class SystemView extends javax.swing.JFrame {
                                 .addGap(15, 15, 15)
                                 .addComponent(btn_delete_employee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(15, 15, 15)
-                                .addComponent(btn_cancel_employee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(21, 21, 21)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel29)
-                    .addComponent(txt_employee_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                                .addComponent(btn_cancel_employee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jPanel7.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 930, 260));
 
-        student_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        student_table.setModel(new javax.swing.table.DefaultTableModel(
+        employee_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        employee_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Nombre", "Usuario", "Teléfono", "Correo"
+                "Id", "Nombre", "Usuario", "Teléfono", "Correo", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(student_table);
+        jScrollPane5.setViewportView(employee_table);
 
         jPanel7.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 930, 230));
-
-        jLabel36.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel36.setText("Buscar:");
-        jPanel7.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 60, -1));
-        jPanel7.add(txt_search_student, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, 165, 30));
 
         jTabbedPane1.addTab("Empleados", jPanel7);
 
@@ -882,6 +910,7 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JButton btnCancelFeria;
     public javax.swing.JButton btnEmployees;
     public javax.swing.JButton btnListaFerias;
+    public javax.swing.JButton btnListaOriginal;
     public javax.swing.JButton btnRegisterFeria;
     public javax.swing.JButton btnRegistroFerias;
     public javax.swing.JButton btnSettings;
@@ -892,19 +921,22 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JButton btn_update_employee;
     public javax.swing.JComboBox<String> cmbCategoria;
     public javax.swing.JComboBox<String> cmbEstado;
+    public javax.swing.JComboBox<String> cmb_rol;
     public javax.swing.JLayeredPane cubiertaPestañas;
+    public javax.swing.JTable employee_table;
     public com.toedter.calendar.JDateChooser jDateFin;
     public com.toedter.calendar.JDateChooser jDateInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
@@ -955,7 +987,6 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JPanel pnlRegistroFerias;
     private javax.swing.JPanel pnlSecundario;
     public javax.swing.JPanel pnlSettings;
-    public javax.swing.JTable student_table;
     public javax.swing.JTable tableFerias;
     public javax.swing.JTable tableListaFerias;
     public javax.swing.JTextField txtCorreo;
@@ -976,6 +1007,5 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JPasswordField txt_password_modify;
     public javax.swing.JPasswordField txt_password_modify_confirm;
     public javax.swing.JTextField txt_phone_profile;
-    public javax.swing.JTextField txt_search_student;
     // End of variables declaration//GEN-END:variables
 }

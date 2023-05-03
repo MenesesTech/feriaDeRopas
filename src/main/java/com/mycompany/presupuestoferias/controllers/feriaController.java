@@ -29,6 +29,10 @@ public class feriaController implements ActionListener, MouseListener {
         this.SystemView.tableFerias.addMouseListener(this);
         //Boton de Ordenar Lista por categorias
         this.SystemView.btnBurbuja.addMouseListener(this);
+        //Tabla de ferias
+        this.SystemView.tableListaFerias.addMouseListener(this);
+        //Boton de Lista original
+        this.SystemView.btnListaOriginal.addMouseListener(this);
     }
 
     @Override
@@ -66,7 +70,7 @@ public class feriaController implements ActionListener, MouseListener {
         }
     }
 
-    //Metodo para listar todas las ferias
+    //Metodo para listar todas las ferias en la lista secundaria
     public void listAllFerias() {
         List<feria> list = feriaRopaDao.listFeriaQuery();
         DefaultTableModel model = new DefaultTableModel();
@@ -79,6 +83,26 @@ public class feriaController implements ActionListener, MouseListener {
             row[3] = list.get(i).getStatus();
             row[4] = list.get(i).getDateInicio();
             row[5] = list.get(i).getDateFin();
+            model.addRow(row);
+        }
+    }
+    
+    //Metodo para listar todas las ferias en la lista Principal
+    public void listAllFeriasPrincipal() {
+        List<feria> list = feriaRopaDao.listFeriaQuery();
+        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) SystemView.tableListaFerias.getModel();
+        Object[] row = new Object[9];
+        for (int i = 0; i < list.size(); i++) {
+            row[0] = list.get(i).getName();
+            row[1] = list.get(i).getAddress();
+            row[2] = list.get(i).getDateInicio();
+            row[3] = list.get(i).getDateFin();
+            row[4] = list.get(i).getOrganizador();
+            row[5] = list.get(i).getTelephone();
+            row[6] = list.get(i).getEmail();
+            row[7] = list.get(i).getCategory();
+            row[8] = list.get(i).getStatus();
             model.addRow(row);
         }
     }
@@ -131,6 +155,9 @@ public class feriaController implements ActionListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == SystemView.btnBurbuja) {
             listBurbujaFerias();
+        }else if (e.getSource() == SystemView.btnListaOriginal) {
+            cleanTable();
+            listAllFerias();
         }
     }
 

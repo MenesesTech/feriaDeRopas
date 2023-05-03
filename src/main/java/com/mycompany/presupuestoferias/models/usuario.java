@@ -1,13 +1,12 @@
+
 package com.mycompany.presupuestoferias.models;
 
 public class usuario {
-
     //Atributos
     private int id;
     private String full_name;
     private String username;
     private String password;
-    private String address;
     private String telephone;
     private String email;
     private String rol;
@@ -17,12 +16,11 @@ public class usuario {
     public usuario() {
     }
 
-    public usuario(int id, String full_name, String username, String password, String address, String telephone, String email, String rol, String created, String updated) {
+    public usuario(int id, String full_name, String username, String password, String telephone, String email, String rol, String created, String updated) {
         this.id = id;
         this.full_name = full_name;
         this.username = username;
         this.password = password;
-        this.address = address;
         this.telephone = telephone;
         this.email = email;
         this.rol = rol;
@@ -60,14 +58,6 @@ public class usuario {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getTelephone() {
@@ -109,5 +99,6 @@ public class usuario {
     public void setUpdated(String updated) {
         this.updated = updated;
     }
-
+    
+    
 }
