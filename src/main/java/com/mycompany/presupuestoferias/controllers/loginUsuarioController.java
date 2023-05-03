@@ -3,6 +3,7 @@ package com.mycompany.presupuestoferias.controllers;
 import com.mycompany.presupuestoferias.models.usuario;
 import com.mycompany.presupuestoferias.models.usuarioDao;
 import com.mycompany.presupuestoferias.views.LoginView;
+import com.mycompany.presupuestoferias.views.RecuperarPassword;
 import com.mycompany.presupuestoferias.views.SystemView;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -66,6 +67,9 @@ public class loginUsuarioController implements ActionListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == loginView.lblCerrar) {
             System.exit(0);
+        }else if (e.getSource() == loginView.lblForgetPass) {
+            RecuperarPassword recuPass = new RecuperarPassword();
+            recuPass.setVisible(true);
         }
     }
 

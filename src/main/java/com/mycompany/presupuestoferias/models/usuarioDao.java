@@ -124,7 +124,7 @@ public class usuarioDao {
             return false;
         }
     }
-    
+
     //Metodo para eliminar empleado
     public boolean deleteUserQuery(int id) {
         String query = "DELETE FROM empleado WHERE id = " + id;
@@ -138,7 +138,7 @@ public class usuarioDao {
             return false;
         }
     }
-    
+
     //Cambiar la contraseña
     public boolean updateEmployeePassword(usuario employee) {
         String query = "UPDATE empleado SET password = ? WHERE username = '" + username_user + "'";
@@ -153,7 +153,7 @@ public class usuarioDao {
             return false;
         }
     }
-    
+
     //Generar Captcha
     public String generarCaptcha() {
         String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -163,6 +163,23 @@ public class usuarioDao {
             captcha.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
         }
         return captcha.toString();
+    }
+
+    public String recuperarContraseña(String email) {
+        String query = "SELECT password FROM empleado WHERE email = '" + email + "'";
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            rst = pst.executeQuery();
+            if (rst.next()) {
+                String password = rst.getString("password");
+                return password;
+            } else {
+                return "No se encontró ningún empleado con ese email.";
+            }
+        } catch (SQLException e) {
+            return "Ha ocurrido un error al recuperar la contraseña ";
+        }
     }
 
 }

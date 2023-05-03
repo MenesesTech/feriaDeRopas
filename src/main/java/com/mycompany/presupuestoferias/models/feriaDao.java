@@ -38,7 +38,7 @@ public class feriaDao {
         }
     }
 
-    //Listar feria para el registro
+    //Lista secundaria de Ferias
     public List listFeriaQuery() {
         List<feria> listFerias = new ArrayList();
         String query = "SELECT name, address, category, estado, start_date, end_date FROM feria;";
@@ -54,6 +54,33 @@ public class feriaDao {
                 fair.setStatus(rs.getString("estado"));
                 fair.setDateInicio(rs.getDate("start_date"));
                 fair.setDateFin(rs.getDate("end_date"));
+                listFerias.add(fair);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
+        return listFerias;
+    }
+    
+    //Lista Principal de Ferias
+    public List listFeriaPrincipalQuery() {
+        List<feria> listFerias = new ArrayList();
+        String query = "SELECT name,address,category,estado,start_date,organizer_fullname,organizer_email,organizer_telephone,end_date FROM feria;";
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                feria fair = new feria();
+                fair.setName(rs.getString("name"));
+                fair.setAddress(rs.getString("address"));
+                fair.setCategory(rs.getString("category"));
+                fair.setStatus(rs.getString("estado"));
+                fair.setDateInicio(rs.getDate("start_date"));
+                fair.setDateFin(rs.getDate("end_date"));
+                fair.setOrganizador(rs.getString("organizer_fullname"));
+                fair.setEmail(rs.getString("organizer_email"));
+                fair.setTelephone(rs.getString("organizer_telephone"));
                 listFerias.add(fair);
             }
         } catch (SQLException e) {
