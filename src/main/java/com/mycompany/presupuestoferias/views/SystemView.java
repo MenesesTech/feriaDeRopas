@@ -7,6 +7,8 @@ import com.mycompany.presupuestoferias.models.feria;
 import com.mycompany.presupuestoferias.models.feriaDao;
 import com.mycompany.presupuestoferias.models.usuario;
 import com.mycompany.presupuestoferias.models.usuarioDao;
+import static com.mycompany.presupuestoferias.models.usuarioDao.full_name_user;
+import static com.mycompany.presupuestoferias.models.usuarioDao.rol_user;
 
 public class SystemView extends javax.swing.JFrame {
 
@@ -28,8 +30,14 @@ public class SystemView extends javax.swing.JFrame {
         ferController.listAllFeriasPrincipal();
         usuarioController userController = new usuarioController(user_employee, userDao, this);
         userController.listAllEmployees();
+        titleInterface();
     }
-
+    
+    public String titleInterface() {
+        label_name_user.setText(full_name_user);
+        label_name_rol.setText(rol_user);
+        return rol_user.trim();
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -135,6 +143,9 @@ public class SystemView extends javax.swing.JFrame {
         pnlSecundario = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         lblCerrar = new javax.swing.JLabel();
+        label_name_user = new javax.swing.JLabel();
+        label_name_rol = new javax.swing.JLabel();
+        btn_photo = new javax.swing.JButton();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -895,6 +906,18 @@ public class SystemView extends javax.swing.JFrame {
         lblCerrar.setText("X");
         pnlSecundario.add(lblCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 0, 50, 50));
 
+        label_name_user.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        label_name_user.setForeground(new java.awt.Color(255, 255, 255));
+        pnlSecundario.add(label_name_user, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 30, 140, 20));
+
+        label_name_rol.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        label_name_rol.setForeground(new java.awt.Color(255, 255, 255));
+        pnlSecundario.add(label_name_rol, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 60, 140, 20));
+
+        btn_photo.setBackground(new java.awt.Color(249, 246, 241));
+        btn_photo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/man.png"))); // NOI18N
+        pnlSecundario.add(btn_photo, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, 90, -1));
+
         getContentPane().add(pnlSecundario, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1000, 130));
 
         pack();
@@ -917,6 +940,7 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JButton btn_cancel_employee;
     public javax.swing.JButton btn_delete_employee;
     public javax.swing.JButton btn_modify_data;
+    private javax.swing.JButton btn_photo;
     public javax.swing.JButton btn_register_employee;
     public javax.swing.JButton btn_update_employee;
     public javax.swing.JComboBox<String> cmbCategoria;
@@ -962,6 +986,8 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     public javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable2;
+    public javax.swing.JLabel label_name_rol;
+    public javax.swing.JLabel label_name_user;
     private javax.swing.JLabel lblCategoria;
     public javax.swing.JLabel lblCerrar;
     private javax.swing.JLabel lblCorreo;
