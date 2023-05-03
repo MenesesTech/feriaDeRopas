@@ -48,12 +48,7 @@ public class settingsController implements MouseListener {
             view.jTabbedPane1.setSelectedIndex(3);
         }else if (e.getSource() == view.btnSettings) {
             view.jTabbedPane1.setSelectedIndex(4);
-        }
-        
-        
-        
-        
-        else if (e.getSource() == view.lblCerrar) {
+        }else if (e.getSource() == view.lblCerrar) {
             System.exit(0);
         }
     }

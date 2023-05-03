@@ -108,7 +108,7 @@ public class LoginView extends javax.swing.JFrame {
 
         pnlCaptchaGenerator.setBackground(new java.awt.Color(191, 184, 180));
 
-        lblCaptchaGenerator.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        lblCaptchaGenerator.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
         lblCaptchaGenerator.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCaptchaGenerator.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 

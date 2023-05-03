@@ -13,14 +13,13 @@ public class feria {
     private String organizador;
     private String telephone;
     private String email;
-    private String rol;
     private Date dateInicio;
     private Date dateFin;
 
     public feria() {
     }
 
-    public feria(int id, String name, String address, String category, String status, String organizador, String telephone, String email, String rol, Date dateInicio, Date dateFin) {
+    public feria(int id, String name, String address, String category, String status, String organizador, String telephone, String email, Date dateInicio, Date dateFin) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -29,7 +28,6 @@ public class feria {
         this.organizador = organizador;
         this.telephone = telephone;
         this.email = email;
-        this.rol = rol;
         this.dateInicio = dateInicio;
         this.dateFin = dateFin;
     }
@@ -96,14 +94,6 @@ public class feria {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
     }
 
     public Date getDateInicio() {

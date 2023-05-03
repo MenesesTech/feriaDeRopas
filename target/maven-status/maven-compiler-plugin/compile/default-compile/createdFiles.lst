@@ -1,8 +1,6 @@
-com\mycompany\presupuestoferias\models\organizadorDao.class
 com\mycompany\presupuestoferias\models\feriaDao.class
 com\mycompany\presupuestoferias\models\ConnectionMySQL.class
 com\mycompany\presupuestoferias\models\feria.class
-com\mycompany\presupuestoferias\models\organizador.class
 com\mycompany\presupuestoferias\models\usuario.class
 com\mycompany\presupuestoferias\views\LoginView.class
 com\mycompany\presupuestoferias\views\SystemView$2.class

@@ -1,18 +1,14 @@
 package com.mycompany.presupuestoferias.views;
 
-import com.mycompany.presupuestoferias.controllers.feriasController;
+import com.mycompany.presupuestoferias.controllers.feriaController;
 import com.mycompany.presupuestoferias.controllers.settingsController;
 import com.mycompany.presupuestoferias.models.feria;
 import com.mycompany.presupuestoferias.models.feriaDao;
-import com.mycompany.presupuestoferias.models.organizador;
-import com.mycompany.presupuestoferias.models.organizadorDao;
 
 public class SystemView extends javax.swing.JFrame {
 
     feria feria_ropa = new feria();
     feriaDao feriaRopaDao = new feriaDao();
-    organizador organizer = new organizador();
-    organizadorDao organizerDao = new organizadorDao();
 
     public SystemView() {
         initComponents();
@@ -22,7 +18,8 @@ public class SystemView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Sistema de Presupuetos");
         settingsController setting = new settingsController(this);
-        feriasController ferController = new feriasController(feria_ropa, feriaRopaDao, organizer, organizerDao, this);
+        feriaController ferController = new feriaController(feria_ropa, feriaRopaDao,this);
+        ferController.listAllFerias();
     }
 
     @SuppressWarnings("unchecked")
@@ -77,7 +74,8 @@ public class SystemView extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableFerias = new javax.swing.JTable();
-        btnOrdenarBurbuja = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        btnBurbuja = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -331,6 +329,10 @@ public class SystemView extends javax.swing.JFrame {
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- SELECCIONE ---", "PLANIFICADA", "EN CURSO", "FINALIZADA" }));
 
+        jDateInicio.setDateFormatString("yyyy-MM-dd");
+
+        jDateFin.setDateFormatString("yyyy-MM-dd");
+
         jPanel6.setBackground(new java.awt.Color(52, 52, 52));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)), "Datos del Organizador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
@@ -489,16 +491,16 @@ public class SystemView extends javax.swing.JFrame {
             tableFerias.getColumnModel().getColumn(3).setHeaderValue("Estado");
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 930, 180));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 930, 210));
 
-        btnOrdenarBurbuja.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnOrdenarBurbuja.setText("Ordenar por Categorias");
-        btnOrdenarBurbuja.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrdenarBurbujaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnOrdenarBurbuja, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 490, 240, 40));
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Roboto Condensed Light", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Ordenar por Categorias:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 530, -1, -1));
+
+        btnBurbuja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ordenar.png"))); // NOI18N
+        jPanel1.add(btnBurbuja, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 520, 50, 40));
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 580));
 
@@ -870,21 +872,16 @@ public class SystemView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnOrdenarBurbujaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarBurbujaActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnOrdenarBurbujaActionPerformed
-
     private void btnRegistroFeriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistroFeriasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistroFeriasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnBurbuja;
     public javax.swing.JButton btnCancelFeria;
     public javax.swing.JButton btnEmployees;
     public javax.swing.JButton btnListaFerias;
-    public javax.swing.JButton btnOrdenarBurbuja;
     public javax.swing.JButton btnRegisterFeria;
     public javax.swing.JButton btnRegistroFerias;
     public javax.swing.JButton btnSettings;
@@ -903,6 +900,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel35;
