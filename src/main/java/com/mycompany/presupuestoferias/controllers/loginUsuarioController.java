@@ -1,7 +1,7 @@
 package com.mycompany.presupuestoferias.controllers;
 
-import com.mycompany.presupuestoferias.models.usuario;
-import com.mycompany.presupuestoferias.models.usuarioDao;
+import com.mycompany.presupuestoferias.models.empleado;
+import com.mycompany.presupuestoferias.models.empleadoDao;
 import com.mycompany.presupuestoferias.views.LoginView;
 import com.mycompany.presupuestoferias.views.RecuperarPassword;
 import com.mycompany.presupuestoferias.views.SystemView;
@@ -14,11 +14,12 @@ import javax.swing.JOptionPane;
 
 public class loginUsuarioController implements ActionListener, MouseListener {
 
-    private usuario user_employee;
-    private usuarioDao userDao;
+    private empleado user_employee;
+    private empleadoDao userDao;
     private LoginView loginView;
+    private int loginAttempts = 0;
 
-    public loginUsuarioController(usuario user_employee, usuarioDao userDao, LoginView loginView) {
+    public loginUsuarioController(empleado user_employee, empleadoDao userDao, LoginView loginView) {
         this.user_employee = user_employee;
         this.userDao = userDao;
         this.loginView = loginView;
@@ -52,10 +53,16 @@ public class loginUsuarioController implements ActionListener, MouseListener {
                         admin.setVisible(true);
                         this.loginView.dispose();
                     } else {
-                        JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
+                        loginAttempts++; // Incrementar el contador de intentos
+                        if (loginAttempts >= 3) {
+                            JOptionPane.showMessageDialog(null, "Se ha excedido el número máximo de intentos. La sesión se cerrará.");
+                            System.exit(0); // Otra acción que desees tomar al exceder el número de intentos
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta. Intento " + loginAttempts + " de 3.");
+                        }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Los campos estan vacios");
+                    JOptionPane.showMessageDialog(null, "Los campos están vacíos");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "El captcha es obligatorio");

@@ -5,38 +5,36 @@ import java.sql.Date;
 
 public class feria {
     //Atributos
-    private int id;
+    private String id;
     private String name;
-    private String address;
-    private String category;
+    private String district;
+    private int aforo;
+    private double monto;
     private String status;
-    private String organizador;
-    private String telephone;
-    private String email;
+    private String category;
     private Date dateInicio;
     private Date dateFin;
 
     public feria() {
     }
 
-    public feria(int id, String name, String address, String category, String status, String organizador, String telephone, String email, Date dateInicio, Date dateFin) {
+    public feria(String id, String name, String district, int aforo, double monto, String status, String category, Date dateInicio, Date dateFin) {
         this.id = id;
         this.name = name;
-        this.address = address;
-        this.category = category;
+        this.district = district;
+        this.aforo = aforo;
+        this.monto = monto;
         this.status = status;
-        this.organizador = organizador;
-        this.telephone = telephone;
-        this.email = email;
+        this.category = category;
         this.dateInicio = dateInicio;
         this.dateFin = dateFin;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -48,20 +46,28 @@ public class feria {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getDistrict() {
+        return district;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
-    public String getCategory() {
-        return category;
+    public int getAforo() {
+        return aforo;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setAforo(int aforo) {
+        this.aforo = aforo;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
     }
 
     public String getStatus() {
@@ -72,28 +78,12 @@ public class feria {
         this.status = status;
     }
 
-    public String getOrganizador() {
-        return organizador;
+    public String getCategory() {
+        return category;
     }
 
-    public void setOrganizador(String organizador) {
-        this.organizador = organizador;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Date getDateInicio() {

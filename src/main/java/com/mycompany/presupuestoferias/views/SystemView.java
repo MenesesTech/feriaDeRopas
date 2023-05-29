@@ -5,17 +5,18 @@ import com.mycompany.presupuestoferias.controllers.settingsController;
 import com.mycompany.presupuestoferias.controllers.usuarioController;
 import com.mycompany.presupuestoferias.models.feria;
 import com.mycompany.presupuestoferias.models.feriaDao;
-import com.mycompany.presupuestoferias.models.usuario;
-import com.mycompany.presupuestoferias.models.usuarioDao;
-import static com.mycompany.presupuestoferias.models.usuarioDao.full_name_user;
-import static com.mycompany.presupuestoferias.models.usuarioDao.rol_user;
+import com.mycompany.presupuestoferias.models.empleado;
+import com.mycompany.presupuestoferias.models.empleadoDao;
+import static com.mycompany.presupuestoferias.models.empleadoDao.rol_user;
+import static com.mycompany.presupuestoferias.models.empleadoDao.username_user;
 
 public class SystemView extends javax.swing.JFrame {
 
     feria feria_ropa = new feria();
     feriaDao feriaRopaDao = new feriaDao();
-    usuario user_employee = new usuario();
-    usuarioDao userDao = new usuarioDao();
+    empleado user_employee = new empleado();
+    empleadoDao userDao = new empleadoDao();
+    private PresupuestoView presView;
 
     public SystemView() {
         initComponents();
@@ -25,16 +26,17 @@ public class SystemView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Sistema de Presupuetos");
         settingsController setting = new settingsController(this);
-        feriaController ferController = new feriaController(feria_ropa, feriaRopaDao,this);
+        feriaController ferController = new feriaController(feria_ropa, feriaRopaDao, this);
         ferController.listAllFerias();
         ferController.listAllFeriasPrincipal();
         usuarioController userController = new usuarioController(user_employee, userDao, this);
         userController.listAllEmployees();
+        userController.EmployeeProfile();
         titleInterface();
     }
     
     public String titleInterface() {
-        label_name_user.setText(full_name_user);
+        label_name_user.setText(username_user);
         label_name_rol.setText(rol_user);
         return rol_user.trim();
     }
@@ -68,26 +70,29 @@ public class SystemView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         lblNombre = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
+        txtNombreFeria = new javax.swing.JTextField();
         lblUbicacion = new javax.swing.JLabel();
-        txtUbicacion = new javax.swing.JTextField();
+        txtDistritoFeria = new javax.swing.JTextField();
         lblFechaInicio = new javax.swing.JLabel();
         lblFechaFin = new javax.swing.JLabel();
         btnCancelFeria = new javax.swing.JButton();
-        btnRegisterFeria = new javax.swing.JButton();
+        btnDeleteFeria = new javax.swing.JButton();
         lblCategoria = new javax.swing.JLabel();
-        cmbCategoria = new javax.swing.JComboBox<>();
+        cmbCategoriaFeria = new javax.swing.JComboBox<>();
         lblEstado = new javax.swing.JLabel();
-        cmbEstado = new javax.swing.JComboBox<>();
+        cmbEstadoFeria = new javax.swing.JComboBox<>();
         jDateInicio = new com.toedter.calendar.JDateChooser();
         jDateFin = new com.toedter.calendar.JDateChooser();
-        jPanel6 = new javax.swing.JPanel();
-        lblOrganizador = new javax.swing.JLabel();
-        txtOrganizador = new javax.swing.JTextField();
-        lblCorreo = new javax.swing.JLabel();
-        txtCorreo = new javax.swing.JTextField();
-        lblTelefono = new javax.swing.JLabel();
-        txtTelefono = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtAforoFeria = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtMontoFeria = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtCodigoFeria = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        btnRegisterFeria = new javax.swing.JButton();
+        btnUpdateFeria = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableFerias = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
@@ -96,29 +101,40 @@ public class SystemView extends javax.swing.JFrame {
         btnListaOriginal = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnPresupuestar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableListaFerias = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
-        txt_employee_fullname = new javax.swing.JTextField();
+        txt_employee_name = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
         txt_employee_username = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
-        txt_employee_telephone = new javax.swing.JTextField();
+        txt_employee_district = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         txt_employee_email = new javax.swing.JTextField();
         txt_employee_password = new javax.swing.JPasswordField();
-        btn_cancel_employee = new javax.swing.JButton();
-        btn_delete_employee = new javax.swing.JButton();
-        btn_update_employee = new javax.swing.JButton();
-        btn_register_employee = new javax.swing.JButton();
         cmb_rol = new javax.swing.JComboBox<>();
         jLabel27 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         txt_employee_id = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        txt_employee_lastname = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        txt_employee_dni = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
+        txt_employee_telephone = new javax.swing.JTextField();
+        btn_register_employee = new javax.swing.JButton();
+        btn_update_employee = new javax.swing.JButton();
+        btn_delete_employee = new javax.swing.JButton();
+        btn_cancel_employee = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         employee_table = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
@@ -130,7 +146,7 @@ public class SystemView extends javax.swing.JFrame {
         jLabel49 = new javax.swing.JLabel();
         txt_id_profile = new javax.swing.JTextField();
         txt_name_profile = new javax.swing.JTextField();
-        txt_address_profile = new javax.swing.JTextField();
+        txt_district_profile = new javax.swing.JTextField();
         txt_phone_profile = new javax.swing.JTextField();
         txt_email_profile = new javax.swing.JTextField();
         jLabel50 = new javax.swing.JLabel();
@@ -311,206 +327,129 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel13.setBackground(new java.awt.Color(52, 52, 52));
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Registro de Ferias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNombre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(255, 255, 255));
         lblNombre.setText("Nombre:");
+        jPanel13.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, -1, -1));
 
-        txtNombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtNombreFeria.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel13.add(txtNombreFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 190, 30));
 
         lblUbicacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblUbicacion.setForeground(new java.awt.Color(255, 255, 255));
-        lblUbicacion.setText("Ubicación:");
+        lblUbicacion.setText("Distrito:");
+        jPanel13.add(lblUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
 
-        txtUbicacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtDistritoFeria.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel13.add(txtDistritoFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 85, 190, 30));
 
         lblFechaInicio.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblFechaInicio.setForeground(new java.awt.Color(255, 255, 255));
         lblFechaInicio.setText("Fecha de Inicio:");
+        jPanel13.add(lblFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 45, -1, -1));
 
         lblFechaFin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblFechaFin.setForeground(new java.awt.Color(255, 255, 255));
         lblFechaFin.setText("Fecha de Fin:");
+        jPanel13.add(lblFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 108, -1));
 
+        btnCancelFeria.setBackground(new java.awt.Color(205, 205, 205));
         btnCancelFeria.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelFeria.setForeground(new java.awt.Color(0, 0, 0));
         btnCancelFeria.setText("Cancelar");
+        jPanel13.add(btnCancelFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 190, 98, 30));
 
-        btnRegisterFeria.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnRegisterFeria.setText("Agregar");
+        btnDeleteFeria.setBackground(new java.awt.Color(205, 205, 205));
+        btnDeleteFeria.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnDeleteFeria.setForeground(new java.awt.Color(0, 0, 0));
+        btnDeleteFeria.setText("Eliminar");
+        jPanel13.add(btnDeleteFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 98, 30));
 
         lblCategoria.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblCategoria.setForeground(new java.awt.Color(255, 255, 255));
         lblCategoria.setText("Categoria:");
+        jPanel13.add(lblCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 265, 92, -1));
 
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- SELECCIONE ---", "ROPA FEMENINA", "ROPA MASCULINA", "ROPA INFANTIL", "ROPA DEPORTIVA", "ROPA USADA" }));
+        cmbCategoriaFeria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- SELECCIONE ---", "PEQUEÑA", "MEDIANA", "GRANDE" }));
+        jPanel13.add(cmbCategoriaFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 130, 190, 30));
 
         lblEstado.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblEstado.setForeground(new java.awt.Color(255, 255, 255));
         lblEstado.setText("Estado:");
+        jPanel13.add(lblEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 60, -1));
 
-        cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- SELECCIONE ---", "PLANIFICADA", "EN CURSO", "FINALIZADA" }));
+        cmbEstadoFeria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- SELECCIONE ---", "PENDIENTE", "VIABLE", "INVIABLE" }));
+        jPanel13.add(cmbEstadoFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 85, 190, 30));
 
         jDateInicio.setDateFormatString("yyyy-MM-dd");
+        jPanel13.add(jDateInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 190, 30));
 
         jDateFin.setDateFormatString("yyyy-MM-dd");
+        jPanel13.add(jDateFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 85, 190, 30));
 
-        jPanel6.setBackground(new java.awt.Color(52, 52, 52));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)), "Datos del Organizador", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Aforo:");
+        jPanel13.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 55, -1));
+        jPanel13.add(txtAforoFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 190, 30));
 
-        lblOrganizador.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblOrganizador.setForeground(new java.awt.Color(255, 255, 255));
-        lblOrganizador.setText("Organizador:");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("<html><center><p>Monto de Inversión</p><p>incial:</p></center></html>");
+        jPanel13.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, -1, -1));
+        jPanel13.add(txtMontoFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 190, 30));
 
-        txtOrganizador.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Código:");
+        jPanel13.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 45, -1, -1));
 
-        lblCorreo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblCorreo.setForeground(new java.awt.Color(255, 255, 255));
-        lblCorreo.setText("Correo:");
+        txtCodigoFeria.setEditable(false);
+        jPanel13.add(txtCodigoFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 40, 190, 30));
 
-        txtCorreo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Categoria:");
+        jPanel13.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, -1, 20));
 
-        lblTelefono.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblTelefono.setForeground(new java.awt.Color(255, 255, 255));
-        lblTelefono.setText("Teléfono:");
+        btnRegisterFeria.setBackground(new java.awt.Color(205, 205, 205));
+        btnRegisterFeria.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnRegisterFeria.setForeground(new java.awt.Color(0, 0, 0));
+        btnRegisterFeria.setText("Registrar");
+        jPanel13.add(btnRegisterFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 98, 30));
 
-        txtTelefono.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnUpdateFeria.setBackground(new java.awt.Color(205, 205, 205));
+        btnUpdateFeria.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnUpdateFeria.setForeground(new java.awt.Color(0, 0, 0));
+        btnUpdateFeria.setText("Modificar");
+        jPanel13.add(btnUpdateFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 98, 30));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(lblCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(lblOrganizador)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtOrganizador, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtOrganizador, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblOrganizador))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCorreo))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTelefono)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 13, Short.MAX_VALUE))
-        );
+        jLabel10.setFont(new java.awt.Font("Roboto Condensed", 2, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("*Generado Automaticamente");
+        jPanel13.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 10, -1, 30));
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblUbicacion)
-                    .addComponent(lblNombre)
-                    .addComponent(lblCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jDateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                                .addComponent(txtUbicacion)))
-                        .addGap(1, 1, 1))
-                    .addComponent(cmbCategoria, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateFin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                        .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancelFeria, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegisterFeria, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel13Layout.createSequentialGroup()
-                                        .addComponent(btnRegisterFeria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnCancelFeria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(56, 56, 56))
-                                    .addGroup(jPanel13Layout.createSequentialGroup()
-                                        .addComponent(lblNombre)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(lblUbicacion)
-                                        .addGap(75, 75, 75)))
-                                .addGap(6, 6, 6)
-                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblFechaFin)))
-                            .addGroup(jPanel13Layout.createSequentialGroup()
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblFechaInicio)
-                                    .addComponent(jDateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(72, 72, 72)
-                                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblCategoria)
-                                    .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblEstado)
-                            .addComponent(cmbEstado))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-
-        jPanel1.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 930, 260));
+        jPanel1.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 930, 240));
 
         tableFerias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Ubicación", "Categoria", "Estado", "Fecha de Inicio", "Fecha de Fin"
+                "Codigo", "Nombre", "Distrito", "Categoria", "Aforo", "Fecha de Inicio", "Fecha de cierre", "Monto de inversion inicial", "Estado de aprobación"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tableFerias);
-        if (tableFerias.getColumnModel().getColumnCount() > 0) {
-            tableFerias.getColumnModel().getColumn(2).setHeaderValue("Categoria");
-            tableFerias.getColumnModel().getColumn(3).setHeaderValue("Estado");
-        }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 930, 210));
 
@@ -539,22 +478,46 @@ public class SystemView extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(205, 205, 205));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(15, 15, 15));
+        jLabel1.setText("LISTA DE FERIAS REGISTRADAS");
+        jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
+
+        btnPresupuestar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnPresupuestar.setText("Presupuestar");
+        jPanel5.add(btnPresupuestar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 300, 40));
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton2.setText("Estados de Ingresos y egresos");
+        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, 300, 40));
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton3.setText("Reporte Presupuestal");
+        jPanel5.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 300, 40));
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton4.setText("Utlidad y rentabilidad");
+        jPanel5.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, 300, 40));
+
         tableListaFerias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Ubicación", "Fecha de Inicio", "Fecha de Fin", "Organizador", "Telefono", "Correo", "Categoria", "Estado"
+                "Codigo", "Nombre", "Distrito", "Categoria", "Aforo", "Fecha de Inicio", "Fecha de cierre", "Monto de inversion inicial", "Estado de aprobación"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(tableListaFerias);
 
-        jPanel5.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 930, 320));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(15, 15, 15));
-        jLabel1.setText("LISTA DE FERIAS");
-        jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 20, -1, -1));
+        jPanel5.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 960, 360));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -575,153 +538,120 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel14.setBackground(new java.awt.Color(52, 52, 52));
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Registro de Empleados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+        jPanel14.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setText("Nombre Completo:");
+        jLabel25.setText("Nombres:");
+        jPanel14.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 137, 30));
 
-        txt_employee_fullname.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_employee_name.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel14.add(txt_employee_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 165, 30));
 
         jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel33.setText("Nombre de usuario:");
+        jLabel33.setText("Usuario:");
+        jPanel14.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 80, -1, -1));
 
         txt_employee_username.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel14.add(txt_employee_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 70, 165, 30));
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel29.setText("Telefono:");
+        jLabel29.setText("Distrito");
+        jPanel14.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, -1, 30));
 
-        txt_employee_telephone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txt_employee_district.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel14.add(txt_employee_district, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 165, 30));
 
         jLabel35.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(255, 255, 255));
         jLabel35.setText("Contraseña:");
+        jPanel14.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 120, -1, -1));
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
         jLabel30.setText("Correo:");
+        jPanel14.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, -1, -1));
 
         txt_employee_email.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel14.add(txt_employee_email, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 70, 165, 30));
 
         txt_employee_password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        btn_cancel_employee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn_cancel_employee.setText("Cancelar");
-
-        btn_delete_employee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn_delete_employee.setText("Eliminar");
-
-        btn_update_employee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn_update_employee.setText("Modificar");
-
-        btn_register_employee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn_register_employee.setText("Registrar");
+        jPanel14.add(txt_employee_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 110, 165, 30));
 
         cmb_rol.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cmb_rol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Auxiliar" }));
+        jPanel14.add(cmb_rol, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 165, -1));
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
         jLabel27.setText("Rol:");
+        jPanel14.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setText("Identificación:");
+        jLabel24.setText("Id:");
+        jPanel14.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 40, -1, -1));
 
+        txt_employee_id.setEditable(false);
         txt_employee_id.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txt_employee_id.setEnabled(false);
+        jPanel14.add(txt_employee_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, 165, 30));
 
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel25)
-                    .addComponent(jLabel33)
-                    .addComponent(jLabel29)
-                    .addComponent(jLabel27))
-                .addGap(22, 22, 22)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addComponent(cmb_rol, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_employee_fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_employee_username, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_employee_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(58, 58, 58)
-                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel14Layout.createSequentialGroup()
-                                .addComponent(jLabel30)
-                                .addGap(62, 62, 62)
-                                .addComponent(txt_employee_email, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel14Layout.createSequentialGroup()
-                                .addComponent(jLabel35)
-                                .addGap(30, 30, 30)
-                                .addComponent(txt_employee_password, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel14Layout.createSequentialGroup()
-                                .addComponent(jLabel24)
-                                .addGap(18, 18, 18)
-                                .addComponent(txt_employee_id, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(94, 94, 94)
-                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_register_employee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_update_employee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_delete_employee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_cancel_employee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(112, 112, 112))))
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel30)
-                            .addComponent(txt_employee_email, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel35)
-                            .addComponent(txt_employee_password, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(148, 148, 148))
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel14Layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel25)
-                                    .addComponent(txt_employee_fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(22, 22, 22)
-                                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel33)
-                                    .addComponent(txt_employee_username, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(23, 23, 23)
-                                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel29)
-                                    .addComponent(txt_employee_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel24)
-                                    .addComponent(txt_employee_id, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31)
-                                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel27)
-                                    .addComponent(cmb_rol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel14Layout.createSequentialGroup()
-                                .addComponent(btn_register_employee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
-                                .addComponent(btn_update_employee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
-                                .addComponent(btn_delete_employee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(15, 15, 15)
-                                .addComponent(btn_cancel_employee, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setText("Apellidos:");
+        jPanel14.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 135, 30));
 
-        jPanel7.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 930, 260));
+        txt_employee_lastname.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel14.add(txt_employee_lastname, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 165, 30));
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setText("DNI:");
+        jPanel14.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 70, 30));
+
+        txt_employee_dni.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel14.add(txt_employee_dni, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 165, 30));
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setText("Celular:");
+        jPanel14.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, -1, -1));
+
+        txt_employee_telephone.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanel14.add(txt_employee_telephone, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, 165, 30));
+
+        btn_register_employee.setBackground(new java.awt.Color(205, 205, 205));
+        btn_register_employee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_register_employee.setForeground(new java.awt.Color(0, 0, 0));
+        btn_register_employee.setText("Registrar");
+        jPanel14.add(btn_register_employee, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 110, 30));
+
+        btn_update_employee.setBackground(new java.awt.Color(205, 205, 205));
+        btn_update_employee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_update_employee.setForeground(new java.awt.Color(0, 0, 0));
+        btn_update_employee.setText("Modificar");
+        jPanel14.add(btn_update_employee, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, 110, 30));
+
+        btn_delete_employee.setBackground(new java.awt.Color(205, 205, 205));
+        btn_delete_employee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_delete_employee.setForeground(new java.awt.Color(0, 0, 0));
+        btn_delete_employee.setText("Eliminar");
+        jPanel14.add(btn_delete_employee, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, 110, 30));
+
+        btn_cancel_employee.setBackground(new java.awt.Color(205, 205, 205));
+        btn_cancel_employee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_cancel_employee.setForeground(new java.awt.Color(0, 0, 0));
+        btn_cancel_employee.setText("Cancelar");
+        jPanel14.add(btn_cancel_employee, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, 110, 30));
+
+        jLabel9.setFont(new java.awt.Font("Roboto Condensed", 2, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("*Generado Automaticamente");
+        jPanel14.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, -1, 30));
+
+        jPanel7.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 930, 250));
 
         employee_table.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         employee_table.setModel(new javax.swing.table.DefaultTableModel(
@@ -729,11 +659,11 @@ public class SystemView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Nombre", "Usuario", "Teléfono", "Correo", "Rol"
+                "Id", "Nombre", "Apellido", "DNI", "Distrito", "Correo electrónico", "Celular", "Usuario", "Contraseña", "Rol"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -742,7 +672,7 @@ public class SystemView extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(employee_table);
 
-        jPanel7.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 930, 230));
+        jPanel7.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 980, 250));
 
         jTabbedPane1.addTab("Empleados", jPanel7);
 
@@ -755,19 +685,19 @@ public class SystemView extends javax.swing.JFrame {
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel45.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel45.setText("Identificación:");
+        jLabel45.setText("Id:");
 
         jLabel46.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel46.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel46.setText("Nombre completo:");
+        jLabel46.setText("Nombre y Apellidos:");
 
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel47.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel47.setText("Dirección:");
+        jLabel47.setText("Distrito:");
 
         jLabel48.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel48.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel48.setText("Teléfono:");
+        jLabel48.setText("Celular:");
 
         jLabel49.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel49.setForeground(new java.awt.Color(255, 255, 255));
@@ -777,7 +707,7 @@ public class SystemView extends javax.swing.JFrame {
 
         txt_name_profile.setEditable(false);
 
-        txt_address_profile.setEditable(false);
+        txt_district_profile.setEditable(false);
 
         txt_phone_profile.setEditable(false);
 
@@ -810,7 +740,7 @@ public class SystemView extends javax.swing.JFrame {
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_email_profile, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_phone_profile, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_address_profile, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_district_profile, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel18Layout.createSequentialGroup()
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_id_profile, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -825,7 +755,7 @@ public class SystemView extends javax.swing.JFrame {
                             .addComponent(txt_password_modify_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(51, 51, 51)
                         .addComponent(btn_modify_data, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -850,7 +780,7 @@ public class SystemView extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel47)
-                    .addComponent(txt_address_profile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_district_profile, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel48)
@@ -931,33 +861,43 @@ public class SystemView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnBurbuja;
     public javax.swing.JButton btnCancelFeria;
+    public javax.swing.JButton btnDeleteFeria;
     public javax.swing.JButton btnEmployees;
     public javax.swing.JButton btnListaFerias;
     public javax.swing.JButton btnListaOriginal;
+    public javax.swing.JButton btnPresupuestar;
     public javax.swing.JButton btnRegisterFeria;
     public javax.swing.JButton btnRegistroFerias;
     public javax.swing.JButton btnSettings;
+    public javax.swing.JButton btnUpdateFeria;
     public javax.swing.JButton btn_cancel_employee;
     public javax.swing.JButton btn_delete_employee;
     public javax.swing.JButton btn_modify_data;
     private javax.swing.JButton btn_photo;
     public javax.swing.JButton btn_register_employee;
     public javax.swing.JButton btn_update_employee;
-    public javax.swing.JComboBox<String> cmbCategoria;
-    public javax.swing.JComboBox<String> cmbEstado;
+    public javax.swing.JComboBox<String> cmbCategoriaFeria;
+    public javax.swing.JComboBox<String> cmbEstadoFeria;
     public javax.swing.JComboBox<String> cmb_rol;
     public javax.swing.JLayeredPane cubiertaPestañas;
     public javax.swing.JTable employee_table;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     public com.toedter.calendar.JDateChooser jDateFin;
     public com.toedter.calendar.JDateChooser jDateInicio;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
@@ -966,8 +906,13 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel13;
@@ -977,7 +922,6 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     public javax.swing.JPanel jPanel7;
     public javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
@@ -990,7 +934,6 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JLabel label_name_user;
     private javax.swing.JLabel lblCategoria;
     public javax.swing.JLabel lblCerrar;
-    private javax.swing.JLabel lblCorreo;
     public javax.swing.JLabel lblEmployees;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblFechaFin;
@@ -999,10 +942,8 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JLabel lblListaFerias;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNombre;
-    private javax.swing.JLabel lblOrganizador;
     public javax.swing.JLabel lblRegistroFerias;
     public javax.swing.JLabel lblSettings;
-    private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUbicacion;
     public javax.swing.JPanel pnlEmployees;
@@ -1015,16 +956,19 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JPanel pnlSettings;
     public javax.swing.JTable tableFerias;
     public javax.swing.JTable tableListaFerias;
-    public javax.swing.JTextField txtCorreo;
-    public javax.swing.JTextField txtNombre;
-    public javax.swing.JTextField txtOrganizador;
-    public javax.swing.JTextField txtTelefono;
-    public javax.swing.JTextField txtUbicacion;
-    public javax.swing.JTextField txt_address_profile;
+    public javax.swing.JTextField txtAforoFeria;
+    public javax.swing.JTextField txtCodigoFeria;
+    public javax.swing.JTextField txtDistritoFeria;
+    public javax.swing.JTextField txtMontoFeria;
+    public javax.swing.JTextField txtNombreFeria;
+    public javax.swing.JTextField txt_district_profile;
     public javax.swing.JTextField txt_email_profile;
+    public javax.swing.JTextField txt_employee_district;
+    public javax.swing.JTextField txt_employee_dni;
     public javax.swing.JTextField txt_employee_email;
-    public javax.swing.JTextField txt_employee_fullname;
     public javax.swing.JTextField txt_employee_id;
+    public javax.swing.JTextField txt_employee_lastname;
+    public javax.swing.JTextField txt_employee_name;
     public javax.swing.JPasswordField txt_employee_password;
     public javax.swing.JTextField txt_employee_telephone;
     public javax.swing.JTextField txt_employee_username;

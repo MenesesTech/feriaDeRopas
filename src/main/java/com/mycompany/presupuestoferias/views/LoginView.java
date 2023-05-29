@@ -2,13 +2,13 @@
 package com.mycompany.presupuestoferias.views;
 
 import com.mycompany.presupuestoferias.controllers.loginUsuarioController;
-import com.mycompany.presupuestoferias.models.usuario;
-import com.mycompany.presupuestoferias.models.usuarioDao;
+import com.mycompany.presupuestoferias.models.empleado;
+import com.mycompany.presupuestoferias.models.empleadoDao;
 
 public class LoginView extends javax.swing.JFrame {
 
-    usuario user = new usuario();
-    usuarioDao userDao = new usuarioDao();
+    empleado user = new empleado();
+    empleadoDao userDao = new empleadoDao();
 
     public LoginView() {
         initComponents();

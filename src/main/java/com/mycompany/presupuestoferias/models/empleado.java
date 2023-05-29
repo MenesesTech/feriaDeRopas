@@ -1,47 +1,44 @@
 
 package com.mycompany.presupuestoferias.models;
 
-public class usuario {
-    //Atributos
-    private int id;
-    private String full_name;
+public class empleado {
+    private String id;
     private String username;
     private String password;
-    private String telephone;
+    private String name;
+    private String lastName;
+    private String DNI;
+    private String district;
     private String email;
+    private String telephone;
     private String rol;
     private String created;
     private String updated;
 
-    public usuario() {
+    public empleado() {
     }
 
-    public usuario(int id, String full_name, String username, String password, String telephone, String email, String rol, String created, String updated) {
+    public empleado(String id, String username, String password, String name, String lastName, String DNI, String district, String email, String telephone, String rol, String created, String updated) {
         this.id = id;
-        this.full_name = full_name;
         this.username = username;
         this.password = password;
-        this.telephone = telephone;
+        this.name = name;
+        this.lastName = lastName;
+        this.DNI = DNI;
+        this.district = district;
         this.email = email;
+        this.telephone = telephone;
         this.rol = rol;
         this.created = created;
         this.updated = updated;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public String getFull_name() {
-        return full_name;
-    }
-
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
     }
 
     public String getUsername() {
@@ -60,12 +57,36 @@ public class usuario {
         this.password = password;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getName() {
+        return name;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getEmail() {
@@ -74,6 +95,14 @@ public class usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public String getRol() {
@@ -99,6 +128,5 @@ public class usuario {
     public void setUpdated(String updated) {
         this.updated = updated;
     }
-    
     
 }

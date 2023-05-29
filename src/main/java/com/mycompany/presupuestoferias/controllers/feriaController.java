@@ -2,6 +2,7 @@ package com.mycompany.presupuestoferias.controllers;
 
 import com.mycompany.presupuestoferias.models.feria;
 import com.mycompany.presupuestoferias.models.feriaDao;
+import com.mycompany.presupuestoferias.views.PresupuestoView;
 import com.mycompany.presupuestoferias.views.SystemView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,10 @@ public class feriaController implements ActionListener, MouseListener {
         this.systemView.btnRegisterFeria.addActionListener(this);
         //Boton cancelar Feria
         this.systemView.btnCancelFeria.addActionListener(this);
+        //Boton Modificar feria
+        this.systemView.btnUpdateFeria.addActionListener(this);
+        //Boton Eliminar Feria
+        this.systemView.btnDeleteFeria.addActionListener(this);
         //Tabla de ferias
         this.systemView.tableFerias.addMouseListener(this);
         //Boton de Ordenar Lista por categorias
@@ -35,6 +40,7 @@ public class feriaController implements ActionListener, MouseListener {
         this.systemView.tableListaFerias.addMouseListener(this);
         //Boton de Lista original
         this.systemView.btnListaOriginal.addMouseListener(this);
+        this.systemView.btnPresupuestar.addMouseListener(this);
     }
 
     @Override
@@ -42,73 +48,137 @@ public class feriaController implements ActionListener, MouseListener {
         String fechaInicio = ((JTextField) systemView.jDateInicio.getDateEditor().getUiComponent()).getText();
         String fechaFin = ((JTextField) systemView.jDateFin.getDateEditor().getUiComponent()).getText();
         if (e.getSource() == systemView.btnRegisterFeria) {
-            // Validar si los campos obligatorios están vacíos y mostrar un mensaje de error si es necesario
-            if (systemView.txtNombre.getText().equals("")
-                    || systemView.txtUbicacion.getText().equals("")
-                    || systemView.cmbCategoria.getSelectedItem().toString().equals("")
-                    || systemView.cmbEstado.getSelectedItem().toString().equals("")
+            if (systemView.txtNombreFeria.getText().equals("")
+                    || systemView.txtDistritoFeria.getText().equals("")
+                    || systemView.txtAforoFeria.getText().equals("")
                     || systemView.jDateInicio.getDate() == null
-                    || systemView.jDateFin.getDate() == null) {
+                    || systemView.jDateFin.getDate() == null
+                    || systemView.txtMontoFeria.getText().equals("")
+                    || systemView.cmbEstadoFeria.getSelectedItem().toString().equals("")
+                    || systemView.cmbCategoriaFeria.getSelectedItem().toString().equals("")) {
                 JOptionPane.showMessageDialog(null, "Es obligatorio rellenar todos los datos");
 
             } else {
-                feria_ropa.setName(systemView.txtNombre.getText().trim());
-                feria_ropa.setAddress(systemView.txtUbicacion.getText().trim());
-                feria_ropa.setCategory(systemView.cmbCategoria.getSelectedItem().toString().trim());
-                feria_ropa.setStatus(systemView.cmbEstado.getSelectedItem().toString().trim());
+                feria_ropa.setName(systemView.txtNombreFeria.getText().trim());
+                feria_ropa.setDistrict(systemView.txtDistritoFeria.getText().trim());
+                feria_ropa.setAforo(Integer.parseInt(systemView.txtAforoFeria.getText().trim()));
                 feria_ropa.setDateInicio(Date.valueOf(fechaInicio));
                 feria_ropa.setDateFin(Date.valueOf(fechaFin));
-                feria_ropa.setOrganizador(systemView.txtOrganizador.getText().trim());
-                feria_ropa.setEmail(systemView.txtCorreo.getText().trim());
-                feria_ropa.setTelephone(systemView.txtTelefono.getText().trim());
+                feria_ropa.setMonto(Double.parseDouble(systemView.txtMontoFeria.getText().trim()));
+                if (feriaRopaDao.obtenerUltimoCodigoFeria().equals("")) {
+                    feria_ropa.setId("F0001");
+                } else {
+                    feria_ropa.setId(feriaRopaDao.generarCodigo());
+                }
+                feria_ropa.setStatus(systemView.cmbEstadoFeria.getSelectedItem().toString().trim());
+                feria_ropa.setCategory(systemView.cmbCategoriaFeria.getSelectedItem().toString().trim());
                 if (feriaRopaDao.registroFeriaQuery(feria_ropa)) {
                     cleanFields();
                     cleanTable();
                     listAllFerias();
+                    listAllFeriasPrincipal();
                     JOptionPane.showMessageDialog(null, "Feria registrada con exito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar una Feria");
                 }
             }
-        }else if (e.getSource() == systemView.btnCancelFeria) {
+        } else if (e.getSource() == systemView.btnUpdateFeria) {
+            if (systemView.txtCodigoFeria.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Selecciona una fila para continuar");
+            } else {
+                //  Verificar que todos los campos no esten vacios
+                if (systemView.txtNombreFeria.getText().equals("")
+                        || systemView.txtDistritoFeria.getText().equals("")
+                        || systemView.txtAforoFeria.getText().equals("")
+                        || systemView.jDateInicio.getDate() == null
+                        || systemView.jDateFin.getDate() == null
+                        || systemView.txtMontoFeria.getText().equals("")
+                        || systemView.txtCodigoFeria.getText().equals("")
+                        || systemView.cmbEstadoFeria.getSelectedItem().toString().equals("")
+                        || systemView.cmbCategoriaFeria.getSelectedItem().toString().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+                } else {
+                    feria_ropa.setName(systemView.txtNombreFeria.getText().trim());
+                    feria_ropa.setDistrict(systemView.txtDistritoFeria.getText().trim());
+                    feria_ropa.setAforo(Integer.parseInt(systemView.txtAforoFeria.getText().trim()));
+                    feria_ropa.setDateInicio(Date.valueOf(fechaInicio));
+                    feria_ropa.setDateFin(Date.valueOf(fechaFin));
+                    feria_ropa.setMonto(Double.parseDouble(systemView.txtMontoFeria.getText().trim()));
+                    feria_ropa.setStatus(systemView.cmbEstadoFeria.getSelectedItem().toString().trim());
+                    feria_ropa.setCategory(systemView.cmbCategoriaFeria.getSelectedItem().toString().trim());
+                    if (feriaRopaDao.updateFairQuery(feria_ropa)) {
+                        cleanTable();
+                        cleanFields();
+                        listAllFerias();
+                        listAllFeriasPrincipal();
+                        JOptionPane.showMessageDialog(null, "Datos de la feria modificados con exito");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar una feria");
+                    }
+                }
+            }
+        } else if (e.getSource() == systemView.btnDeleteFeria) {
+            //Almacena numero de fila
+            int row = systemView.tableFerias.getSelectedRow();
+            //No eliminar si no almacena numero de fila
+            if (row == -1) {
+                JOptionPane.showMessageDialog(null, "Debes seleccionar una feria para eliminar");
+            } else {
+                //Elimina feria
+                String id = systemView.tableFerias.getValueAt(row, 0).toString();
+                int question = JOptionPane.showConfirmDialog(null, "¿En realidad quieres eliminar esta feria?");
+                if (question == 0 && feriaRopaDao.deleteFairQuery(id) != false) {
+                    cleanFields();
+                    cleanTable();
+                    systemView.btn_register_employee.setEnabled(true);
+                    systemView.txt_employee_password.setEnabled(true);
+                    listAllFerias();
+                    listAllFeriasPrincipal();
+                    JOptionPane.showMessageDialog(null, "Feria eliminada con exito");
+                }
+            }
+        } else if (e.getSource() == systemView.btnCancelFeria) {
             cleanFields();
-            systemView.txtNombre.setEditable(true);
-            systemView.txtUbicacion.setEditable(true);
+            systemView.txtCodigoFeria.setEditable(true);
+            systemView.btnRegisterFeria.setEnabled(true);
         }
     }
 
-    //Metodo para listar todas las ferias en la lista secundaria
+    //Metodo para listar todas las ferias despues del registro
     public void listAllFerias() {
         List<feria> list = feriaRopaDao.listFeriaQuery();
         DefaultTableModel model = new DefaultTableModel();
         model = (DefaultTableModel) systemView.tableFerias.getModel();
-        Object[] row = new Object[6];
+        Object[] row = new Object[9];
         for (int i = 0; i < list.size(); i++) {
-            row[0] = list.get(i).getName();
-            row[1] = list.get(i).getAddress();
-            row[2] = list.get(i).getCategory();
-            row[3] = list.get(i).getStatus();
-            row[4] = list.get(i).getDateInicio();
-            row[5] = list.get(i).getDateFin();
+            row[0] = list.get(i).getId();
+            row[1] = list.get(i).getName();
+            row[2] = list.get(i).getDistrict();
+            row[3] = list.get(i).getCategory();
+            row[4] = list.get(i).getAforo();
+            row[5] = list.get(i).getDateInicio();
+            row[6] = list.get(i).getDateFin();
+            row[7] = list.get(i).getMonto();
+            row[8] = list.get(i).getStatus();
             model.addRow(row);
         }
     }
 
-    //Metodo para listar todas las ferias en la lista Principal
+    //Metodo para listar todas las ferias para los presupuestos
     public void listAllFeriasPrincipal() {
-        List<feria> list = feriaRopaDao.listFeriaPrincipalQuery();
+        List<feria> list = feriaRopaDao.listFeriaQuery();
         DefaultTableModel model = new DefaultTableModel();
         model = (DefaultTableModel) systemView.tableListaFerias.getModel();
         Object[] row = new Object[9];
         for (int i = 0; i < list.size(); i++) {
-            row[0] = list.get(i).getName();
-            row[1] = list.get(i).getAddress();
-            row[2] = list.get(i).getDateInicio();
-            row[3] = list.get(i).getDateFin();
-            row[4] = list.get(i).getOrganizador();
-            row[5] = list.get(i).getTelephone();
-            row[6] = list.get(i).getEmail();
-            row[7] = list.get(i).getCategory();
+            row[0] = list.get(i).getId();
+            row[1] = list.get(i).getName();
+            row[2] = list.get(i).getDistrict();
+            row[3] = list.get(i).getCategory();
+            row[4] = list.get(i).getAforo();
+            row[5] = list.get(i).getDateInicio();
+            row[6] = list.get(i).getDateFin();
+            row[7] = list.get(i).getMonto();
             row[8] = list.get(i).getStatus();
             model.addRow(row);
         }
@@ -135,14 +205,17 @@ public class feriaController implements ActionListener, MouseListener {
         DefaultTableModel model = (DefaultTableModel) systemView.tableFerias.getModel();
         cleanTable();
         // Recorrer la lista de ferias ordenadas y agregar las filas a la tabla
-        Object[] row = new Object[6];
+        Object[] row = new Object[9];
         for (int i = 0; i < list.size(); i++) {
-            row[0] = list.get(i).getName();
-            row[1] = list.get(i).getAddress();
-            row[2] = list.get(i).getCategory();
-            row[3] = list.get(i).getStatus();
-            row[4] = list.get(i).getDateInicio();
-            row[5] = list.get(i).getDateFin();
+            row[0] = list.get(i).getId();
+            row[1] = list.get(i).getName();
+            row[2] = list.get(i).getDistrict();
+            row[3] = list.get(i).getCategory();
+            row[4] = list.get(i).getAforo();
+            row[5] = list.get(i).getDateInicio();
+            row[6] = list.get(i).getDateFin();
+            row[7] = list.get(i).getMonto();
+            row[8] = list.get(i).getStatus();
             model.addRow(row);
         }
         systemView.tableFerias.setModel(model);
@@ -150,11 +223,17 @@ public class feriaController implements ActionListener, MouseListener {
 
     //Metodo para limpiar tabla
     public void cleanTable() {
-        DefaultTableModel model = new DefaultTableModel();
-        model = (DefaultTableModel) systemView.tableFerias.getModel();
-        for (int i = 0; i < model.getRowCount(); i++) {
-            model.removeRow(i);
-            i = i - 1;
+        DefaultTableModel model1 = (DefaultTableModel) systemView.tableFerias.getModel();
+        DefaultTableModel model2 = (DefaultTableModel) systemView.tableListaFerias.getModel();
+
+        int rowCount1 = model1.getRowCount();
+        for (int i = rowCount1 - 1; i >= 0; i--) {
+            model1.removeRow(i);
+        }
+
+        int rowCount2 = model2.getRowCount();
+        for (int i = rowCount2 - 1; i >= 0; i--) {
+            model2.removeRow(i);
         }
     }
 
@@ -169,15 +248,26 @@ public class feriaController implements ActionListener, MouseListener {
             //Capturar fila
             int row = systemView.tableFerias.rowAtPoint(e.getPoint());
             //Rellenar  cajas de texto
-            systemView.txtNombre.setText(systemView.tableFerias.getValueAt(row, 0).toString());
-            systemView.txtUbicacion.setText(systemView.tableFerias.getValueAt(row, 1).toString());
-            systemView.cmbCategoria.setSelectedItem(systemView.tableFerias.getValueAt(row, 2).toString());
-            systemView.cmbEstado.setSelectedItem(systemView.tableFerias.getValueAt(row, 3).toString());
-            systemView.jDateInicio.setDate((Date)systemView.tableFerias.getValueAt(row, 4));
-            systemView.jDateFin.setDate((Date)systemView.tableFerias.getValueAt(row, 5));
+            systemView.txtCodigoFeria.setText(systemView.tableFerias.getValueAt(row, 0).toString());
+            systemView.txtNombreFeria.setText(systemView.tableFerias.getValueAt(row, 1).toString());
+            systemView.txtDistritoFeria.setText(systemView.tableFerias.getValueAt(row, 2).toString());
+            systemView.cmbCategoriaFeria.setSelectedItem(systemView.tableFerias.getValueAt(row, 3).toString());
+            systemView.txtAforoFeria.setText(systemView.tableFerias.getValueAt(row, 4).toString());
+            systemView.jDateInicio.setDate((Date) systemView.tableFerias.getValueAt(row, 5));
+            systemView.jDateFin.setDate((Date) systemView.tableFerias.getValueAt(row, 6));
+            systemView.txtMontoFeria.setText(systemView.tableFerias.getValueAt(row, 7).toString());
+            systemView.cmbEstadoFeria.setSelectedItem(systemView.tableFerias.getValueAt(row, 8).toString());
             //Desactivar cajas de texto
-            systemView.txtNombre.setEditable(false);
-            systemView.txtUbicacion.setEditable(false);
+            systemView.btnRegisterFeria.setEnabled(false);
+        } else if (e.getSource() == systemView.btnPresupuestar) {
+            //Almacena numero de fila
+            int row = systemView.tableListaFerias.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(null, "Debes seleccionar una feria");
+            } else {
+                PresupuestoView presView = new PresupuestoView();
+                presView.setVisible(true);
+            }
         }
     }
 
@@ -196,16 +286,17 @@ public class feriaController implements ActionListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
     }
-    public void cleanFields(){
-        systemView.txtNombre.setText("");
-        systemView.txtUbicacion.setText("");
+
+    public void cleanFields() {
+        systemView.txtCodigoFeria.setText("");
+        systemView.txtNombreFeria.setText("");
+        systemView.txtDistritoFeria.setText("");
         systemView.jDateInicio.setDate(null);
         systemView.jDateFin.setDate(null);
-        systemView.cmbCategoria.setSelectedIndex(0);
-        systemView.cmbEstado.setSelectedIndex(0);
-        systemView.txtOrganizador.setText("");
-        systemView.txtCorreo.setText("");
-        systemView.txtTelefono.setText("");
+        systemView.cmbCategoriaFeria.setSelectedIndex(0);
+        systemView.cmbEstadoFeria.setSelectedIndex(0);
+        systemView.txtAforoFeria.setText("");
+        systemView.txtMontoFeria.setText("");
     }
-    
+
 }

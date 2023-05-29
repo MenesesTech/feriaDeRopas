@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
-public class usuarioDao {
+public class empleadoDao {
 
     ConnectionMySQL cn = new ConnectionMySQL();
     Connection conn;
@@ -19,16 +19,18 @@ public class usuarioDao {
     ResultSet rst;
 
     //Variables para enviar datos entre interfaces
-    public static int id_user = 0;
-    public static String full_name_user = "";
+    public static String id_user = "";
+    public static String name_user = "";
+    public static String lastname_user = "";
     public static String username_user = "";
-    public static String telephone_user = "";
+    public static String district_user = "";
+    public static String phone_user = "";
     public static String email_user = "";
     public static String rol_user = "";
 
-    public usuario loginQuery(String user, String password) {
+    public empleado loginQuery(String user, String password) {
         String query = "SELECT*FROM empleado WHERE username = ? AND password = ?";
-        usuario employee_user = new usuario();
+        empleado employee_user = new empleado();
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
@@ -36,18 +38,22 @@ public class usuarioDao {
             pst.setString(2, password);
             rst = pst.executeQuery();
             if (rst.next()) {
-                employee_user.setId(rst.getInt("id"));
+                employee_user.setId(rst.getString("id"));
                 id_user = employee_user.getId();
-                employee_user.setFull_name(rst.getString("full_name"));
-                full_name_user = employee_user.getFull_name();
-                employee_user.setUsername(rst.getString("username"));
-                username_user = employee_user.getUsername();
-                employee_user.setEmail(rst.getString("email"));
-                email_user = employee_user.getEmail();
-                employee_user.setTelephone(rst.getString("telephone"));
-                telephone_user = employee_user.getTelephone();
                 employee_user.setRol(rst.getString("rol"));
                 rol_user = employee_user.getRol();
+                employee_user.setUsername(rst.getString("username"));
+                username_user = employee_user.getUsername();
+                employee_user.setName(rst.getString("name"));
+                name_user = employee_user.getName();
+                employee_user.setLastName(rst.getString("lastName"));
+                lastname_user = employee_user.getLastName();
+                employee_user.setDistrict(rst.getString("district"));
+                district_user = employee_user.getDistrict();
+                employee_user.setTelephone(rst.getString("telephone"));
+                phone_user = employee_user.getTelephone();
+                employee_user.setEmail(rst.getString("email"));
+                email_user = employee_user.getEmail();
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al obtener al usuario");
@@ -55,21 +61,24 @@ public class usuarioDao {
         return employee_user;
     }
 
-    //Metodo para registrar usuario
-    public boolean registerUserQuery(usuario employee) {
-        String query = "INSERT INTO empleado (full_name, username, password, email, telephone, rol, created, updated) VALUES (?,?,?,?,?,?,?,?)";
+    public boolean registerUserQuery(empleado employee) {
+        String query = "INSERT INTO empleado (id, username,password,name,lastName,DNI,district,email,telephone,rol,created,updated) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         Timestamp datetime = new Timestamp(new Date().getTime());
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
-            pst.setString(1, employee.getFull_name());
+            pst.setString(1, employee.getId());
             pst.setString(2, employee.getUsername());
             pst.setString(3, employee.getPassword());
-            pst.setString(4, employee.getEmail());
-            pst.setString(5, employee.getTelephone());
-            pst.setString(6, employee.getRol());
-            pst.setTimestamp(7, datetime);
-            pst.setTimestamp(8, datetime);
+            pst.setString(4, employee.getName());
+            pst.setString(5, employee.getLastName());
+            pst.setString(6, employee.getDNI());
+            pst.setString(7, employee.getDistrict());
+            pst.setString(8, employee.getEmail());
+            pst.setString(9, employee.getTelephone());
+            pst.setString(10, employee.getRol());
+            pst.setTimestamp(11, datetime);
+            pst.setTimestamp(12, datetime);
             pst.execute();
             return true;
         } catch (SQLException e) {
@@ -78,21 +87,24 @@ public class usuarioDao {
         return false;
     }
 
-    //Listar usuarios para el registro
     public List listUserQuery() {
-        List<usuario> list_employees = new ArrayList();
-        String query = "SELECT id, full_name, username, telephone, email, rol FROM empleado;";
+        List<empleado> list_employees = new ArrayList();
+        String query = "SELECT id,name,lastName,DNI,district,email,telephone,username,password,rol FROM empleado;";
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
             rst = pst.executeQuery();
             while (rst.next()) {
-                usuario employee = new usuario();
-                employee.setId(rst.getInt("id"));
-                employee.setFull_name(rst.getString("full_name"));
-                employee.setUsername(rst.getString("username"));
-                employee.setTelephone(rst.getString("telephone"));
+                empleado employee = new empleado();
+                employee.setId(rst.getString("id"));
+                employee.setName(rst.getString("name"));
+                employee.setLastName(rst.getString("lastName"));
+                employee.setDNI(rst.getString("DNI"));
+                employee.setDistrict(rst.getString("district"));
                 employee.setEmail(rst.getString("email"));
+                employee.setTelephone(rst.getString("telephone"));
+                employee.setUsername(rst.getString("username"));
+                employee.setPassword(rst.getString("password"));
                 employee.setRol(rst.getString("rol"));
                 list_employees.add(employee);
             }
@@ -102,21 +114,23 @@ public class usuarioDao {
         return list_employees;
     }
 
-    //Metodo para modificar empleado
-    public boolean updateUserQuery(usuario employee) {
-        String query = "UPDATE empleado SET full_name = ?, username = ?, email = ?, telephone = ?, rol = ?, updated = ?"
+    public boolean updateUserQuery(empleado employee) {
+        String query = "UPDATE empleado SET username = ?, name = ?, lastName = ?, DNI = ?, district = ?, email = ?, telephone = ?, rol = ?, updated = ?"
                 + "WHERE id = ?";
         Timestamp datetime = new Timestamp(new Date().getTime());
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
-            pst.setString(1, employee.getFull_name());
-            pst.setString(2, employee.getUsername());
-            pst.setString(3, employee.getEmail());
-            pst.setString(4, employee.getTelephone());
-            pst.setString(5, employee.getRol());
-            pst.setTimestamp(6, datetime);
-            pst.setInt(7, employee.getId());
+            pst.setString(1, employee.getUsername());
+            pst.setString(2, employee.getName());
+            pst.setString(3, employee.getLastName());
+            pst.setString(4, employee.getDNI());
+            pst.setString(5, employee.getDistrict());
+            pst.setString(6, employee.getEmail());
+            pst.setString(7, employee.getTelephone());
+            pst.setString(8, employee.getRol());
+            pst.setTimestamp(9, datetime);
+            pst.setString(10, employee.getId());
             pst.execute();
             return true;
         } catch (SQLException e) {
@@ -124,13 +138,13 @@ public class usuarioDao {
             return false;
         }
     }
-
-    //Metodo para eliminar empleado
-    public boolean deleteUserQuery(int id) {
-        String query = "DELETE FROM empleado WHERE id = " + id;
+    
+    public boolean deleteUserQuery(String id) {
+        String query = "DELETE FROM empleado WHERE id = ?";
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
+            pst.setString(1, id);
             pst.execute();
             return true;
         } catch (SQLException e) {
@@ -140,7 +154,7 @@ public class usuarioDao {
     }
 
     //Cambiar la contraseña
-    public boolean updateEmployeePassword(usuario employee) {
+    public boolean updateEmployeePassword(empleado employee) {
         String query = "UPDATE empleado SET password = ? WHERE username = '" + username_user + "'";
         try {
             conn = cn.getConnection();
@@ -175,11 +189,35 @@ public class usuarioDao {
                 String password = rst.getString("password");
                 return password;
             } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún empleado con ese email.");
                 return "No se encontró ningún empleado con ese email.";
             }
         } catch (SQLException e) {
             return "Ha ocurrido un error al recuperar la contraseña ";
         }
     }
+    
+    public String obtenerUltimoCodigoEmpleado() {
+        String ultimoCodigo = "";
+        String query = "SELECT id FROM empleado ORDER BY id DESC LIMIT 1";
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            rst = pst.executeQuery();
+            while (rst.next()) {
+                ultimoCodigo = rst.getString("id");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el ultimo digito: " + e);
+        }
+        return ultimoCodigo;
+    }
 
+    public String generarCodigo() {
+        String ultimoCodigo = obtenerUltimoCodigoEmpleado();
+        int ultimoNumero = Integer.parseInt(ultimoCodigo.substring(1));
+        int nuevoNumero = ultimoNumero + 1;
+        String nuevoCodigo = String.format("P%04d", nuevoNumero);
+        return nuevoCodigo;
+    }
 }
