@@ -28,6 +28,13 @@ public class empleadoDao {
     public static String email_user = "";
     public static String rol_user = "";
 
+    /**
+     * Metodo para inicar sesion
+     *
+     * @param user Usuario ingresado para el inicio de sesión
+     * @param password Contraseña ingresada para el inicio de sesión
+     * @return Retornar objeto empleado si las credenciales son validas
+     */
     public empleado loginQuery(String user, String password) {
         String query = "SELECT*FROM empleado WHERE username = ? AND password = ?";
         empleado employee_user = new empleado();
@@ -61,6 +68,12 @@ public class empleadoDao {
         return employee_user;
     }
 
+    /**
+     * Metodo para registrar un nuevo usuario
+     *
+     * @param employee Objeto empleado que contiene los datos del nuevo usuario
+     * @return true si el registro es exitoso, false si ocurre algún error
+     */
     public boolean registerUserQuery(empleado employee) {
         String query = "INSERT INTO empleado (id, username,password,name,lastName,DNI,district,email,telephone,rol,created,updated) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         Timestamp datetime = new Timestamp(new Date().getTime());
@@ -87,6 +100,12 @@ public class empleadoDao {
         return false;
     }
 
+    /**
+     * Metodo para obtener una lista de todos los usuarios registrados
+     *
+     * @return Lista de objetos empleado que representan a los usuarios
+     * registrados
+     */
     public List listUserQuery() {
         List<empleado> list_employees = new ArrayList();
         String query = "SELECT id,name,lastName,DNI,district,email,telephone,username,password,rol FROM empleado;";
@@ -114,6 +133,14 @@ public class empleadoDao {
         return list_employees;
     }
 
+    /**
+     * Actualiza los datos de un empleado en la base de datos
+     *
+     * @param employee Objeto empleado que contiene los nuevos datos a
+     * actualizar
+     * @return true si la actualizacion se realiza correctamente, false en caso
+     * contrario
+     */
     public boolean updateUserQuery(empleado employee) {
         String query = "UPDATE empleado SET username = ?, name = ?, lastName = ?, DNI = ?, district = ?, email = ?, telephone = ?, rol = ?, updated = ?"
                 + "WHERE id = ?";
@@ -138,7 +165,14 @@ public class empleadoDao {
             return false;
         }
     }
-    
+
+    /**
+     * Metodo para eliminar un empleado
+     *
+     * @param id ID del empleado a eliminar
+     * @return true si el empleado se elimina correctamente, false en caso
+     * contrario
+     */
     public boolean deleteUserQuery(String id) {
         String query = "DELETE FROM empleado WHERE id = ?";
         try {
@@ -153,7 +187,13 @@ public class empleadoDao {
         }
     }
 
-    //Cambiar la contraseña
+    /**
+     * Metodo para actualizar la contraseña
+     *
+     * @param employee Objeto empleado que contiene la nueva contraseña
+     * @return true si se actualiza la contraseña correctamente, false en caso
+     * contrario
+     */
     public boolean updateEmployeePassword(empleado employee) {
         String query = "UPDATE empleado SET password = ? WHERE username = '" + username_user + "'";
         try {
@@ -168,17 +208,31 @@ public class empleadoDao {
         }
     }
 
-    //Generar Captcha
+    /**
+     * Genera captcha alfanumérico de 6 caracteres
+     *
+     * @return Cadena de caracteres que representa el captcha generado
+     */
     public String generarCaptcha() {
+        //Caracteres validos para el captcha
         String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        //Construir el captcha
         StringBuilder captcha = new StringBuilder();
+        //Objeto ramdom para generar valores aleatorios
         Random random = new Random();
+        // Generar cada caracter del captcha
         for (int i = 0; i < 6; i++) {
             captcha.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
         }
         return captcha.toString();
     }
 
+    /**
+     * Metodo para recuperar contraseña
+     * 
+     * @param email Direccion del correo electronico del empleado
+     * @return Contraseña del empleado si se encuentra, mensaje de error si no se encuentra o si ocurre un error
+     */
     public String recuperarContraseña(String email) {
         String query = "SELECT password FROM empleado WHERE email = '" + email + "'";
         try {
@@ -193,10 +247,16 @@ public class empleadoDao {
                 return "No se encontró ningún empleado con ese email.";
             }
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al recuperar contraseña: "+e);
             return "Ha ocurrido un error al recuperar la contraseña ";
         }
     }
-    
+
+    /**
+     * Metodo para obtener el ultimo codigo del empleado
+     * 
+     * @return Ultimo codigo del empleado registrado
+     */
     public String obtenerUltimoCodigoEmpleado() {
         String ultimoCodigo = "";
         String query = "SELECT id FROM empleado ORDER BY id DESC LIMIT 1";
@@ -213,11 +273,26 @@ public class empleadoDao {
         return ultimoCodigo;
     }
 
+    /**
+     * Metodo para generar un nuevo codigo de empleado
+     * El codigo generado sigue el formato "PXXXX" donde XXXX es un número de 4 digitos
+     * 
+     * @return Nuevo codigo de empleado generado
+     */
     public String generarCodigo() {
+        //Obtener el ultimo codigo de empleado regitrado
         String ultimoCodigo = obtenerUltimoCodigoEmpleado();
+        
+        //Extraer el numero del ultimo codigo empleado
         int ultimoNumero = Integer.parseInt(ultimoCodigo.substring(1));
+        
+        // Incrementar el número en uno para generar el nuevo código
         int nuevoNumero = ultimoNumero + 1;
+        
+        // Formatear el nuevo número con ceros a la izquierda y agregar el prefijo "P"
         String nuevoCodigo = String.format("P%04d", nuevoNumero);
+        
+        // Retornar el nuevo código de empleado generado
         return nuevoCodigo;
     }
 }

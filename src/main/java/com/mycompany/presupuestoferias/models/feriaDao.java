@@ -12,12 +12,19 @@ import javax.swing.JOptionPane;
 
 public class feriaDao {
 
+    //Establecer conexion con la base de datos
     ConnectionMySQL cn = new ConnectionMySQL();
     Connection conn;
     PreparedStatement pst;
     ResultSet rs;
 
-    //Registrar feria
+    /**
+     * Metodo para registrar Feria
+     *
+     * @param feria_ropa Objeto que contiene los datos de la feria a registrar
+     * @return true si el registro se realiza correctamente, false en caso
+     * contrario
+     */
     public boolean registroFeriaQuery(feria feria_ropa) {
         String query = "INSERT INTO feria (id_feria, name, district, aforo, category, status, monto, fecha_inicio, fecha_final) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
@@ -40,7 +47,11 @@ public class feriaDao {
         }
     }
 
-    //Lista secundaria de Ferias
+    /**
+     * Método para obtener la lista de ferias registradas
+     *
+     * @return Lista de objetos feria que representa las ferias registradas.
+     */
     public List listFeriaQuery() {
         List<feria> listFerias = new ArrayList();
         String query = "SELECT id_feria, name, district, category, aforo, fecha_inicio, fecha_final, monto, status FROM feria";
@@ -66,7 +77,14 @@ public class feriaDao {
         }
         return listFerias;
     }
-    
+
+    /**
+     * Método para actualizar los datos de una feria
+     *
+     * @param feria_ropa Objeto feria que contiene los nuevos datos de la feria
+     * a actualizar
+     * @return Valor booleano que indica si la actualización fue exitosa o no.
+     */
     public boolean updateFairQuery(feria feria_ropa) {
         String query = "UPDATE feria SET name = ?, district = ?, aforo = ?, category = ?, status = ?, monto = ?, fecha_inicio = ?, fecha_final = ?"
                 + "WHERE id_feria = ?";
@@ -90,7 +108,13 @@ public class feriaDao {
             return false;
         }
     }
-    
+
+    /**
+     * Método para eliminar una feria
+     *
+     * @param id Identificador de la feria a eliminar.
+     * @return Valor booleano que indica si la eliminación fue exitosa o no.
+     */
     public boolean deleteFairQuery(String id) {
         String query = "DELETE FROM feria WHERE id_feria = ?";
         try {
@@ -104,7 +128,13 @@ public class feriaDao {
             return false;
         }
     }
-    
+
+    /**
+     * Método para obtener el último código de feria registrado en la base de
+     * datos.
+     *
+     * @return Último código de feria registrado.
+     */
     public String obtenerUltimoCodigoFeria() {
         String ultimoCodigo = "";
         String query = "SELECT id_feria FROM feria ORDER BY id_feria DESC LIMIT 1";
@@ -121,6 +151,11 @@ public class feriaDao {
         return ultimoCodigo;
     }
 
+    /**
+     * Método para generar un nuevo código de feria.
+     *
+     * @return Nuevo código de feria generado.
+     */
     public String generarCodigo() {
         String ultimoCodigo = obtenerUltimoCodigoFeria();
         int ultimoNumero = Integer.parseInt(ultimoCodigo.substring(1));

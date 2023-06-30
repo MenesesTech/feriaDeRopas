@@ -1,4 +1,3 @@
-
 package com.mycompany.presupuestoferias.models;
 
 import java.sql.Connection;
@@ -10,38 +9,52 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ingresoDao {
-    
+
     ConnectionMySQL cn = new ConnectionMySQL();
     Connection conn;
     PreparedStatement pst;
     ResultSet rs;
 
-    //Registrar egreso
+    /**
+     * Registra un ingreso en la base de datos.
+     *
+     * @param ingreso_pres El objeto de tipo ingreso a registrar.
+     * @return true si el registro es exitoso, false si ocurre algún error.
+     */
     public boolean registroIngresoQuery(ingreso ingreso_pres) {
-    String query = "INSERT INTO ingreso (cod_ingreso, tipo, categoria, product_serv, cantidad, precio) VALUES (?,?,?,?,?,?)";
-    try {
-        pst = conn.prepareStatement(query);
-        pst.setString(1, ingreso_pres.getId());
-        pst.setString(2, ingreso_pres.getType());
-        pst.setString(3, ingreso_pres.getCategory());
-        pst.setString(4, ingreso_pres.getProductoServicio());
-        pst.setInt(5, ingreso_pres.getCantidad());
-        pst.setDouble(6, ingreso_pres.getPrecio());
-        pst.executeUpdate();
-        return true;
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al registrar los datos del ingreso: " + e);
-        return false;
+        String query = "INSERT INTO ingreso (cod_ingreso, tipo, categoria, product_serv, cantidad, precio, id_feria) VALUES (?,?,?,?,?,?,?)";
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, ingreso_pres.getId());
+            pst.setString(2, ingreso_pres.getType());
+            pst.setString(3, ingreso_pres.getCategory());
+            pst.setString(4, ingreso_pres.getProductoServicio());
+            pst.setInt(5, ingreso_pres.getCantidad());
+            pst.setDouble(6, ingreso_pres.getPrecio());
+            pst.setString(7, ingreso_pres.getIdFeria());
+            pst.execute();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al registrar los datos del ingreso: " + e);
+            return false;
+        }
     }
-}
 
-
-    public List listIngresoQuery() {
+    /**
+     * Obtiene una lista de ingresos de la base de datos.
+     *
+     * @param idFeria El ID de la feria para la cual se obtienen los ingresos.
+     * @return Una lista de objetos ingreso que representan los registros de
+     * ingreso.
+     */
+    public List<ingreso> listIngresoQuery(String idFeria) {
         List<ingreso> listIngreso = new ArrayList();
-        String query = "SELECT cod_ingreso, tipo, categoria, product_serv, cantidad, precio FROM ingreso";
+        String query = "SELECT cod_ingreso, tipo, categoria, product_serv, cantidad, precio FROM ingreso WHERE id_feria = ?";
+
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
+            pst.setString(1, idFeria); // Establecer el valor del parámetro
             rs = pst.executeQuery();
             while (rs.next()) {
                 ingreso ingreso_pres = new ingreso();
@@ -59,6 +72,13 @@ public class ingresoDao {
         return listIngreso;
     }
 
+    /**
+     * Actualiza los datos de un registro de ingreso en la base de datos.
+     *
+     * @param ingreso_pres El objeto ingreso con los datos actualizados.
+     * @return true si la actualización se realiza correctamente, false en caso
+     * contrario.
+     */
     public boolean updateIngresoQuery(ingreso ingreso_pres) {
         String query = "UPDATE ingreso SET tipo = ?, categoria = ?, product_serv = ?, cantidad = ?, precio = ?"
                 + "WHERE cod_ingreso = ?";
@@ -79,19 +99,32 @@ public class ingresoDao {
         }
     }
 
-    public boolean deleteIngresoQuery(int id) {
-        String query = "DELETE FROM ingreso WHERE cod_ingreso = " + id;
+    /**
+     * Elimina un registro de ingreso de la base de datos.
+     *
+     * @param id El ID del ingreso a eliminar.
+     * @return true si el ingreso se elimina correctamente, false en caso
+     * contrario.
+     */
+    public boolean deleteIngresoQuery(String id) {
+        String query = "DELETE FROM ingreso WHERE cod_ingreso = ?";
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
+            pst.setString(1, id);
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No puede eliminar un egreso que tenga relacion con otra tabla " + e);
+            JOptionPane.showMessageDialog(null, "No se puede eliminar un ingreso que tenga relación con otra tabla: " + e);
             return false;
         }
     }
 
+    /**
+     * Obtiene el último código de ingreso registrado en la base de datos.
+     *
+     * @return El último código de ingreso.
+     */
     public String obtenerUltimoCodigoIngreso() {
         String ultimoCodigo = "";
         String query = "SELECT cod_ingreso FROM ingreso ORDER BY cod_ingreso DESC LIMIT 1";
@@ -103,18 +136,22 @@ public class ingresoDao {
                 ultimoCodigo = rs.getString("cod_ingreso");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener el ultimo digito: " + e);
+            JOptionPane.showMessageDialog(null, "Error al obtener el último código de ingreso: " + e);
         }
         return ultimoCodigo;
     }
 
+    /**
+     * Genera un nuevo código de ingreso basado en el último código registrado
+     * en la base de datos.
+     *
+     * @return El nuevo código de ingreso generado.
+     */
     public String generarCodigo() {
-    String ultimoCodigo = obtenerUltimoCodigoIngreso();
-    int ultimoNumero = Integer.parseInt(ultimoCodigo.substring(2));
-    int nuevoNumero = ultimoNumero + 1;
-    String nuevoCodigo = String.format("IN%03d", nuevoNumero);
-    return nuevoCodigo;
-}
-
-
+        String ultimoCodigo = obtenerUltimoCodigoIngreso();
+        int ultimoNumero = Integer.parseInt(ultimoCodigo.substring(2));
+        int nuevoNumero = ultimoNumero + 1;
+        String nuevoCodigo = String.format("IN%03d", nuevoNumero);
+        return nuevoCodigo;
+    }
 }

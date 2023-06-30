@@ -16,13 +16,7 @@ public class LoginView extends javax.swing.JFrame {
         setResizable(false);
         setExtendedState(MAXIMIZED_VERT);
         setLocationRelativeTo(null);
-        generarCaptcha();
         loginUsuarioController loginController = new loginUsuarioController(user, userDao, this);
-    }
-    public String generarCaptcha(){
-        String captchaGenerator = userDao.generarCaptcha();
-        lblCaptchaGenerator.setText(captchaGenerator);
-        return captchaGenerator;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -30,6 +24,7 @@ public class LoginView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnValidarCaptcha = new javax.swing.JButton();
+        btnNewCaptcha = new javax.swing.JButton();
         txt_Username = new javax.swing.JTextField();
         txt_Password = new javax.swing.JPasswordField();
         txtCaptcha = new javax.swing.JTextField();
@@ -53,6 +48,9 @@ public class LoginView extends javax.swing.JFrame {
         btnValidarCaptcha.setForeground(new java.awt.Color(208, 208, 208));
         btnValidarCaptcha.setText("Validar captcha");
         jPanel1.add(btnValidarCaptcha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 120, 30));
+
+        btnNewCaptcha.setBackground(new java.awt.Color(4, 4, 4));
+        jPanel1.add(btnNewCaptcha, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 325, 50, 50));
 
         txt_Username.setBackground(new java.awt.Color(249, 246, 241));
         txt_Username.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -83,7 +81,7 @@ public class LoginView extends javax.swing.JFrame {
         });
         jPanel1.add(txt_Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 310, 25));
 
-        txtCaptcha.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        txtCaptcha.setFont(new java.awt.Font("Cambria Math", 2, 24)); // NOI18N
         jPanel1.add(txtCaptcha, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 120, 40));
 
         lblCerrar.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
@@ -108,7 +106,7 @@ public class LoginView extends javax.swing.JFrame {
 
         pnlCaptchaGenerator.setBackground(new java.awt.Color(191, 184, 180));
 
-        lblCaptchaGenerator.setFont(new java.awt.Font("Century", 0, 24)); // NOI18N
+        lblCaptchaGenerator.setFont(new java.awt.Font("Cambria Math", 2, 24)); // NOI18N
         lblCaptchaGenerator.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCaptchaGenerator.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -116,9 +114,7 @@ public class LoginView extends javax.swing.JFrame {
         pnlCaptchaGenerator.setLayout(pnlCaptchaGeneratorLayout);
         pnlCaptchaGeneratorLayout.setHorizontalGroup(
             pnlCaptchaGeneratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCaptchaGeneratorLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblCaptchaGenerator, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(lblCaptchaGenerator, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
         );
         pnlCaptchaGeneratorLayout.setVerticalGroup(
             pnlCaptchaGeneratorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +123,7 @@ public class LoginView extends javax.swing.JFrame {
                 .addComponent(lblCaptchaGenerator, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(pnlCaptchaGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 325, 150, 50));
+        jPanel1.add(pnlCaptchaGenerator, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 325, 130, 50));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/M_login.jpg"))); // NOI18N
         jLabel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -161,6 +157,7 @@ public class LoginView extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnEnter;
+    public javax.swing.JButton btnNewCaptcha;
     public javax.swing.JButton btnValidarCaptcha;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;

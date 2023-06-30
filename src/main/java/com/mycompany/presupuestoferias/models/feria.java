@@ -1,4 +1,3 @@
-
 package com.mycompany.presupuestoferias.models;
 
 import java.sql.Date;
@@ -15,9 +14,23 @@ public class feria {
     private Date dateInicio;
     private Date dateFin;
 
+    //Constructor vacio de la clase Feria
     public feria() {
     }
 
+    /**
+     * Constructor de la clase feria.
+     *
+     * @param id ID de la feria.
+     * @param name Nombre de la feria.
+     * @param district Distrito de la feria.
+     * @param aforo Aforo de la feria.
+     * @param monto Monto de la feria.
+     * @param status Estado de la feria.
+     * @param category Categoría de la feria.
+     * @param dateInicio Fecha de inicio de la feria.
+     * @param dateFin Fecha de fin de la feria.
+     */
     public feria(String id, String name, String district, int aforo, double monto, String status, String category, Date dateInicio, Date dateFin) {
         this.id = id;
         this.name = name;
@@ -29,7 +42,8 @@ public class feria {
         this.dateInicio = dateInicio;
         this.dateFin = dateFin;
     }
-
+    
+    //Metodos get-set
     public String getId() {
         return id;
     }
@@ -101,5 +115,5 @@ public class feria {
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
     }
-    
+
 }

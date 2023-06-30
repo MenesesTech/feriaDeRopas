@@ -46,6 +46,12 @@ public class usuarioController implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        /*
+        Botón registrar empleado
+        - Verificar que todos los campos no esten vacios
+        - Asignar valores al objeto empleado
+        - Registrar al usuario
+         */
         if (e.getSource() == systemView.btn_register_employee) {
             if (systemView.txt_employee_name.getText().equals("")
                     || systemView.txt_employee_lastname.getText().equals("")
@@ -77,11 +83,17 @@ public class usuarioController implements ActionListener, MouseListener {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar un empleado");
                 }
             }
+            /*
+            Botón actualizar empleado
+            - Verificar si no se ha seleccionado una fila de la tabla empleados
+            - Si se ha seleccionado una fila, verificar que todos los campos no esten vacios
+            - Asignar valores al objeto empleado
+            - Actualizar los datos del empleado
+             */
         } else if (e.getSource() == systemView.btn_update_employee) {
             if (systemView.txt_employee_id.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Selecciona una fila para continuar");
             } else {
-                //  Verificar que todos los campos no esten vacios
                 if (systemView.txt_employee_name.getText().equals("")
                         || systemView.txt_employee_lastname.getText().equals("")
                         || systemView.txt_employee_dni.getText().equals("")
@@ -112,6 +124,15 @@ public class usuarioController implements ActionListener, MouseListener {
                     }
                 }
             }
+            /*
+            Boton eliminar
+            - Obtiene la fila seleccionada en la tabla empleados
+            - Verificar si se ha seleccionado una fila en la tabla empleados
+            - Verificar que no se elimine al usuario autenticado
+            - Si se selecciona una fila válida, se obtiene la ID del empleado seleccionado
+            - Confirmar eliminacion
+            - Elimina usuario
+             */
         } else if (e.getSource() == systemView.btn_delete_employee) {
             int row = systemView.employee_table.getSelectedRow();
             if (row == -1) {
@@ -119,12 +140,8 @@ public class usuarioController implements ActionListener, MouseListener {
             } else if (systemView.employee_table.getValueAt(row, 0).equals(id_user)) {
                 JOptionPane.showMessageDialog(null, "No puede eliminar el usuario autenticado");
             } else {
-                // Obtiene el ID del empleado seleccionado en la tabla
                 String id = systemView.employee_table.getValueAt(row, 0).toString();
-                // Muestra una confirmación para confirmar la eliminación
                 int question = JOptionPane.showConfirmDialog(null, "¿En realidad quieres eliminar a este empleado?");
-
-                // Si el usuario confirma la eliminación y se logra eliminar el empleado correctamente
                 if (question == 0 && userDao.deleteUserQuery(id) != false) {
                     cleanFields();
                     cleanTable();
@@ -134,23 +151,30 @@ public class usuarioController implements ActionListener, MouseListener {
                     JOptionPane.showMessageDialog(null, "Empleado eliminado con exito");
                 }
             }
-            //Boton cancelar
+            /*
+            Botón cancelar
+            - Limpia los campos de texto
+            - Habilita el botón de registro
+            - Habilita los campos para ingresar la contraseña
+             */
         } else if (e.getSource() == systemView.btn_cancel_employee) {
             cleanFields();
             systemView.btn_register_employee.setEnabled(true);
             systemView.txt_employee_password.setEnabled(true);
             systemView.txt_employee_id.setEnabled(true);
-
-            //Boton cambiar contraseña
+            /*
+            Botón cambiar contraseña
+            - Obtiene la contraseña y la confirmación de contraseña ingresadas en campos de texto
+            - Verifica que los campos no esten vacios
+            - Verifica la contraseña y la confirmación de contraseña sean iguales
+            - Actualiza la contraseña 
+             */
         } else if (e.getSource() == systemView.btn_modify_data) {
             String password = String.valueOf(systemView.txt_password_modify.getPassword());
             String confirm_password = String.valueOf(systemView.txt_password_modify_confirm.getPassword());
-            //Verificar que las cajas de texto esten vacias
             if (!password.equals("") && !confirm_password.equals("")) {
-                //Verificar que las contraseñas sean iguales
                 if (password.equals(confirm_password)) {
                     user_employee.setPassword(String.valueOf(systemView.txt_password_modify.getPassword()));
-                    //Cambio de contraseña
                     if (userDao.updateEmployeePassword(user_employee) != false) {
                         cleanTable();
                         listAllEmployees();
@@ -165,7 +189,13 @@ public class usuarioController implements ActionListener, MouseListener {
         }
     }
 
-    //Metodo para listar todos los empleados
+    /*
+    Metodo para listar todos los empleados
+    - Obtiene una lista de objetos empleado
+    - Obtiene el modelo de la tabla de empleados de la interfaz grafica
+    - Itera sobre la lista de empleados y agrega cada empleado como una nueva fila en la tabla
+    - Cada columna de la fila se asigna con los respectivos valores del objeto empleado
+     */
     public void listAllEmployees() {
         List<empleado> list = userDao.listUserQuery();
         model = (DefaultTableModel) systemView.employee_table.getModel();
@@ -185,6 +215,7 @@ public class usuarioController implements ActionListener, MouseListener {
         }
     }
 
+    //Metodo para mostrar el perfil del empleado:
     public void EmployeeProfile() {
         systemView.txt_id_profile.setText(id_user);
         systemView.txt_name_profile.setText(name_user + " " + lastname_user);
@@ -232,6 +263,7 @@ public class usuarioController implements ActionListener, MouseListener {
     public void mouseExited(MouseEvent e) {
     }
 
+    //Metodo para limpiar los campos de texto
     public void cleanFields() {
         systemView.txt_employee_id.setText("");
         systemView.txt_employee_id.setEditable(true);
@@ -246,7 +278,7 @@ public class usuarioController implements ActionListener, MouseListener {
         systemView.cmb_rol.setSelectedIndex(0);
     }
 
-    //Metodo para limpiar tabla
+    //Metodo para limpiar la tabla empleados
     public void cleanTable() {
         for (int i = 0; i < model.getRowCount(); i++) {
             model.removeRow(i);

@@ -19,6 +19,8 @@ public class feriaController implements ActionListener, MouseListener {
     private feria feria_ropa;
     private feriaDao feriaRopaDao;
     private SystemView systemView;
+    private String idFeria;
+    private String nameFeria;
 
     public feriaController(feria feria_ropa, feriaDao feriaRopaDao, SystemView systemView) {
         this.feria_ropa = feria_ropa;
@@ -47,7 +49,9 @@ public class feriaController implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
         String fechaInicio = ((JTextField) systemView.jDateInicio.getDateEditor().getUiComponent()).getText();
         String fechaFin = ((JTextField) systemView.jDateFin.getDateEditor().getUiComponent()).getText();
+        // Boton Registrar Feria
         if (e.getSource() == systemView.btnRegisterFeria) {
+            // Verificar si algún campo está vacío
             if (systemView.txtNombreFeria.getText().equals("")
                     || systemView.txtDistritoFeria.getText().equals("")
                     || systemView.txtAforoFeria.getText().equals("")
@@ -57,36 +61,43 @@ public class feriaController implements ActionListener, MouseListener {
                     || systemView.cmbEstadoFeria.getSelectedItem().toString().equals("")
                     || systemView.cmbCategoriaFeria.getSelectedItem().toString().equals("")) {
                 JOptionPane.showMessageDialog(null, "Es obligatorio rellenar todos los datos");
-
             } else {
+                // Asignar valores al objeto "feria_ropa"
                 feria_ropa.setName(systemView.txtNombreFeria.getText().trim());
                 feria_ropa.setDistrict(systemView.txtDistritoFeria.getText().trim());
                 feria_ropa.setAforo(Integer.parseInt(systemView.txtAforoFeria.getText().trim()));
                 feria_ropa.setDateInicio(Date.valueOf(fechaInicio));
                 feria_ropa.setDateFin(Date.valueOf(fechaFin));
                 feria_ropa.setMonto(Double.parseDouble(systemView.txtMontoFeria.getText().trim()));
+
+                // Generar el código de la feria
                 if (feriaRopaDao.obtenerUltimoCodigoFeria().equals("")) {
                     feria_ropa.setId("F0001");
                 } else {
                     feria_ropa.setId(feriaRopaDao.generarCodigo());
                 }
+
                 feria_ropa.setStatus(systemView.cmbEstadoFeria.getSelectedItem().toString().trim());
                 feria_ropa.setCategory(systemView.cmbCategoriaFeria.getSelectedItem().toString().trim());
+
+                // Registrar la feria en la base de datos
                 if (feriaRopaDao.registroFeriaQuery(feria_ropa)) {
                     cleanFields();
                     cleanTable();
                     listAllFerias();
                     listAllFeriasPrincipal();
-                    JOptionPane.showMessageDialog(null, "Feria registrada con exito");
+                    JOptionPane.showMessageDialog(null, "Feria registrada con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar una Feria");
                 }
             }
+            // Boton Modificar Feria
         } else if (e.getSource() == systemView.btnUpdateFeria) {
+            // Verificar si se ha seleccionado una fila en la tabla
             if (systemView.txtCodigoFeria.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Selecciona una fila para continuar");
             } else {
-                //  Verificar que todos los campos no esten vacios
+                // Verificar si todos los campos obligatorios están llenos
                 if (systemView.txtNombreFeria.getText().equals("")
                         || systemView.txtDistritoFeria.getText().equals("")
                         || systemView.txtAforoFeria.getText().equals("")
@@ -98,6 +109,7 @@ public class feriaController implements ActionListener, MouseListener {
                         || systemView.cmbCategoriaFeria.getSelectedItem().toString().equals("")) {
                     JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
                 } else {
+                    // Asignar valores al objeto "feria_ropa"
                     feria_ropa.setName(systemView.txtNombreFeria.getText().trim());
                     feria_ropa.setDistrict(systemView.txtDistritoFeria.getText().trim());
                     feria_ropa.setAforo(Integer.parseInt(systemView.txtAforoFeria.getText().trim()));
@@ -106,14 +118,16 @@ public class feriaController implements ActionListener, MouseListener {
                     feria_ropa.setMonto(Double.parseDouble(systemView.txtMontoFeria.getText().trim()));
                     feria_ropa.setStatus(systemView.cmbEstadoFeria.getSelectedItem().toString().trim());
                     feria_ropa.setCategory(systemView.cmbCategoriaFeria.getSelectedItem().toString().trim());
+
+                    // Actualizar la feria en la base de datos
                     if (feriaRopaDao.updateFairQuery(feria_ropa)) {
                         cleanTable();
                         cleanFields();
                         listAllFerias();
                         listAllFeriasPrincipal();
-                        JOptionPane.showMessageDialog(null, "Datos de la feria modificados con exito");
+                        JOptionPane.showMessageDialog(null, "Datos de la feria modificados con éxito");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar una feria");
+                        JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar una feria");
                     }
                 }
             }
@@ -201,6 +215,7 @@ public class feriaController implements ActionListener, MouseListener {
                 }
             }
         }
+
         // Inicializar el modelo de la tabla
         DefaultTableModel model = (DefaultTableModel) systemView.tableFerias.getModel();
         cleanTable();
@@ -266,11 +281,15 @@ public class feriaController implements ActionListener, MouseListener {
                 JOptionPane.showMessageDialog(null, "Debes seleccionar una feria");
             } else {
                 PresupuestoView presView = new PresupuestoView();
+                idFeria = systemView.tableListaFerias.getValueAt(row, 0).toString();
+                nameFeria = systemView.tableListaFerias.getValueAt(row, 1).toString();
+                presView.txtIdFeria.setText(idFeria);
+                presView.txtNameFeria.setText(nameFeria);
                 presView.setVisible(true);
             }
         }
     }
-
+    
     @Override
     public void mousePressed(MouseEvent e) {
     }

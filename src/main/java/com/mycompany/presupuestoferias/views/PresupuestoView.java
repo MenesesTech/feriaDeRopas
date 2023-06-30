@@ -7,25 +7,27 @@ import com.mycompany.presupuestoferias.models.ingreso;
 import com.mycompany.presupuestoferias.models.ingresoDao;
 import java.awt.Color;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class PresupuestoView extends javax.swing.JFrame {
+
     egreso egreso_pres = new egreso();
     egresoDao egreso_presDao = new egresoDao();
     ingreso ingreso_pres = new ingreso();
     ingresoDao ingreso_presDao = new ingresoDao();
-    
+    EgresoIngresoController egres_account;
+
     public PresupuestoView() {
-    initComponents();
-    setSize(1200, 890);
-    setResizable(false);
-    setExtendedState(MAXIMIZED_VERT);
-    setLocationRelativeTo(null);
-    setTitle("Presupuestar");
-    // Pasar las instancias creadas como argumentos al crear EgresoIngresoController
-    EgresoIngresoController egres_account = new EgresoIngresoController(this, egreso_pres, egreso_presDao, ingreso_pres, ingreso_presDao);
-    egres_account.listAllEgreso();
-    egres_account.listAllIngreso();
-}
+        // Pasar las instancias creadas como argumentos al crear EgresoIngresoController
+        initComponents();
+        setSize(1200, 890);
+        setResizable(false);
+        setExtendedState(MAXIMIZED_VERT);
+        setLocationRelativeTo(null);
+        setTitle("Presupuestar");
+        egres_account = new EgresoIngresoController(this, egreso_pres, egreso_presDao, ingreso_pres, ingreso_presDao);
+        pnlViewsEgreIngresos.setVisible(false);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -33,10 +35,18 @@ public class PresupuestoView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnViewsEgreIngresos = new javax.swing.JButton();
         btnRegisterEgreso = new javax.swing.JButton();
         btnUpdateEgreso = new javax.swing.JButton();
         btnDeleteEgreso = new javax.swing.JButton();
         btnCancelEgreso = new javax.swing.JButton();
+        pnlViewsEgreIngresos = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableEgresos = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableIngresos = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -53,17 +63,13 @@ public class PresupuestoView extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableEgresos = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableIngresos = new javax.swing.JTable();
-        jLabel8 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         lblCerrarPresupuesto = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         lblMinPresupuesto = new javax.swing.JLabel();
+        txtIdFeria = new javax.swing.JLabel();
+        txtNameFeria = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -75,6 +81,15 @@ public class PresupuestoView extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(13, 13, 13));
         jLabel1.setText("ARMA EL PRESUPUESTO");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, -1, -1));
+
+        btnViewsEgreIngresos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnViewsEgreIngresos.setText("VER EGRESOS E INGRESOS");
+        btnViewsEgreIngresos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewsEgreIngresosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnViewsEgreIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 1170, 43));
 
         btnRegisterEgreso.setBackground(new java.awt.Color(38, 38, 38));
         btnRegisterEgreso.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -99,6 +114,71 @@ public class PresupuestoView extends javax.swing.JFrame {
         btnCancelEgreso.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelEgreso.setText("Cancelar");
         jPanel1.add(btnCancelEgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 230, 160, 40));
+
+        pnlViewsEgreIngresos.setBackground(new java.awt.Color(38, 38, 38));
+        pnlViewsEgreIngresos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("EGRESOS");
+        pnlViewsEgreIngresos.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, -1, -1));
+
+        tableEgresos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tableEgresos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Tipo", "Categoria", "Producto/Servicio", "Cantidad (u)", "Precio (S/.)"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tableEgresos);
+        if (tableEgresos.getColumnModel().getColumnCount() > 0) {
+            tableEgresos.getColumnModel().getColumn(0).setResizable(false);
+            tableEgresos.getColumnModel().getColumn(1).setResizable(false);
+            tableEgresos.getColumnModel().getColumn(2).setResizable(false);
+            tableEgresos.getColumnModel().getColumn(3).setResizable(false);
+            tableEgresos.getColumnModel().getColumn(4).setResizable(false);
+            tableEgresos.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        pnlViewsEgreIngresos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 1140, 212));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("INGRESOS");
+        pnlViewsEgreIngresos.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, -1, -1));
+
+        tableIngresos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tableIngresos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Tipo", "Categoria", "Producto/Servicio", "Cantidad (u)", "Precio (S/.)"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tableIngresos);
+
+        pnlViewsEgreIngresos.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 1140, 212));
+
+        jPanel1.add(pnlViewsEgreIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 1170, 610));
 
         jPanel7.setBackground(new java.awt.Color(166, 166, 166));
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Registro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
@@ -252,56 +332,6 @@ public class PresupuestoView extends javax.swing.JFrame {
 
         jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 960, 190));
 
-        tableEgresos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Tipo", "Categoria", "Producto/Servicio", "Cantidad (u)", "Precio (S/.)"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tableEgresos);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 1140, 220));
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(13, 13, 13));
-        jLabel7.setText("EGRESOS");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 300, -1, -1));
-
-        tableIngresos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Tipo", "Categoria", "Producto/Servicio", "Cantidad (u)", "Precio (S/.)"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tableIngresos);
-
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 620, 1140, 220));
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(13, 13, 13));
-        jLabel8.setText("INGRESOS");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 580, -1, -1));
-
         jPanel8.setBackground(new java.awt.Color(38, 38, 38));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -362,6 +392,12 @@ public class PresupuestoView extends javax.swing.JFrame {
         );
 
         jPanel8.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 0, -1, -1));
+        jPanel8.add(txtIdFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 40));
+
+        txtNameFeria.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        txtNameFeria.setForeground(new java.awt.Color(255, 255, 255));
+        txtNameFeria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel8.add(txtNameFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 370, 40));
 
         jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 40));
 
@@ -369,7 +405,7 @@ public class PresupuestoView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1202, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,6 +424,7 @@ public class PresupuestoView extends javax.swing.JFrame {
         } else if (tipo.equals("EGRESO")) {
             cmbCategoriaPresupuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"--- SELECCIONE ---", "Lugar", "Comida", "Publicidad", "Materiales", "Transporte", "Seguridad", "Evento"}));
             cmbProdServicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{""}));
+
         } else if (tipo.equals("INGRESO")) {
             cmbCategoriaPresupuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"--- SELECCIONE ---", "Stans", "Entradas", "Sponsor"}));
             cmbProdServicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{""}));
@@ -430,12 +467,32 @@ public class PresupuestoView extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCategoriaPresupuestoActionPerformed
 
     private void cmbProdServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProdServicioActionPerformed
-        // TODO add your handling code here:
+
+        String categoria = (String) cmbCategoriaPresupuesto.getSelectedItem();
+        if (categoria.equals("Comida")) {
+            int cantidadSeguridad = egres_account.cantSeguridad();
+            if (cantidadSeguridad > 0) {
+                cmbProdServicio.setEditable(true);
+                txtCantidad.setEditable(false);
+                txtCantidad.setText(String.valueOf(cantidadSeguridad));
+                txtPrecio.setEditable(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Personal de seguridad = " + cantidadSeguridad);
+                cmbProdServicio.setEditable(false);
+                txtCantidad.setEditable(false);
+                txtCantidad.setText(String.valueOf(cantidadSeguridad));
+                txtPrecio.setEditable(false);
+            }
+        } else {
+            cmbProdServicio.setEditable(true);
+            txtCantidad.setEditable(true);
+            txtPrecio.setEditable(true);
+        }
     }//GEN-LAST:event_cmbProdServicioActionPerformed
 
     private void lblCerrarPresupuestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarPresupuestoMouseClicked
         // TODO add your handling code here:
-        System.exit(0);
+        dispose();
     }//GEN-LAST:event_lblCerrarPresupuestoMouseClicked
 
     private void lblCerrarPresupuestoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarPresupuestoMouseEntered
@@ -445,20 +502,25 @@ public class PresupuestoView extends javax.swing.JFrame {
 
     private void lblCerrarPresupuestoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarPresupuestoMouseExited
         // TODO add your handling code here:
-        lblCerrarPresupuesto.setForeground(new Color(187,187,187));
+        lblCerrarPresupuesto.setForeground(new Color(187, 187, 187));
     }//GEN-LAST:event_lblCerrarPresupuestoMouseExited
 
     private void lblMinPresupuestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinPresupuestoMouseClicked
         // TODO add your handling code here:
-       this.setState(JFrame.ICONIFIED);
+        this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_lblMinPresupuestoMouseClicked
 
+    private void btnViewsEgreIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewsEgreIngresosActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnViewsEgreIngresosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCancelEgreso;
     public javax.swing.JButton btnDeleteEgreso;
     public javax.swing.JButton btnRegisterEgreso;
     public javax.swing.JButton btnUpdateEgreso;
+    public javax.swing.JButton btnViewsEgreIngresos;
     public javax.swing.JComboBox<String> cmbCategoriaPresupuesto;
     public javax.swing.JComboBox<String> cmbProdServicio;
     public javax.swing.JComboBox<String> cmbTipoPresupuesto;
@@ -484,9 +546,12 @@ public class PresupuestoView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JLabel lblCerrarPresupuesto;
     public javax.swing.JLabel lblMinPresupuesto;
+    public javax.swing.JPanel pnlViewsEgreIngresos;
     public javax.swing.JTable tableEgresos;
     public javax.swing.JTable tableIngresos;
     public javax.swing.JTextField txtCantidad;
+    public javax.swing.JLabel txtIdFeria;
+    public javax.swing.JLabel txtNameFeria;
     public javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }

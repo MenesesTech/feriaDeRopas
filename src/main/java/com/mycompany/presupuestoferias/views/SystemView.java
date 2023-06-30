@@ -16,7 +16,6 @@ public class SystemView extends javax.swing.JFrame {
     feriaDao feriaRopaDao = new feriaDao();
     empleado user_employee = new empleado();
     empleadoDao userDao = new empleadoDao();
-    private PresupuestoView presView;
 
     public SystemView() {
         initComponents();
@@ -32,6 +31,7 @@ public class SystemView extends javax.swing.JFrame {
         usuarioController userController = new usuarioController(user_employee, userDao, this);
         userController.listAllEmployees();
         userController.EmployeeProfile();
+        PresupuestoView preView = new PresupuestoView();
         titleInterface();
     }
     
@@ -65,6 +65,7 @@ public class SystemView extends javax.swing.JFrame {
         btnRegistroFerias = new javax.swing.JButton();
         btnListaFerias = new javax.swing.JButton();
         btnSettings = new javax.swing.JButton();
+        btnEjercicios = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -176,7 +177,7 @@ public class SystemView extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -312,6 +313,12 @@ public class SystemView extends javax.swing.JFrame {
         btnSettings.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/configuraciones.png"))); // NOI18N
         btnSettings.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), null, null), "Configuracion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(0, 0, 0))); // NOI18N
         jPanel10.add(btnSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 240, 120));
+
+        btnEjercicios.setBackground(new java.awt.Color(242, 239, 235));
+        btnEjercicios.setForeground(new java.awt.Color(249, 246, 241));
+        btnEjercicios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lista-de-ferias.png"))); // NOI18N
+        btnEjercicios.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(0, 0, 0), null, null), "Ejercicios", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_BOTTOM, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel10.add(btnEjercicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 240, 120));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondo_empresa.jpg"))); // NOI18N
         jPanel10.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 570));
@@ -862,6 +869,7 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JButton btnBurbuja;
     public javax.swing.JButton btnCancelFeria;
     public javax.swing.JButton btnDeleteFeria;
+    public javax.swing.JButton btnEjercicios;
     public javax.swing.JButton btnEmployees;
     public javax.swing.JButton btnListaFerias;
     public javax.swing.JButton btnListaOriginal;

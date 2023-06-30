@@ -29,6 +29,8 @@ public class loginUsuarioController implements ActionListener, MouseListener {
         this.loginView.txt_Password.addMouseListener(this);
         this.loginView.lblForgetPass.addMouseListener(this);
         this.loginView.lblCerrar.addMouseListener(this);
+        this.loginView.btnNewCaptcha.addMouseListener(this);
+        this.loginView.lblCaptchaGenerator.setText(userDao.generarCaptcha());
     }
 
     @Override
@@ -36,23 +38,31 @@ public class loginUsuarioController implements ActionListener, MouseListener {
         String user = loginView.txt_Username.getText().trim();
         String pass = String.valueOf(loginView.txt_Password.getPassword());
         String captchaText = loginView.txtCaptcha.getText();
+        // Boton Validar Captcha
         if (e.getSource() == loginView.btnValidarCaptcha) {
             if (captchaText.equals(loginView.lblCaptchaGenerator.getText())) {
+                // Si el texto del Captcha ingresado es igual al texto generado
                 loginView.lblConfirmCaptcha.setForeground(new Color(0, 153, 0));
                 loginView.lblConfirmCaptcha.setText("*Correcto");
             } else {
+                // Si el texto del Captcha ingresado no coincide con el texto generado
                 loginView.lblConfirmCaptcha.setForeground(new Color(255, 0, 51));
                 loginView.lblConfirmCaptcha.setText("*No has introducido bien la palabra del Captcha");
             }
+            //Boton Ingresar
         } else if (e.getSource() == loginView.btnEnter) {
             if (captchaText.equals(loginView.lblCaptchaGenerator.getText())) {
+                // Si el texto del Captcha ingresado es igual al texto generado
                 if (!user.equals("") || !pass.equals("")) {
+                    // Si el usuario o la contraseña no están vacíos
                     user_employee = userDao.loginQuery(user, pass);
                     if (user_employee.getUsername() != null) {
+                        // Si se encontró un empleado con el usuario y contraseña proporcionados
                         SystemView admin = new SystemView();
                         admin.setVisible(true);
                         this.loginView.dispose();
                     } else {
+                        // Si no se encontró un empleado con el usuario y contraseña proporcionados
                         loginAttempts++; // Incrementar el contador de intentos
                         if (loginAttempts >= 3) {
                             JOptionPane.showMessageDialog(null, "Se ha excedido el número máximo de intentos. La sesión se cerrará.");
@@ -62,21 +72,25 @@ public class loginUsuarioController implements ActionListener, MouseListener {
                         }
                     }
                 } else {
+                    // Si los campos de usuario y contraseña están vacíos
                     JOptionPane.showMessageDialog(null, "Los campos están vacíos");
                 }
             } else {
+                // Si el texto del Captcha ingresado no coincide con el texto generado
                 JOptionPane.showMessageDialog(null, "El captcha es obligatorio");
             }
         }
-    }
 
+    }
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == loginView.lblCerrar) {
             System.exit(0);
-        }else if (e.getSource() == loginView.lblForgetPass) {
+        } else if (e.getSource() == loginView.lblForgetPass) {
             RecuperarPassword recuPass = new RecuperarPassword();
             recuPass.setVisible(true);
+        }else if(e.getSource() == loginView.btnNewCaptcha){
+            loginView.lblCaptchaGenerator.setText(userDao.generarCaptcha());
         }
     }
 

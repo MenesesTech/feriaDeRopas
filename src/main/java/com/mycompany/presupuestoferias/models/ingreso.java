@@ -8,17 +8,19 @@ public class ingreso {
     private String productoServicio;
     private int cantidad;
     private double precio;
+    private String idFeria;
 
     public ingreso() {
     }
 
-    public ingreso(String id, String type, String category, String productoServicio, int cantidad, double precio) {
+    public ingreso(String id, String type, String category, String productoServicio, int cantidad, double precio, String idFeria) {
         this.id = id;
         this.type = type;
         this.category = category;
         this.productoServicio = productoServicio;
         this.cantidad = cantidad;
         this.precio = precio;
+        this.idFeria = idFeria;
     }
 
     public String getId() {
@@ -68,6 +70,13 @@ public class ingreso {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    
+
+    public String getIdFeria() {
+        return idFeria;
+    }
+
+    public void setIdFeria(String idFeria) {
+        this.idFeria = idFeria;
+    }
     
 }
