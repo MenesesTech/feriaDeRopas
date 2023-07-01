@@ -103,7 +103,7 @@ public class egresoDao {
     }
 
     /**
-     * Elimina un registro de ingreso de la base de datos.
+     * Elimina un registro de egreso de la base de datos.
      *
      * @param id El ID del egreso a eliminar.
      * @return true si el egreso se elimina correctamente, false en caso
@@ -124,6 +124,11 @@ public class egresoDao {
         }
     }
 
+    /**
+     * Obtiene el último código de egreso registrado en la base de datos.
+     *
+     * @return El último código de egreso.
+     */
     public String obtenerUltimoCodigoEgreso() {
         String ultimoCodigo = "";
         String query = "SELECT cod_egreso FROM egreso ORDER BY cod_egreso DESC LIMIT 1";
@@ -135,11 +140,17 @@ public class egresoDao {
                 ultimoCodigo = rs.getString("cod_egreso");
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener el ultimo digito: " + e);
+            JOptionPane.showMessageDialog(null, "Error al obtener el último código de egreso: " + e);
         }
         return ultimoCodigo;
     }
 
+    /**
+     * Genera un nuevo código de egreso incrementando el último número de código
+     * registrado.
+     *
+     * @return El nuevo código de egreso generado.
+     */
     public String generarCodigo() {
         String ultimoCodigo = obtenerUltimoCodigoEgreso();
         int ultimoNumero = Integer.parseInt(ultimoCodigo.substring(2));
@@ -148,6 +159,14 @@ public class egresoDao {
         return nuevoCodigo;
     }
 
+    /**
+     * Obtiene la cantidad total de egresos relacionados con el personal de
+     * seguridad en una feria específica.
+     *
+     * @param id El ID de la feria.
+     * @return La cantidad total de personal de seguridad registrado como egreso
+     * en la feria.
+     */
     public int cantSeguridad(String id) {
         int totalCantidad = 0;
         String query = "SELECT cantidad FROM egreso WHERE product_serv = 'Personal de seguridad' AND id_feria = ?";
@@ -161,9 +180,45 @@ public class egresoDao {
                 totalCantidad += cant;
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener la cantidad de seguridad");
+            JOptionPane.showMessageDialog(null, "Error al obtener la cantidad de seguridad: " + e);
         }
         return totalCantidad;
+    }
+
+    /**
+     * Obtiene una lista de egresos que cumplen con ciertas condiciones (id de
+     * feria, tipo de egreso y categoría de egreso).
+     *
+     * @param idFeria El ID de la feria.
+     * @param tipoEgreso El tipo de egreso.
+     * @param categoriaEgreso La categoría de egreso.
+     * @return La lista de egresos que cumplen con las condiciones
+     * especificadas.
+     */
+    public List<egreso> listStatusEgresoQuery(String idFeria, String tipoEgreso, String categoriaEgreso) {
+        List<egreso> listStatusEgreso = new ArrayList<>();
+        String query = "SELECT cod_egreso, product_serv, cantidad, precio FROM egreso WHERE id_feria = ? AND tipo = ? AND categoria = ?";
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setString(1, idFeria);
+            pst.setString(2, tipoEgreso);
+            pst.setString(3, categoriaEgreso);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                egreso egreso_pres = new egreso();
+                egreso_pres.setId(rs.getString("cod_egreso"));
+                egreso_pres.setProductoServicio(rs.getString("product_serv"));
+                egreso_pres.setCantidad(rs.getInt("cantidad"));
+                egreso_pres.setPrecio(rs.getInt("precio"));
+                listStatusEgreso.add(egreso_pres);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el estado del Egreso: " + e);
+        }
+        return listStatusEgreso;
     }
 
 }

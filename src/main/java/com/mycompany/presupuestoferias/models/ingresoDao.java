@@ -154,4 +154,40 @@ public class ingresoDao {
         String nuevoCodigo = String.format("IN%03d", nuevoNumero);
         return nuevoCodigo;
     }
+
+    /**
+     * Obtiene una lista de ingresos que cumplen con ciertas condiciones (ID de
+     * feria, tipo de ingreso y categoría de ingreso).
+     *
+     * @param idFeria El ID de la feria.
+     * @param tipoIngreso El tipo de ingreso.
+     * @param categoriaIngreso La categoría de ingreso.
+     * @return La lista de ingresos que cumplen con las condiciones
+     * especificadas.
+     */
+    public List<ingreso> listStatusIngresoQuery(String idFeria, String tipoIngreso, String categoriaIngreso) {
+        List<ingreso> listStatusIngreso = new ArrayList<>();
+        String query = "SELECT cod_ingreso, product_serv, cantidad, precio FROM ingreso WHERE id_feria = ? AND tipo = ? AND categoria = ?";
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setString(1, idFeria);
+            pst.setString(2, tipoIngreso);
+            pst.setString(3, categoriaIngreso);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                ingreso ingreso_pres = new ingreso();
+                ingreso_pres.setId(rs.getString("cod_ingreso"));
+                ingreso_pres.setProductoServicio(rs.getString("product_serv"));
+                ingreso_pres.setCantidad(rs.getInt("cantidad"));
+                ingreso_pres.setPrecio(rs.getInt("precio"));
+                listStatusIngreso.add(ingreso_pres);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el estado del Ingreso");
+        }
+        return listStatusIngreso;
+    }
 }

@@ -2,6 +2,7 @@ package com.mycompany.presupuestoferias.controllers;
 
 import com.mycompany.presupuestoferias.models.feria;
 import com.mycompany.presupuestoferias.models.feriaDao;
+import com.mycompany.presupuestoferias.views.PresupuestoStatusView;
 import com.mycompany.presupuestoferias.views.PresupuestoView;
 import com.mycompany.presupuestoferias.views.SystemView;
 import java.awt.event.ActionEvent;
@@ -43,6 +44,7 @@ public class feriaController implements ActionListener, MouseListener {
         //Boton de Lista original
         this.systemView.btnListaOriginal.addMouseListener(this);
         this.systemView.btnPresupuestar.addMouseListener(this);
+        this.systemView.btnEstadoPresupuesto.addMouseListener(this);
     }
 
     @Override
@@ -286,6 +288,19 @@ public class feriaController implements ActionListener, MouseListener {
                 presView.txtIdFeria.setText(idFeria);
                 presView.txtNameFeria.setText(nameFeria);
                 presView.setVisible(true);
+            }
+        }else if (e.getSource() == systemView.btnEstadoPresupuesto) {
+            //Almacena numero de fila
+            int row = systemView.tableListaFerias.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(null, "Debes seleccionar una feria");
+            } else {
+                PresupuestoStatusView presStatusView = new PresupuestoStatusView();
+                idFeria = systemView.tableListaFerias.getValueAt(row, 0).toString();
+                nameFeria = systemView.tableListaFerias.getValueAt(row, 1).toString();
+                presStatusView.txtIdFeriaStatus.setText(idFeria);
+                presStatusView.txtNameFeriaStatus.setText(nameFeria);
+                presStatusView.setVisible(true);
             }
         }
     }

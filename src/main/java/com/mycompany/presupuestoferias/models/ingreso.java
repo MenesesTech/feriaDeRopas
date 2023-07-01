@@ -8,20 +8,52 @@ public class ingreso {
     private String productoServicio;
     private int cantidad;
     private double precio;
+    private double precioTotal;
+    private double porcentaje;
+    private double totalPrecio;
     private String idFeria;
 
     public ingreso() {
     }
 
-    public ingreso(String id, String type, String category, String productoServicio, int cantidad, double precio, String idFeria) {
+    public ingreso(String id, String type, String category, String productoServicio, int cantidad, double precio, double precioTotal, double porcentaje, double totalPrecio, String idFeria) {
         this.id = id;
         this.type = type;
         this.category = category;
         this.productoServicio = productoServicio;
         this.cantidad = cantidad;
         this.precio = precio;
+        this.precioTotal = precioTotal;
+        this.porcentaje = porcentaje;
+        this.totalPrecio = totalPrecio;
         this.idFeria = idFeria;
     }
+
+    public double getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(double precioTotal) {
+        this.precioTotal = precioTotal;
+    }
+
+    public double getPorcentaje() {
+        return porcentaje;
+    }
+
+    public void setPorcentaje(double porcentaje) {
+        this.porcentaje = porcentaje;
+    }
+
+    public double getTotalPrecio() {
+        return totalPrecio;
+    }
+
+    public void setTotalPrecio(double totalPrecio) {
+        this.totalPrecio = totalPrecio;
+    }
+
+    
 
     public String getId() {
         return id;

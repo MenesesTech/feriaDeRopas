@@ -51,8 +51,6 @@ public class settingsController implements MouseListener {
                 view.jTabbedPane1.setSelectedIndex(3);
             } else if (e.getSource() == view.btnSettings) {
                 view.jTabbedPane1.setSelectedIndex(4);
-            } else if (e.getSource() == view.lblCerrar) {
-                System.exit(0);
             } else if (e.getSource() == view.btnEjercicios) {
                 Ejercicios ej = new Ejercicios();
                 ej.setVisible(true);
@@ -78,8 +76,6 @@ public class settingsController implements MouseListener {
                 JOptionPane.showMessageDialog(null, "No tienes privilegios");
             } else if (e.getSource() == view.btnSettings) {
                 view.jTabbedPane1.setSelectedIndex(4);
-            } else if (e.getSource() == view.lblCerrar) {
-                System.exit(0);
             } else if (e.getSource() == view.btnEjercicios) {
                 Ejercicios ej = new Ejercicios();
                 ej.setVisible(true);

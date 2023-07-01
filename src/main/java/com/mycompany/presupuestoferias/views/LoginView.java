@@ -16,6 +16,7 @@ public class LoginView extends javax.swing.JFrame {
         setResizable(false);
         setExtendedState(MAXIMIZED_VERT);
         setLocationRelativeTo(null);
+        setTitle("Iniciar Sesión");
         loginUsuarioController loginController = new loginUsuarioController(user, userDao, this);
     }
     @SuppressWarnings("unchecked")

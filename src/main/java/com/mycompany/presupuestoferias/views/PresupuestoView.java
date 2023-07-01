@@ -5,8 +5,6 @@ import com.mycompany.presupuestoferias.models.egreso;
 import com.mycompany.presupuestoferias.models.egresoDao;
 import com.mycompany.presupuestoferias.models.ingreso;
 import com.mycompany.presupuestoferias.models.ingresoDao;
-import java.awt.Color;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class PresupuestoView extends javax.swing.JFrame {
@@ -20,7 +18,7 @@ public class PresupuestoView extends javax.swing.JFrame {
     public PresupuestoView() {
         // Pasar las instancias creadas como argumentos al crear EgresoIngresoController
         initComponents();
-        setSize(1200, 890);
+        setSize(1200, 920);
         setResizable(false);
         setExtendedState(MAXIMIZED_VERT);
         setLocationRelativeTo(null);
@@ -64,15 +62,10 @@ public class PresupuestoView extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        lblCerrarPresupuesto = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        lblMinPresupuesto = new javax.swing.JLabel();
         txtIdFeria = new javax.swing.JLabel();
         txtNameFeria = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(217, 217, 217));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -82,7 +75,9 @@ public class PresupuestoView extends javax.swing.JFrame {
         jLabel1.setText("ARMA EL PRESUPUESTO");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, -1, -1));
 
+        btnViewsEgreIngresos.setBackground(new java.awt.Color(38, 38, 38));
         btnViewsEgreIngresos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnViewsEgreIngresos.setForeground(new java.awt.Color(255, 255, 255));
         btnViewsEgreIngresos.setText("VER EGRESOS E INGRESOS");
         btnViewsEgreIngresos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +150,7 @@ public class PresupuestoView extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("INGRESOS");
-        pnlViewsEgreIngresos.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, -1, -1));
+        pnlViewsEgreIngresos.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, -1, -1));
 
         tableIngresos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tableIngresos.setModel(new javax.swing.table.DefaultTableModel(
@@ -176,9 +171,9 @@ public class PresupuestoView extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tableIngresos);
 
-        pnlViewsEgreIngresos.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 1140, 212));
+        pnlViewsEgreIngresos.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 1140, 212));
 
-        jPanel1.add(pnlViewsEgreIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 1170, 610));
+        jPanel1.add(pnlViewsEgreIngresos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 1170, 580));
 
         jPanel7.setBackground(new java.awt.Color(166, 166, 166));
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Registro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
@@ -334,64 +329,6 @@ public class PresupuestoView extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(38, 38, 38));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblCerrarPresupuesto.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
-        lblCerrarPresupuesto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCerrarPresupuesto.setText("X");
-        lblCerrarPresupuesto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCerrarPresupuestoMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblCerrarPresupuestoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblCerrarPresupuestoMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblCerrarPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblCerrarPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel8.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 0, -1, -1));
-
-        lblMinPresupuesto.setFont(new java.awt.Font("Roboto", 1, 48)); // NOI18N
-        lblMinPresupuesto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMinPresupuesto.setText("-");
-        lblMinPresupuesto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblMinPresupuestoMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblMinPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblMinPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel8.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 0, -1, -1));
         jPanel8.add(txtIdFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 210, 40));
 
         txtNameFeria.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -466,11 +403,21 @@ public class PresupuestoView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmbCategoriaPresupuestoActionPerformed
 
+    /**
+     * Método que se ejecuta cuando se selecciona un elemento en el JComboBox
+     * cmbProdServicio.
+     *
+     * @param evt El evento de acción generado
+     */
     private void cmbProdServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProdServicioActionPerformed
 
         String categoria = (String) cmbCategoriaPresupuesto.getSelectedItem();
+
+        // Verificar si la categoría seleccionada es "Comida"
         if (categoria.equals("Comida")) {
             int cantidadSeguridad = egres_account.cantSeguridad();
+
+            // Verificar si hay suficiente cantidad de personal de seguridad
             if (cantidadSeguridad > 0) {
                 cmbProdServicio.setEditable(true);
                 txtCantidad.setEditable(false);
@@ -483,32 +430,13 @@ public class PresupuestoView extends javax.swing.JFrame {
                 txtCantidad.setText(String.valueOf(cantidadSeguridad));
                 txtPrecio.setEditable(false);
             }
-        } else {
+        } // Si la categoría no es "Comida", habilitar la edición de los campos
+        else {
             cmbProdServicio.setEditable(true);
             txtCantidad.setEditable(true);
             txtPrecio.setEditable(true);
         }
     }//GEN-LAST:event_cmbProdServicioActionPerformed
-
-    private void lblCerrarPresupuestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarPresupuestoMouseClicked
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_lblCerrarPresupuestoMouseClicked
-
-    private void lblCerrarPresupuestoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarPresupuestoMouseEntered
-        // TODO add your handling code here:
-        lblCerrarPresupuesto.setForeground(Color.red);
-    }//GEN-LAST:event_lblCerrarPresupuestoMouseEntered
-
-    private void lblCerrarPresupuestoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarPresupuestoMouseExited
-        // TODO add your handling code here:
-        lblCerrarPresupuesto.setForeground(new Color(187, 187, 187));
-    }//GEN-LAST:event_lblCerrarPresupuestoMouseExited
-
-    private void lblMinPresupuestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMinPresupuestoMouseClicked
-        // TODO add your handling code here:
-        this.setState(JFrame.ICONIFIED);
-    }//GEN-LAST:event_lblMinPresupuestoMouseClicked
 
     private void btnViewsEgreIngresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewsEgreIngresosActionPerformed
         // TODO add your handling code here:
@@ -533,7 +461,6 @@ public class PresupuestoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -541,11 +468,8 @@ public class PresupuestoView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    public javax.swing.JLabel lblCerrarPresupuesto;
-    public javax.swing.JLabel lblMinPresupuesto;
     public javax.swing.JPanel pnlViewsEgreIngresos;
     public javax.swing.JTable tableEgresos;
     public javax.swing.JTable tableIngresos;

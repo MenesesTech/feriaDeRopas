@@ -112,6 +112,7 @@ public class EgresoIngresoController implements ActionListener, MouseListener {
                     JOptionPane.showMessageDialog(null, "Ingreso registrado con éxito");
                 }
             }
+            //Boton de Modificar
         } else if (e.getSource() == presView.btnUpdateEgreso) {
             Object selectedTipoPresupuesto = presView.cmbTipoPresupuesto.getSelectedItem();
             if (selectedTipoPresupuesto == null || selectedTipoPresupuesto.toString().equals("--- SELECCIONE ---")) {
@@ -160,16 +161,21 @@ public class EgresoIngresoController implements ActionListener, MouseListener {
                 // Actualizar la lista de egresos
                 listAllEgreso();
             }
+            //Boton Eliminar
         } else if (e.getSource() == presView.btnDeleteEgreso) {
             int filaEgreso = presView.tableEgresos.getSelectedRow();
             int filaIngreso = presView.tableIngresos.getSelectedRow();
 
+            // Verificar si no se ha seleccionado ningún egreso o ingreso
             if (filaEgreso == -1 && filaIngreso == -1) {
                 JOptionPane.showMessageDialog(null, "Debes seleccionar un egreso o un ingreso para eliminar");
+                // Si se ha seleccionado un egreso o ingreso
             } else if (filaEgreso != -1 || filaIngreso != -1) {
+                // Eliminar el egreso seleccionado
                 if (filaEgreso != -1) {
                     String idEgreso = presView.tableEgresos.getValueAt(filaEgreso, 0).toString();
                     int question = JOptionPane.showConfirmDialog(null, "¿En realidad quieres eliminar este Egreso?");
+                    // Confirmar la eliminación y eliminar el egreso
                     if (question == 0 && egreso_presDao.deleteEgresoQuery(idEgreso)) {
                         cleanFields();
                         cleanTableEgreso();
@@ -177,9 +183,11 @@ public class EgresoIngresoController implements ActionListener, MouseListener {
                         presView.btnRegisterEgreso.setEnabled(true);
                         JOptionPane.showMessageDialog(null, "Egreso eliminado con éxito");
                     }
-                } else if (filaIngreso != -1) {
+                } // Eliminar el ingreso seleccionado
+                else if (filaIngreso != -1) {
                     String idIngreso = presView.tableIngresos.getValueAt(filaIngreso, 0).toString();
                     int question = JOptionPane.showConfirmDialog(null, "¿En realidad quieres eliminar este Ingreso?");
+                    // Confirmar la eliminación y eliminar el ingreso
                     if (question == 0 && ingreso_presDao.deleteIngresoQuery(idIngreso)) {
                         cleanFields();
                         cleanTableIngreso();
@@ -189,12 +197,19 @@ public class EgresoIngresoController implements ActionListener, MouseListener {
                     }
                 }
             }
+            //Boton Cancelar
         } else if (e.getSource() == presView.btnCancelEgreso) {
             cleanFields();
+            cleanTableEgreso();
+            cleanTableIngreso();
             presView.btnRegisterEgreso.setEnabled(true);
         }
+
     }
 
+    /**
+     * Obtiene y muestra todos los egresos en la tabla.
+     */
     public void listAllEgreso() {
         String idFeria = presView.txtIdFeria.getText();
         List<egreso> list = egreso_presDao.listEgresoQuery(idFeria);
@@ -211,11 +226,19 @@ public class EgresoIngresoController implements ActionListener, MouseListener {
         }
     }
 
+    /**
+     * Obtiene la cantidad de seguridad y la devuelve.
+     *
+     * @return La cantidad de seguridad obtenida.
+     */
     public int cantSeguridad() {
         int cantSeguridad = egreso_presDao.cantSeguridad(presView.txtIdFeria.getText());
         return cantSeguridad;
     }
 
+    /**
+     * Obtiene y muestra todos los ingresos en la tabla.
+     */
     public void listAllIngreso() {
         String idFeria = presView.txtIdFeria.getText();
         List<ingreso> list = ingreso_presDao.listIngresoQuery(idFeria);
@@ -232,23 +255,20 @@ public class EgresoIngresoController implements ActionListener, MouseListener {
         }
     }
 
-    //Metodo para limpiar tabla
+    /**
+     * Limpia la tabla de egresos.
+     */
     public void cleanTableEgreso() {
         DefaultTableModel model = (DefaultTableModel) presView.tableEgresos.getModel();
-
-        int rowCount = model.getRowCount();
-        for (int i = rowCount - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
+        model.setRowCount(0);
     }
 
+    /**
+     * Limpia la tabla de ingresos.
+     */
     public void cleanTableIngreso() {
         DefaultTableModel model = (DefaultTableModel) presView.tableIngresos.getModel();
-
-        int rowCount = model.getRowCount();
-        for (int i = rowCount - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
+        model.setRowCount(0);
     }
 
     @Override

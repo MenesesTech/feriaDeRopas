@@ -104,7 +104,7 @@ public class SystemView extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnPresupuestar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnEstadoPresupuesto = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -494,9 +494,9 @@ public class SystemView extends javax.swing.JFrame {
         btnPresupuestar.setText("Presupuestar");
         jPanel5.add(btnPresupuestar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 300, 40));
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("Estados de Ingresos y egresos");
-        jPanel5.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, 300, 40));
+        btnEstadoPresupuesto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnEstadoPresupuesto.setText("Estados de Ingresos y egresos");
+        jPanel5.add(btnEstadoPresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, 300, 40));
 
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton3.setText("Reporte Presupuestal");
@@ -841,6 +841,11 @@ public class SystemView extends javax.swing.JFrame {
         lblCerrar.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
         lblCerrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCerrar.setText("X");
+        lblCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCerrarMouseClicked(evt);
+            }
+        });
         pnlSecundario.add(lblCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 0, 50, 50));
 
         label_name_user.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -864,6 +869,13 @@ public class SystemView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistroFeriasActionPerformed
 
+    private void lblCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCerrarMouseClicked
+        // TODO add your handling code here:
+        setVisible(false);
+        LoginView loginView = new LoginView();
+        loginView.setVisible(true);
+    }//GEN-LAST:event_lblCerrarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnBurbuja;
@@ -871,6 +883,7 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JButton btnDeleteFeria;
     public javax.swing.JButton btnEjercicios;
     public javax.swing.JButton btnEmployees;
+    public javax.swing.JButton btnEstadoPresupuesto;
     public javax.swing.JButton btnListaFerias;
     public javax.swing.JButton btnListaOriginal;
     public javax.swing.JButton btnPresupuestar;
@@ -889,7 +902,6 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JComboBox<String> cmb_rol;
     public javax.swing.JLayeredPane cubiertaPestañas;
     public javax.swing.JTable employee_table;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     public com.toedter.calendar.JDateChooser jDateFin;
