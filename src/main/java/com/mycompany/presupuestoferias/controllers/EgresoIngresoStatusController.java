@@ -21,7 +21,8 @@ public class EgresoIngresoStatusController implements ActionListener {
     private egresoDao egreso_presDao;
     private ingreso ingreso_pres;
     private ingresoDao ingreso_presDao;
-
+    private double rentabilidad;
+    
     public EgresoIngresoStatusController(PresupuestoStatusView presStatusView, egreso egreso_pres, egresoDao egreso_presDao, ingreso ingreso_pres, ingresoDao ingreso_presDao) {
         this.presStatusView = presStatusView;
         this.egreso_pres = egreso_pres;
@@ -34,7 +35,7 @@ public class EgresoIngresoStatusController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Verificar si el evento se originó desde el botón de búsqueda
+        // Botón de búsqueda
         if (e.getSource() == presStatusView.btnSearch) {
             String idFeria = presStatusView.txtIdFeriaStatus.getText().trim();
             String tipoEgreso = presStatusView.cmbTipoPresupuesto.getSelectedItem().toString();

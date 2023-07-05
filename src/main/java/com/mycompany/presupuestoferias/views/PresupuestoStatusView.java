@@ -5,8 +5,6 @@ import com.mycompany.presupuestoferias.models.egreso;
 import com.mycompany.presupuestoferias.models.egresoDao;
 import com.mycompany.presupuestoferias.models.ingreso;
 import com.mycompany.presupuestoferias.models.ingresoDao;
-import java.awt.Color;
-import javax.swing.JFrame;
 
 /**
  *
@@ -47,7 +45,6 @@ public class PresupuestoStatusView extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         txtIdFeriaStatus = new javax.swing.JLabel();
         txtNameFeriaStatus = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableEgresos = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
@@ -57,6 +54,9 @@ public class PresupuestoStatusView extends javax.swing.JFrame {
         txtTotalPrecioEgreso = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        txtMontoFeria = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -165,11 +165,6 @@ public class PresupuestoStatusView extends javax.swing.JFrame {
 
         jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 40));
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("EGRESOS");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, -1, -1));
-
         tableEgresos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tableEgresos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -233,6 +228,19 @@ public class PresupuestoStatusView extends javax.swing.JFrame {
         jLabel5.setText("TOTAL (S/.)");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 520, -1, -1));
 
+        txtMontoFeria.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        jPanel1.add(txtMontoFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 90, 170, 60));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("EGRESOS");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("MONTO");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 60, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -271,12 +279,13 @@ public class PresupuestoStatusView extends javax.swing.JFrame {
     public javax.swing.JComboBox<String> cmbCategoriaPresupuesto;
     public javax.swing.JComboBox<String> cmbTipoPresupuesto;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -287,6 +296,7 @@ public class PresupuestoStatusView extends javax.swing.JFrame {
     public javax.swing.JTable tableEgresos;
     public javax.swing.JTable tableIngresos;
     public javax.swing.JLabel txtIdFeriaStatus;
+    public javax.swing.JTextField txtMontoFeria;
     public javax.swing.JLabel txtNameFeriaStatus;
     public javax.swing.JTextField txtTotalPrecioEgreso;
     public javax.swing.JTextField txtTotalPrecioIngreso;

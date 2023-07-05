@@ -181,7 +181,7 @@ public class ingresoDao {
                 ingreso_pres.setId(rs.getString("cod_ingreso"));
                 ingreso_pres.setProductoServicio(rs.getString("product_serv"));
                 ingreso_pres.setCantidad(rs.getInt("cantidad"));
-                ingreso_pres.setPrecio(rs.getInt("precio"));
+                ingreso_pres.setPrecio(rs.getDouble("precio"));
                 listStatusIngreso.add(ingreso_pres);
             }
 
@@ -190,4 +190,22 @@ public class ingresoDao {
         }
         return listStatusIngreso;
     }
+
+    public double totalIngreso(String idFeria) {
+        String query = "SELECT SUM(cantidad * precio) AS total_ingresos FROM ingreso WHERE id_feria = ?";
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setString(1, idFeria);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                double totalIngreso = rs.getDouble("total_ingresos");
+                return totalIngreso;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el total de egresos: " + e.getMessage());
+        }
+        return 0;
+    }
+
 }

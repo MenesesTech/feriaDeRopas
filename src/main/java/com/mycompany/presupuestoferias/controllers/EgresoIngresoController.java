@@ -296,13 +296,13 @@ public class EgresoIngresoController implements ActionListener, MouseListener {
             presView.btnRegisterEgreso.setEnabled(false);
         } else if (e.getSource() == presView.tableIngresos) {
             //Capturar fila
-            int row = presView.tableEgresos.rowAtPoint(e.getPoint());
+            int row = presView.tableIngresos.rowAtPoint(e.getPoint());
             //Rellenar las cajas y combobox
-            presView.cmbTipoPresupuesto.setSelectedItem(presView.tableEgresos.getValueAt(row, 1));
-            presView.cmbCategoriaPresupuesto.setSelectedItem(presView.tableEgresos.getValueAt(row, 2));
-            presView.cmbProdServicio.setSelectedItem(presView.tableEgresos.getValueAt(row, 3));
-            presView.txtCantidad.setText(presView.tableEgresos.getValueAt(row, 4).toString());
-            presView.txtPrecio.setText(presView.tableEgresos.getValueAt(row, 5).toString());
+            presView.cmbTipoPresupuesto.setSelectedItem(presView.tableIngresos.getValueAt(row, 1));
+            presView.cmbCategoriaPresupuesto.setSelectedItem(presView.tableIngresos.getValueAt(row, 2));
+            presView.cmbProdServicio.setSelectedItem(presView.tableIngresos.getValueAt(row, 3));
+            presView.txtCantidad.setText(presView.tableIngresos.getValueAt(row, 4).toString());
+            presView.txtPrecio.setText(presView.tableIngresos.getValueAt(row, 5).toString());
             //Desabilita cajas de texto 
             presView.btnRegisterEgreso.setEnabled(false);
         }

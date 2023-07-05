@@ -1,10 +1,6 @@
 package com.mycompany.presupuestoferias;
 
-import com.mycompany.presupuestoferias.views.Ejercicios;
 import com.mycompany.presupuestoferias.views.LoginView;
-import com.mycompany.presupuestoferias.views.PresupuestoStatusView;
-import com.mycompany.presupuestoferias.views.PresupuestoView;
-import com.mycompany.presupuestoferias.views.SystemView;
 
 public class PresupuestoFerias {
     

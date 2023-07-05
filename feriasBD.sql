@@ -26,7 +26,7 @@ CREATE TABLE feria (
     status VARCHAR(60),
     monto DECIMAL(10,2),
     fecha_inicio DATE,
-    fecha_final DATE
+    fecha_final DATE,
 );
 
 CREATE TABLE egreso (

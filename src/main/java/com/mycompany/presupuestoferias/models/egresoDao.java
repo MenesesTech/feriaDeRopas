@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -26,8 +27,8 @@ public class egresoDao {
     public boolean registroEgresoQuery(egreso egreso_pres) {
         String query = "INSERT INTO egreso (cod_egreso, tipo, categoria, product_serv, cantidad, precio, id_feria) VALUES (?,?,?,?,?,?,?)";
         try {
-            Connection conn = cn.getConnection();
-            PreparedStatement pst = conn.prepareStatement(query);
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
             pst.setString(1, egreso_pres.getId());
             pst.setString(2, egreso_pres.getType());
             pst.setString(3, egreso_pres.getCategory());
@@ -59,6 +60,8 @@ public class egresoDao {
             pst = conn.prepareStatement(query);
             pst.setString(1, idFeria); // Establecer el valor del parámetro
             rs = pst.executeQuery();
+
+            // Obtener el total de egresos una vez antes del bucle
             while (rs.next()) {
                 egreso egreso_pres = new egreso();
                 egreso_pres.setId(rs.getString("cod_egreso"));
@@ -72,6 +75,7 @@ public class egresoDao {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }
+
         return listEgreso;
     }
 
@@ -184,6 +188,7 @@ public class egresoDao {
         }
         return totalCantidad;
     }
+//
 
     /**
      * Obtiene una lista de egresos que cumplen con ciertas condiciones (id de
@@ -209,6 +214,7 @@ public class egresoDao {
             while (rs.next()) {
                 egreso egreso_pres = new egreso();
                 egreso_pres.setId(rs.getString("cod_egreso"));
+                String idEgreso = egreso_pres.getId();
                 egreso_pres.setProductoServicio(rs.getString("product_serv"));
                 egreso_pres.setCantidad(rs.getInt("cantidad"));
                 egreso_pres.setPrecio(rs.getInt("precio"));
@@ -219,6 +225,23 @@ public class egresoDao {
             JOptionPane.showMessageDialog(null, "Error al obtener el estado del Egreso: " + e);
         }
         return listStatusEgreso;
+    }
+
+    public double totalEgreso(String idFeria) {
+        String query = "SELECT SUM(cantidad * precio) AS total_egresos FROM egreso WHERE id_feria = ?";
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setString(1, idFeria);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                double totalEgreso = rs.getDouble("total_egresos");
+                return totalEgreso;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al obtener el total de egresos: " + e.getMessage());
+        }
+        return 0;
     }
 
 }

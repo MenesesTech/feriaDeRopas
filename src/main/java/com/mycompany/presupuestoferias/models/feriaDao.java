@@ -5,9 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class feriaDao {
@@ -28,14 +26,17 @@ public class feriaDao {
     public boolean registroFeriaQuery(feria feria_ropa) {
         String query = "INSERT INTO feria (id_feria, name, district, aforo, category, status, monto, fecha_inicio, fecha_final) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
-            Connection conn = cn.getConnection();
-            PreparedStatement pst = conn.prepareStatement(query);
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
             pst.setString(1, feria_ropa.getId());
             pst.setString(2, feria_ropa.getName());
             pst.setString(3, feria_ropa.getDistrict());
             pst.setInt(4, feria_ropa.getAforo());
             pst.setString(5, feria_ropa.getCategory());
-            pst.setString(6, feria_ropa.getStatus());
+
+            // Establecer estado como "PENDIENTE" por defecto
+            pst.setString(6, "PENDIENTE");
+
             pst.setDouble(7, feria_ropa.getMonto());
             pst.setDate(8, feria_ropa.getDateInicio());
             pst.setDate(9, feria_ropa.getDateFin());
@@ -86,9 +87,7 @@ public class feriaDao {
      * @return Valor booleano que indica si la actualización fue exitosa o no.
      */
     public boolean updateFairQuery(feria feria_ropa) {
-        String query = "UPDATE feria SET name = ?, district = ?, aforo = ?, category = ?, status = ?, monto = ?, fecha_inicio = ?, fecha_final = ?"
-                + "WHERE id_feria = ?";
-        Timestamp datetime = new Timestamp(new Date().getTime());
+        String query = "UPDATE feria SET name = ?, district = ?, aforo = ?, category = ?, monto = ?, fecha_inicio = ?, fecha_final = ? WHERE id_feria = ?";
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
@@ -96,11 +95,11 @@ public class feriaDao {
             pst.setString(2, feria_ropa.getDistrict());
             pst.setInt(3, feria_ropa.getAforo());
             pst.setString(4, feria_ropa.getCategory());
-            pst.setString(5, feria_ropa.getStatus());
-            pst.setDouble(6, feria_ropa.getMonto());
-            pst.setDate(7, feria_ropa.getDateInicio());
-            pst.setDate(8, feria_ropa.getDateFin());
-            pst.setString(9, feria_ropa.getId());
+            // No establecer el estado en la consulta SQL
+            pst.setDouble(5, feria_ropa.getMonto());
+            pst.setDate(6, feria_ropa.getDateInicio());
+            pst.setDate(7, feria_ropa.getDateFin());
+            pst.setString(8, feria_ropa.getId());
             pst.execute();
             return true;
         } catch (SQLException e) {
@@ -163,4 +162,62 @@ public class feriaDao {
         String nuevoCodigo = String.format("F%04d", nuevoNumero);
         return nuevoCodigo;
     }
+
+    /**
+     * Actualiza el estado de una feria en la base de datos y calcula la
+     * rentabilidad.
+     *
+     * @param id_feria
+     * @return true si se actualizó el estado correctamente, false si ocurrió un
+     * error.
+     */
+    public boolean updateStatus(String id_feria) {
+        String query = "UPDATE feria SET status = ? WHERE id_feria = ?";
+        String egresoQuery = "SELECT SUM(cantidad * precio) AS total_egresos FROM egreso WHERE id_feria = ?";
+        String ingresoQuery = "SELECT SUM(cantidad * precio) AS total_ingresos FROM ingreso WHERE id_feria = ?";
+        try {
+            conn = cn.getConnection();
+
+            // Obtener el total de egresos
+            pst = conn.prepareStatement(egresoQuery);
+            pst.setString(1, id_feria);
+            rs = pst.executeQuery();
+            double totalEgresos = 0;
+            while (rs.next()) {
+                totalEgresos = rs.getDouble("total_egresos");
+            }
+
+            // Obtener el total de ingresos
+            pst = conn.prepareStatement(ingresoQuery);
+            pst.setString(1, id_feria);
+            rs = pst.executeQuery();
+            double totalIngresos = 0;
+            while (rs.next()) {
+                totalIngresos = rs.getDouble("total_ingresos");
+            }
+
+            // Calcular la rentabilidad
+            double rentabilidad = (totalIngresos - totalEgresos) / totalIngresos * 100;
+
+            // Establecer el estado como "viable" o "inviable" según el porcentaje de rentabilidad
+            String estado;
+            if (rentabilidad > 30) {
+                estado = "VIABLE";
+            } else {
+                estado = "INVIABLE";
+            }
+
+            // Actualizar el estado y rentabilidad en la base de datos
+            pst = conn.prepareStatement(query);
+            pst.setString(1, estado);
+            pst.setString(2, id_feria);
+            pst.execute();
+
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al modificar el estado: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

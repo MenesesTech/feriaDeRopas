@@ -26,12 +26,11 @@ public class SystemView extends javax.swing.JFrame {
         setTitle("Sistema de Presupuetos");
         settingsController setting = new settingsController(this);
         feriaController ferController = new feriaController(feria_ropa, feriaRopaDao, this);
-        ferController.listAllFerias();
-        ferController.listAllFeriasPrincipal();
+        ferController.listAllFerias1();
+        ferController.listAllFerias2();
         usuarioController userController = new usuarioController(user_employee, userDao, this);
         userController.listAllEmployees();
         userController.EmployeeProfile();
-        PresupuestoView preView = new PresupuestoView();
         titleInterface();
     }
     
@@ -388,6 +387,7 @@ public class SystemView extends javax.swing.JFrame {
         jPanel13.add(lblEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 90, 60, -1));
 
         cmbEstadoFeria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- SELECCIONE ---", "PENDIENTE", "VIABLE", "INVIABLE" }));
+        cmbEstadoFeria.setEnabled(false);
         jPanel13.add(cmbEstadoFeria, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 85, 190, 30));
 
         jDateInicio.setDateFormatString("yyyy-MM-dd");

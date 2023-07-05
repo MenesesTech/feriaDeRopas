@@ -1,7 +1,12 @@
 package com.mycompany.presupuestoferias.views;
 
 import com.mycompany.presupuestoferias.ejercicios.ColaClientes;
+import com.mycompany.presupuestoferias.ejercicios.MergeSort;
 import com.mycompany.presupuestoferias.ejercicios.Pila;
+import com.mycompany.presupuestoferias.ejercicios.PostFija;
+import com.mycompany.presupuestoferias.ejercicios.Quicksort;
+import com.mycompany.presupuestoferias.ejercicios.Recursividad;
+import com.mycompany.presupuestoferias.ejercicios.ShellSort;
 
 
 
@@ -44,6 +49,13 @@ public class Ejercicios extends javax.swing.JFrame {
         btnQuitarCliente = new javax.swing.JButton();
         txtAllClientes = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        btnShellSort = new javax.swing.JButton();
+        btnMergeSort = new javax.swing.JButton();
+        btnPostFija = new javax.swing.JButton();
+        btnQuickSort = new javax.swing.JButton();
+        btnRecursividad = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -166,6 +178,72 @@ public class Ejercicios extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Ejercicio 4", jPanel2);
 
+        jPanel5.setBackground(new java.awt.Color(217, 217, 217));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnShellSort.setText("SHELLSORT");
+        btnShellSort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShellSortActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnShellSort, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 180, 70));
+
+        btnMergeSort.setText("MERGE SORT");
+        btnMergeSort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMergeSortActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnMergeSort, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 180, 70));
+
+        btnPostFija.setText("POST FIJA");
+        btnPostFija.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPostFijaActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnPostFija, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 180, 70));
+
+        btnQuickSort.setText("QUICKSORT");
+        btnQuickSort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuickSortActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnQuickSort, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 180, 70));
+
+        btnRecursividad.setText("RECURSIVIDAD");
+        btnRecursividad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecursividadActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnRecursividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 180, 70));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 640, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 481, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        jTabbedPane1.addTab("Ejercicios ", jPanel3);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -229,12 +307,48 @@ public class Ejercicios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAllClientesActionPerformed
 
+    private void btnMergeSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMergeSortActionPerformed
+        // TODO add your handling code here:
+        MergeSort  mergeSort = new MergeSort();
+        mergeSort.main(new String[0]);
+    }//GEN-LAST:event_btnMergeSortActionPerformed
+
+    private void btnPostFijaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostFijaActionPerformed
+        // TODO add your handling code here:
+        PostFija postFija = new PostFija();
+        postFija.main(new String[0]);
+    }//GEN-LAST:event_btnPostFijaActionPerformed
+
+    private void btnQuickSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuickSortActionPerformed
+        // TODO add your handling code here:
+        Quicksort quicksort = new Quicksort();
+        quicksort.main(new String[0]);
+    }//GEN-LAST:event_btnQuickSortActionPerformed
+
+    private void btnRecursividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecursividadActionPerformed
+        // TODO add your handling code here:
+        Recursividad recurso = new Recursividad();
+        recurso.main(new String[0]);
+    }//GEN-LAST:event_btnRecursividadActionPerformed
+
+    private void btnShellSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShellSortActionPerformed
+        // TODO add your handling code here:
+        ShellSort shell = new ShellSort();
+        shell.main(new String[0]);
+    }//GEN-LAST:event_btnShellSortActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAgregarCliente;
+    private javax.swing.JButton btnMergeSort;
+    private javax.swing.JButton btnPostFija;
+    private javax.swing.JButton btnQuickSort;
     private javax.swing.JButton btnQuitar;
     private javax.swing.JButton btnQuitarCliente;
+    private javax.swing.JButton btnRecursividad;
+    private javax.swing.JButton btnShellSort;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -243,6 +357,8 @@ public class Ejercicios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;

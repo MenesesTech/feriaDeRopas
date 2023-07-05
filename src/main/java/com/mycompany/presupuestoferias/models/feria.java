@@ -13,6 +13,8 @@ public class feria {
     private String category;
     private Date dateInicio;
     private Date dateFin;
+    private double rentabilidad;
+    
 
     //Constructor vacio de la clase Feria
     public feria() {
@@ -30,8 +32,9 @@ public class feria {
      * @param category Categoría de la feria.
      * @param dateInicio Fecha de inicio de la feria.
      * @param dateFin Fecha de fin de la feria.
+     * @param rentabilidad 
      */
-    public feria(String id, String name, String district, int aforo, double monto, String status, String category, Date dateInicio, Date dateFin) {
+    public feria(String id, String name, String district, int aforo, double monto, String status, String category, Date dateInicio, Date dateFin, double rentabilidad) {
         this.id = id;
         this.name = name;
         this.district = district;
@@ -41,8 +44,9 @@ public class feria {
         this.category = category;
         this.dateInicio = dateInicio;
         this.dateFin = dateFin;
+        this.rentabilidad = rentabilidad;
     }
-    
+
     //Metodos get-set
     public String getId() {
         return id;
@@ -114,6 +118,13 @@ public class feria {
 
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
+    }
+    public double getRentabilidad() {
+        return rentabilidad;
+    }
+
+    public void setRentabilidad(double rentabilidad) {
+        this.rentabilidad = rentabilidad;
     }
 
 }
